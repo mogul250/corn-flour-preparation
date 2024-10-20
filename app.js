@@ -1,0 +1,28 @@
+import express  from "express";
+import dotenv from "dotenv";
+import  cors  from "cors";
+import bodyParser from "body-parser";
+import mysql from "mysql";
+import { router } from "./src/routes/index.route.js";
+dotenv.config()
+const app = express()
+export const connection = mysql.createPool({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB
+})
+app.use(cors({
+    origin: process.env.FRONT_END_URL,
+    methods: ['POST','GET'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}))
+app.use(bodyParser.json())
+app.use('/api',router)
+app.listen(process.env.PORT, (err)=>{
+    if (err) console.log(err)
+    console.log('the app is running on port:',process.env.PORT)
+})
+
+
