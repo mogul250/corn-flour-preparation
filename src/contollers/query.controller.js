@@ -7,7 +7,7 @@ export async function query(query,params) {
                 if (err) {
                     reject(err)
                 }else{
-                    resolve (JSON.parse(JSON.stringify(res)))
+                    resolve(JSON.parse(JSON.stringify(res)))
                 }
             })
         }) 
