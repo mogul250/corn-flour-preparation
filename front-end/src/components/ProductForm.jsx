@@ -30,7 +30,6 @@ const ProductForm = () => {
           <input
             type="text"
             name='d_names'
-            onChange={changeVals}x
             placeholder="Amazina y'ubigemuye"
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
