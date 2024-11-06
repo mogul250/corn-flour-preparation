@@ -2,6 +2,7 @@ export const rM = {
     eM : {
         addAdminErrorMessage: {s: !1, rC: 403, c: "admin account was not created due to admin availability"},
         loginErrorMessage: {s: !1, rC:  401, c: "account not found"},
+        loginErrorMessageP: {s: !1, rC:  401, c: "incorrect password"},
         FbdnEm: {s: !1, rC: 403, c: "access denied you are not allowed to perform this action"},
         ISEM: {s: !1, rC: 500, c: "there was an error while processing your request"},
         invLink: {s: !1, rC: 401, c: "the provided link is invalid or expired"},
@@ -15,13 +16,14 @@ export const rM = {
     sM: {
         loginMessage: {s: !0, rC: 200, c: "login completed successfully"},
         staffMCmessage: {s: !0, rC: 200, c: "staff member added to company  successfully"},
-        clientCmessage: {s: !0, rC: 200, c: "client created  successfully"},
+        userCmessage: {s: !0, rC: 200, c: "user created  successfully"},
         serviceCmessage: {s: !0, rC: 200, c: "service created  successfully"},
         FBAmessage: {s: !0, rC: 200, c: "feedback added successfully"},
         TCKTAmessage: {s: !0, rC: 200, c: "ticket opened successfully"},
         TCKTREPmessage: {s: !0, rC: 200, c: "reply sent successfully"},
         subCmessage: {s: !0, rC: 200, c: "subscription created  successfully"},
         entRemessage: {s: !0, rC: 200, c: "entries retrieved successfully"},
+        entRecmessage: {s: !0, rC: 200, c: "entry recorded successfully"},
         entUpmessage: {s: !0, rC: 200, c: "entry updated successfully"},
         RLSmessage: {s: !0, rC: 200, c: "reset link sent on your default notification channel successfully it will expire in 10 minutes"},
         LVmessage: {s: !0, rC: 200, c: "link is valid"},

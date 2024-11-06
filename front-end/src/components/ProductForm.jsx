@@ -5,6 +5,27 @@ import React from 'react';
 const ProductForm = () => {
   // eslint-disable-next-line no-undef
   
+  const [formVars,setFormVars] = useState({
+      dist_names: '',
+      dist_plate_no: '',
+      weight: '',
+      dryness: '',
+      moldness: '',
+      net_price: '',
+      gross_price: '',
+      amount_paid: '',
+      reporter: '',
+      comment: '',
+      r_amount: '',
+  }),
+  changeVals = (e)=>{
+    let{name,value} = e.target;
+    setFormVars(prevD=>({
+      ...prevD,
+      [name]: value
+    }))
+  }
+  console.log(formVars)
   return (
     <form>
     <div className="p-6 bg-indigo-100 min-h-screen">
@@ -15,19 +36,23 @@ const ProductForm = () => {
           <input
             type="date"
             placeholder="Itariki"
+            name='date'
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
+            onChange={changeVals}
             
           />
           <input
             type="text"
-            name='d_names'
-            onChange={changeVals}x
+            name='dist_names'
+            onChange={changeVals}
             placeholder="Amazina y'ubigemuye"
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
           <input
             type="text"
             placeholder="Plake y'imodoka"
+            name='dist_plate_no'
+            onChange={changeVals}
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
         </div>
@@ -37,16 +62,22 @@ const ProductForm = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
           <input
             type="text"
+            name="weight"
+            onChange={changeVals}
             placeholder="Ingano y'ibyinjiye"
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
           <input
             type="text"
+            name='dryness'
+            onChange={changeVals}
             placeholder="Ubwume bw'ibigori"
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
           <input
             type="text"
+            name='moldness'
+            onChange={changeVals}
             placeholder="Uruhumbu"
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
@@ -57,20 +88,27 @@ const ProductForm = () => {
           <input
             type="text"
             placeholder="Igiciro"
+            name='net_price'
+            onChange={changeVals}
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
           <input
             type="text"
+            name='gross_price'
             placeholder="Amafaranga asabwa"
+            onChange={changeVals}
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
           <input
             type="text"
+            name='amount_paid'
             placeholder="Amafaranga y'ishyuwe"
+            onChange={changeVals}
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
            <input
             type="text"
+            name='r_amount'
             placeholder="Amafaranga asigaye"
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
@@ -123,11 +161,15 @@ const ProductForm = () => {
         
         <textarea
           placeholder="Utanze raporo"
+          name='reporter'
+          onChange={changeVals}
           className="p-2 border rounded-md w-1/3 h-12 :outline-none focus:border-indigo-500"
           rows="3"
         ></textarea>
         <textarea
           placeholder="Comment"
+          name='comment'
+          onChange={changeVals}
           className="p-2 border rounded-md w-full h-28 mb-4 focus:outline-none focus:border-indigo-500"
           rows="2"
         ></textarea>

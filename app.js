@@ -4,6 +4,7 @@ import  cors  from "cors";
 import bodyParser from "body-parser";
 import mysql from "mysql";
 import { router } from "./src/routes/index.route.js";
+import { compPass, encPass } from "./src/incs/functions.util.js";
 dotenv.config()
 const app = express()
 export const connection = mysql.createPool({
@@ -19,10 +20,11 @@ app.use(cors({
     credentials: true
 }))
 app.use(bodyParser.json())
-app.use('/api',router)
+app.use(router)
 app.listen(process.env.PORT, (err)=>{
     if (err) console.log(err)
     console.log('the app is running on port:',process.env.PORT)
 })
+// console.log(await encPass('123'))
 
 

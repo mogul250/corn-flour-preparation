@@ -1,4 +1,4 @@
-import { connection } from "../../app";
+import { connection } from "../../app.js";
 
 export async function query(query,params) {
     try {
