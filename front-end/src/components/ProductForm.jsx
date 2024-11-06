@@ -1,7 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
-import React, { useState } from 'react';
+import React from 'react';
 
 const ProductForm = () => {
+  // eslint-disable-next-line no-undef
   const [formVars,setFormVars] = useState({
     date: '',
     d_names: '',
@@ -15,6 +16,7 @@ const ProductForm = () => {
   }
   console.log(formVars)
   return (
+    <form>
     <div className="p-6 bg-indigo-100 min-h-screen">
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-center font-semibold text-indigo-600 mb-4">IBIGORI BISHYASHYA BY'INJIYE MURU STOKE</h2>
@@ -143,6 +145,7 @@ const ProductForm = () => {
         <button className="mx-auto block w-1/3 bg-indigo-600 text-white p-2 rounded-md hover:bg-indigo-700">Kubika</button>
       </div>
     </div>
+    </form>
   );
 };
 
