@@ -1,20 +1,10 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 
 const ProductForm = () => {
   // eslint-disable-next-line no-undef
-  const [formVars,setFormVars] = useState({
-    date: '',
-    d_names: '',
-  }),
-  changeVals = (e)=>{
-    let{name,value} = e.target;
-    setFormVars(prevD=>({
-      ...prevD,
-      [name]: value
-    }))
-  }
-  console.log(formVars)
+  
   return (
     <form>
     <div className="p-6 bg-indigo-100 min-h-screen">
@@ -25,14 +15,11 @@ const ProductForm = () => {
           <input
             type="date"
             placeholder="Itariki"
-            name='date'
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
-            onChange={changeVals}
+            
           />
           <input
             type="text"
-            name='d_names'
-            onChange={changeVals}x
             placeholder="Amazina y'ubigemuye"
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
