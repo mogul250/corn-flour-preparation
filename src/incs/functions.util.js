@@ -70,7 +70,7 @@ export async function getLDayStock1Rec() {
         let lastd = DateTime.fromFormat(now(), 'yyyy-MM-dd HH:mm:ss')
             lastd = lastd.minus({days: 1})
             lastd = lastd.toFormat('yyyy-MM-dd')
-        let resp = await query(`SELECT * FROM stock1_track where DATE(date) = ?`,[lastd])
+        let resp = await query(`SELECT * FROM stock1_track where DATE(date) = ? ORDER BY date ASC limit 1`,[lastd])
         if (resp.length) {
             return resp[0]
         }else{

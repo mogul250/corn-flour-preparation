@@ -9,7 +9,7 @@ export const recordCornPhase1 = async  (req,res)=>{
         const {dist_names,dist_plate_no,weight,dryness,moldness,net_price,gross_price,amount_paid,reporter,comment,r_amount} = req.body,
         date = now(),id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('stock1_track','r_weight'),
-        nw = lastStW+weight
+        nw = Number(lastStW)+Number(weight)
         const insert = await query(`INSERT INTO stock1 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,dist_names,dist_plate_no,weight,dryness,moldness,net_price,gross_price,amount_paid,r_amount,reporter,comment,date]),
         insert2 = await query('INSERT INTO stock1_track VALUES (?,?,?,?,?,?)',[id,'add',weight,'stock1',nw,date])
         if(!insert || !insert2) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
@@ -34,11 +34,12 @@ export const generateReport = async (req,res)=>{
         let report = await query('SELECT * from stock1 where date >= ? AND date <= ?',[date.start,date.stop]),mtotal,added,initamount
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
-            let lastRec = await getLDayStock1Rec()
+            let lastRec = await getLDayStock1Rec(),
+            lastStW = await getLRec('stock1_track','r_weight')
             if(lastRec != []){
-                added = lastRec.weight
-                mtotal = Number(lastRec.r_weight)
-                initamount = mtotal-added
+                added = lastStW-Number(lastRec.weight)
+                mtotal = Number(lastStW)
+                initamount = lastRec.r_weight
                 
             }
         }
