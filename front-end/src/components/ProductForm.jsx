@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unescaped-entities */
-import React from 'react';
+import React, { useState } from 'react';
+import { f, pS, setData } from '../../public/functions';
 
 const ProductForm = () => {
   // eslint-disable-next-line no-undef
@@ -25,9 +26,18 @@ const ProductForm = () => {
       [name]: value
     }))
   }
-  console.log(formVars)
+  async function recProd(e) {
+    e.preventDefault()
+    const emptyVar = Object.keys(formVars).find((key)=> !formVars[key].length)
+    console.log(emptyVar)
+    if (emptyVar) return
+    const scheme = pS
+    scheme.body = JSON.stringify(formVars)
+    let res = await f('record-stock-1',scheme)
+  }
+  setData('token','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJyb2xlIjoiU1lTVEVNIiwiaWF0IjoxNzMwOTM4OTAzfQ.7kFnr-c5ssp195JqBxn3eIY_GzCBUirSaFCU8_4I64w')
   return (
-    <form>
+    <form onSubmit={recProd}>
     <div className="p-6 bg-indigo-100 min-h-screen">
       <div className="bg-white p-6 rounded-lg shadow-md">
         <h2 className="text-center font-semibold text-indigo-600 mb-4">IBIGORI BISHYASHYA BY'INJIYE MURU STOKE</h2>
@@ -109,6 +119,7 @@ const ProductForm = () => {
            <input
             type="text"
             name='r_amount'
+            onChange={changeVals}
             placeholder="Amafaranga asigaye"
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />

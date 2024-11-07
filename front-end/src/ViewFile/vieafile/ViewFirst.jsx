@@ -1,10 +1,31 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { adcm, f, pS } from '../../../public/functions';
 
 const View = () => {
     const [reporterName, setReporterName] = useState('nyamanswa');
-    const [additionalInfo, setAdditionaLInfo] = useState('databuja nabisoje');
-
+    const [additionalInfo, setAdditionaLInfo] = useState('databuja nabisoje'),
+    [records,setRecords] = useState([]),
+    [totals,setTotals] = useState(
+      {
+        added: 0,
+        initamount: 0,
+        mtotal : 0
+      }
+    )
+    useEffect(()=>{
+      const fetchRecs = async ()=>{
+        let schema = pS
+        schema.body = JSON.stringify({date: {}})
+        let recs = await f('stock-1-report',pS)
+        setRecords(recs.metadata.report)
+        setTotals(
+          recs.metadata.mainTotals
+        )
+      }
+      fetchRecs()
+    },[])
+    console.log(records.length)
   return (
     <div className="container mx-auto p-4">
       {/* Title Section */}
@@ -32,34 +53,24 @@ const View = () => {
           </thead>
           <tbody>
             {/* Replace with dynamic data */}
-            <tr>
-            <td className="border border-indigo-500 px-4 py-2">05/11/2024</td>
-              <td className="border border-indigo-500 px-4 py-2">PABLOSCH</td>
-              <td className="border border-indigo-500 px-4 py-2">RAD 123B</td>
-              <td className="border border-indigo-500 px-4 py-2">900 kg</td>
-              <td className="border border-indigo-500 px-4 py-2">700kg</td>
-              <td className="border border-indigo-500 px-4 py-2">200kg</td>
-              <td className="border border-indigo-500 px-4 py-2">$5/kg</td>
-              <td className="border border-indigo-500 px-4 py-2">$2500</td>
-              <td className="border border-indigo-500 px-4 py-2">$2500</td>
-              <td className="border border-indigo-500 px-4 py-2">$0</td>
-            </tr>
-            {/* Add more rows as needed */}
-          </tbody>
-          <tbody>
-            {/* Replace with dynamic data */}
-            <tr>
-            <td className="border border-indigo-500 px-4 py-2">06/11/2024</td>
-              <td className="border border-indigo-500 px-4 py-2">BRUCES</td>
-              <td className="border border-indigo-500 px-4 py-2">RAD 123B</td>
-              <td className="border border-indigo-500 px-4 py-2">700 kg</td>
-              <td className="border border-indigo-500 px-4 py-2">500kg</td>
-              <td className="border border-indigo-500 px-4 py-2">200kg</td>
-              <td className="border border-indigo-500 px-4 py-2">500Frw/kg</td>
-              <td className="border border-indigo-500 px-4 py-2">40000Frw</td>
-              <td className="border border-indigo-500 px-4 py-2">25000Frw</td>
-              <td className="border border-indigo-500 px-4 py-2">15000Frw</td>
-            </tr>
+            {
+              records.map((element,index) => {
+               return (
+                <tr key={index}>
+                    <td className="border border-indigo-500 px-4 py-2">({element.date})</td>
+                    <td className="border border-indigo-500 px-4 py-2">{element.dist_names}</td>
+                    <td className="border border-indigo-500 px-4 py-2">{element.dist_plate_no}</td>
+                    <td className="border border-indigo-500 px-4 py-2">{adcm(element.weight)} KG</td>
+                    <td className="border border-indigo-500 px-4 py-2">{element.dryness}</td>
+                    <td className="border border-indigo-500 px-4 py-2">{element.moldness}</td>
+                    <td className="border border-indigo-500 px-4 py-2">{adcm(element.net_price)} RWF</td>
+                    <td className="border border-indigo-500 px-4 py-2">{adcm(element.gross_price)} RWF</td>
+                    <td className="border border-indigo-500 px-4 py-2">{adcm(element.amount_paid)} RWF</td>
+                    <td className="border border-indigo-500 px-4 py-2">{adcm(element.r_amount)} RWF</td>
+                </tr>)
+              })
+            }
+            
             {/* Add more rows as needed */}
           </tbody>
         </table>
@@ -80,9 +91,9 @@ const View = () => {
             <tbody>
               {/* Replace with dynamic data */}
               <tr>
-                <td className="border border-indigo-500 px-4 py-2">1000 kg</td>
-                <td className="border border-indigo-500 px-4 py-2">500 kg</td>
-                <td className="border border-indigo-500 px-4 py-2">1500 kg</td>
+                <td className="border border-indigo-500 px-4 py-2">{adcm(totals.initamount)} KG</td>
+                <td className="border border-indigo-500 px-4 py-2">{adcm(totals.added)} KG</td>
+                <td className="border border-indigo-500 px-4 py-2">{adcm(totals.mtotal)} KG</td>
               </tr>
               {/* Add more rows as needed */}
             </tbody>
