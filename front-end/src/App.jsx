@@ -5,8 +5,16 @@ import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import ProductForm from './components/ProductForm';
 import View from './ViewFile/vieafile/ViewFirst';
+import ProductFormPre from './components/ProductFormPre';
 
 
+import HomePages from './HomePages'
+import IbyinjiyePage from './pages/viewfiles/IbyinjiyePage';
+import IbishyashyaPage from './pages/viewfiles/IbishyashyaPage';
+import IbyagurishijwePage from './pages/viewfiles/IbyagurishijwePage'
+import IbyasohotsePage from './pages/viewfiles/IbyasohotsePage';
+import IbisanzwePage from './pages/viewfiles/IbisanzwePage'
+import GutunganyaPage from './pages/viewfiles/GutunganyaPage'
 
 function App() {
   return (
@@ -15,7 +23,18 @@ function App() {
         <Route path="/" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/product" element={<ProductForm />} />
+        <Route path="/ProductFormPre" element={<ProductFormPre />} />
         <Route path="/view" element={<View/>} />
+
+        {/* viewreort */}
+        <Route path="/HomePages" element={< HomePages/>} />
+        <Route path="/Ibishyashya" element={<IbishyashyaPage />} />
+        <Route path="/Gutunganya" element={<GutunganyaPage />} />
+        <Route path="/Ibyinjiye" element={<IbyinjiyePage />} />
+        <Route path="/Ibyagurishijwe" element={<IbyagurishijwePage />} />
+        <Route path="/Ibyasohotse" element={<IbyasohotsePage />} />
+        <Route path="/Ibisanzwe" element={<IbisanzwePage />} />
+      
       </Routes>
     </Router>
   );
