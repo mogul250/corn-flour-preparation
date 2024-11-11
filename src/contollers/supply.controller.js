@@ -6,8 +6,8 @@ import { rM } from "./response.message.controller.js";
 
 export const recordCornPhase1 = async  (req,res)=>{
     try {
-        let {dist_names,dist_plate_no,weight,dryness,moldness,net_price,gross_price,amount_paid,reporter,comment,r_amount} = req.body,
-        date = now(),id = rsg(6,true,true,!1,!1),
+        let {dist_names,dist_plate_no,weight,dryness,moldness,net_price,gross_price,amount_paid,reporter,comment,r_amount,date} = req.body,
+        id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('stock1_track','r_weight'),
         nw = Number(lastStW)+Number(weight)
         !date ? date = now() : null;
