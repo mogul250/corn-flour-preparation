@@ -14,8 +14,8 @@ export const prepareCorn = async  (req,res)=>{
         nw2 = Number(lastSt1W)-Number(prepared_c)
         !date ? date = now() : null;
         const insert = await query(`INSERT INTO preparation VALUES (?,?,?,?,?,?,?)`,[id,incoming_c,prepared_c,waste_f,reporter,comment,date]),
-        insert2 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'add',prepared_c,'preparation',nw,date]),
-        insert3 = await query('INSERT INTO stock1_track VALUES (?,?,?,?,?,?)',[id,'minus',prepared_c-(prepared_c*2),'preparation',nw2,date])
+        insert2 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'add',prepared_c,'preparation',nw,now()]),
+        insert3 = await query('INSERT INTO stock1_track VALUES (?,?,?,?,?,?)',[id,'minus',prepared_c-(prepared_c*2),'preparation',nw2,now()])
         if(!insert || !insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
 
