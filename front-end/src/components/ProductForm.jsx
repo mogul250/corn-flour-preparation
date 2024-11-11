@@ -18,6 +18,7 @@ const ProductForm = () => {
       reporter: '',
       comment: '',
       r_amount: '',
+      date: ''
   }),
   changeVals = (e)=>{
     let{name,value} = e.target;
@@ -28,8 +29,7 @@ const ProductForm = () => {
   }
   async function recProd(e) {
     e.preventDefault()
-    const emptyVar = Object.keys(formVars).find((key)=> !formVars[key].length)
-    console.log(emptyVar)
+    const emptyVar = Object.keys(formVars).find((key)=> !formVars[key].length && key != 'date')
     if (emptyVar) return
     const scheme = pS
     scheme.body = JSON.stringify(formVars)

@@ -1,8 +1,29 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { adcm, f, pS } from '../../../public/functions';
 
 const Ibigiyegutunganywa = () => {
-  const [additionalInfo, setAdditionalInfo] = useState('THIS COMMENTS FOR REPORT');
+  const [additionalInfo, setAdditionalInfo] = useState('THIS COMMENTS FOR REPORT'),
+  [records,setRecords] = useState([]),
+  [totals,setTotals] = useState(
+    {
+      added: 0,
+      initamount: 0,
+      mtotal : 0
+    }
+  )
+  useEffect(()=>{
+    const fetchRecs = async ()=>{
+      let schema = pS
+      schema.body = JSON.stringify({date: {}})
+      let recs = await f('preparation-report',pS)
+      setRecords(recs.metadata.report)
+      setTotals(
+        recs.metadata.mainTotals
+      )
+    }
+    fetchRecs()
+  },[])
   return (
     <div className="container mx-auto p-4">
       <div className="mb-6">
@@ -24,23 +45,19 @@ const Ibigiyegutunganywa = () => {
             </tr>
           </thead>
           <tbody>
-            <tr>
-            <td className="border border-indigo-500 px-4 py-2">11/11/2024</td>
-              <td className="border border-indigo-500 px-4 py-2">PABLOSCH</td>
-              <td className="border border-indigo-500 px-4 py-2">400KG</td>
-              <td className="border border-indigo-500 px-4 py-2">15KG</td>
-              <td className="border border-indigo-500 px-4 py-2">350KG</td>
-              <td className="border border-indigo-500 px-4 py-2">byakozwe neza</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-            <td className="border border-indigo-500 px-4 py-2">10/11/2024</td>
-              <td className="border border-indigo-500 px-4 py-2">NyamaNSWA</td>
-              <td className="border border-indigo-500 px-4 py-2">800KG</td>
-              <td className="border border-indigo-500 px-4 py-2">25kg</td>
-              <td className="border border-indigo-500 px-4 py-2">750KG</td>
-            </tr>
+          {
+              records.map((element,index) => {
+               return (
+                <tr key={index}>
+                    <td className="border border-indigo-500 px-4 py-2">({element.date})</td>
+                    <td className="border border-indigo-500 px-4 py-2">{element.reporter}</td>
+                    <td className="border border-indigo-500 px-4 py-2">{adcm(element.incoming_c)} KG</td>
+                    <td className="border border-indigo-500 px-4 py-2">{adcm(element.waste_f)} KG</td>
+                    <td className="border border-indigo-500 px-4 py-2">{adcm(element.prepared_c)} KG</td> 
+                    <td className="border border-indigo-500 px-4 py-2">{element.comment}</td>
+                </tr>)
+              })
+            }
           </tbody>
         </table>
       </div>

@@ -1,32 +1,29 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
+import { f, pS } from '../../public/functions';
 
 const ProductFormPre = () => {
   const [formData, setFormData] = useState({
-    itariki: '',
-    ibigoriKugosorwa: '',
-    imyandaYavuyemo: '',
-    gukoborwa: '',
-    utanzeRaporo: '',
+    date: '',
+    incoming_c: '',
+    waste_f: '',
+    prepared_c: '',
+    reporter: '',
     comment: ''
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData(prevD=>({ ...prevD, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form data submitted:', formData);
-    setFormData({
-      itariki: '',
-      ibigoriKugosorwa: '',
-      imyandaYavuyemo: '',
-      gukoborwa: '',
-      utanzeRaporo: '',
-      comment: ''
-    });
+    const emptyVar = Object.keys(formData).find((key)=> !formData[key].length && key != 'date')
+    if (emptyVar) return
+    const scheme = pS
+    scheme.body = JSON.stringify(formData)
+    let res = await f('record-prepared-c',scheme)
   };
 
   return (
@@ -40,35 +37,32 @@ const ProductFormPre = () => {
             <label className="block text-gray-700">Itariki</label>
             <input
               type="date"
-              name="itariki"
-              value={formData.itariki}
+              name="date"
+              value={formData.date}
               onChange={handleChange}
               className="mt-1 w-full border border-gray-300 rounded py-2 px-3"
-              required
             />
           </div>
           <div>
             <label className="block text-gray-700">Ibigori bigiye Kugosorwa</label>
             <input
               type="text"
-              name="ibigoriKugosorwa"
-              value={formData.ibigoriKugosorwa}
+              name="incoming_c"
+              value={formData.incoming_c}
               onChange={handleChange}
               className="mt-1 w-full border border-gray-300 rounded py-2 px-3"
               placeholder="Enter Ibigori Kugosorwa"
-              required
             />
           </div>
           <div>
             <label className="block text-gray-700">Imyanda Yavuyemo</label>
             <input
               type="text"
-              name="imyandaYavuyemo"
-              value={formData.imyandaYavuyemo}
+              name="waste_f"
+              value={formData.waste_f}
               onChange={handleChange}
               className="mt-1 w-full border border-gray-300 rounded py-2 px-3"
               placeholder="Enter Imyanda Yavuyemo"
-              required
             />
           </div>
         </div>
@@ -79,24 +73,22 @@ const ProductFormPre = () => {
             <label className="block text-gray-700">Gukoborwa</label>
             <input
               type="text"
-              name="gukoborwa"
-              value={formData.gukoborwa}
+              name="prepared_c"
+              value={formData.prepared_c}
               onChange={handleChange}
               className="mt-1 w-full border border-gray-300 rounded py-2 px-3"
               placeholder="Enter Gukoborwa"
-              required
             />
           </div>
           <div>
             <label className="block text-gray-700">Utanze Raporo</label>
             <input
               type="text"
-              name="utanzeRaporo"
-              value={formData.utanzeRaporo}
+              name="reporter"
+              value={formData.reporter}
               onChange={handleChange}
               className="mt-1 w-full border border-gray-300 rounded py-2 px-3"
               placeholder="Enter Utanze Raporo"
-              required
             />
           </div>
         </div>
@@ -113,8 +105,6 @@ const ProductFormPre = () => {
             rows="3"
           />
         </div>
-
-        
         <div className="flex justify-center mt-6">
           <button type="submit" className="bg-indigo-600 text-white font-semibold py-2 px-4 rounded hover:bg-indigo-700 transition duration-200">
             Submit

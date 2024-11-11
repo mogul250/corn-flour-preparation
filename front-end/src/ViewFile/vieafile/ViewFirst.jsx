@@ -25,7 +25,6 @@ const View = () => {
       }
       fetchRecs()
     },[])
-    console.log(records.length)
   return (
     <div className="container mx-auto p-4">
       {/* Title Section */}
