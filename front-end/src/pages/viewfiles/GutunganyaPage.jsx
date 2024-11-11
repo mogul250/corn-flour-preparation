@@ -28,7 +28,7 @@ const Ibigiyegutunganywa = () => {
     <div className="container mx-auto p-4">
       <div className="mb-6">
        
-        <h2 className="text-xl mt-2 text-center">RAPORO Y'IBIGORI BIGIYE GUTUNGANYWA</h2>
+        <h2 className="text-xl mt-2 text-center">RAPORO Y&apos;IBIGORI BIGIYE GUTUNGANYWA</h2>
       </div>
 
 
