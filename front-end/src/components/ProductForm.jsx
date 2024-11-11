@@ -123,7 +123,7 @@ const ProductForm = () => {
             placeholder="Amafaranga asigaye"
             className="p-2 border rounded-md w-full focus:outline-none focus:border-indigo-500"
           />
-        </div>
+       {/* </div>
         <h2 className="text-center font-semibold text-indigo-600 mb-4">AMAKURU Y'UBUBIKO BWOSE BUHARI</h2>
         <div className="mb-4">
         <div className="mb-4">
@@ -163,7 +163,7 @@ const ProductForm = () => {
       </div>
   
 </div>
-
+ */}
   
 </div>
 
