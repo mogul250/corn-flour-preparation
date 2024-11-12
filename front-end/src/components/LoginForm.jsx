@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -60,7 +61,7 @@ const LoginForm = () => {
         </form>
 
         <p className="mt-4 text-sm text-center text-gray-600">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <button
             onClick={() => navigate('/signup')}
             className="text-indigo-600 hover:text-indigo-700"

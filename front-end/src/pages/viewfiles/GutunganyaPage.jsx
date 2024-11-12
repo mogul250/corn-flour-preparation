@@ -30,7 +30,7 @@ const Ibigiyegutunganywa = () => {
        
         <h2 className="text-xl mt-2 text-center">RAPORO Y&apos;IBIGORI BIGIYE GUTUNGANYWA</h2>
       </div>
-
+      
 
       <div className="overflow-x-auto mb-8">
         <table className="min-w-full border-collapse border border-indigo-500">
