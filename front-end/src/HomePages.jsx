@@ -7,9 +7,9 @@ const HomePages = () => {
 
   const links = [
     { name: ' Ibishyashya', path: '/Ibishyashya' },
-    { name: 'Gutunganya', path: '/Gutunganya'},
+    { name: 'Gutunganywa 1', path: '/Gutunganya'},
+    { name: ' Gutunganywa 2', path: '/ibisanzwe' },
     { name: ' ibyagurishijwe', path: '/ibyagurishijwe' },
-    { name: ' ibisanzwe', path: '/ibisanzwe' },
     { name: ' ibyasohotse', path: '/ibyasohotse' },
     { name: ' Ibinjiye', path: '/Ibyinjiye' },
     
@@ -23,6 +23,7 @@ const HomePages = () => {
   return (
     <div className="d-flex flex flex-col items-center justify-center min-h-screen bg-indigo-100 px-4">
       <h1 className="d-flex text-center text-4xl font-bold text-indigo-700 mb-8">RAPORO YURUGANDA</h1>
+      <h6 className="d-flex text-center text-2xl font-bold text-indigo-700 mb-8">New Good Food Ltd</h6>
 
       {/* Search Input */}
       <input
