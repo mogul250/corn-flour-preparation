@@ -1,7 +1,6 @@
- 
 import React, { useState } from 'react';
 
-const IbisanzwePage = () => {
+const Gutunganywa = () => {
   
   const [date, setDate] = useState('');
   const [utanzeRaporo, setUtanzeRaporo] = useState('');
@@ -20,12 +19,13 @@ const IbisanzwePage = () => {
 
   const [inganoYaEnvelope, setInganoYaEnvelope] = useState('');
   const [isEnvelope5kg, setIsEnvelope5kg] = useState('');
+  const [successMessage, setSuccessMessage] = useState(''); // Success message state
 
   const handleInganoChange = (e) => {
     const input = e.target.value;
     setInganoYaEnvelope(input);
 
-    // Calculate IS envelope 5kg only if the input is a number
+    
     if (input && !isNaN(input)) {
       const inganoValue = parseInt(input, 10);
       setIsEnvelope5kg(Math.floor(inganoValue / 5));
@@ -34,15 +34,13 @@ const IbisanzwePage = () => {
     }
   };
 
-  
-  
   const [newFoodIbiro, setNewFoodIbiro] = useState({ a: 0, b: 0, c: 0 });
   const [ifunguroIbiro, setIfunguroIbiro] = useState({ a: 0, b: 0, c: 0 });
   const [isezeranoIbiro, setIsezeranoIbiro] = useState({ a: 0, b: 0, c: 0 });
   const [magajuIbiro, setMagajuIbiro] = useState({ a: 0, b: 0, c: 0 });
   const [envelope, setEnvelope] = useState({ ingano: 0, isEnvelope: 0, buranda: 0 });
+  const [burandaYavuyemo, setBurandaYavuyemo] = useState('');
   const [comments, setComments] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
 
   const handleCheckboxChange = (item) => {
     setSelectedAmafu((prev) => ({
@@ -56,22 +54,15 @@ const IbisanzwePage = () => {
   const icumiImifuka = (ibiroValue) => Math.floor(ibiroValue / 10);
   const bitanuImifuka = (ibiroValue) => Math.floor(ibiroValue / 5);
 
-
-
   const handleNewFoodChange = (key, value) => setNewFoodIbiro(prev => ({ ...prev, [key]: value }));
   const handleIfunguroChange = (key, value) => setIfunguroIbiro(prev => ({ ...prev, [key]: value }));
   const handleIsezeranoChange = (key, value) => setIsezeranoIbiro(prev => ({ ...prev, [key]: value }));
   const handleMagajuChange = (key, value) => setMagajuIbiro(prev => ({ ...prev, [key]: value }));
   const handleEnvelopeChange = (key, value) => setEnvelope(prev => ({ ...prev, [key]: value }));
 
-  
   const handleSubmit = (e) => {
     e.preventDefault();
-    
-    const [successMessage, setSuccessMessage] = useState('');
-    
 
-    
     const formData = {
       firstForm: {
         utanzeRaporo,
@@ -91,10 +82,38 @@ const IbisanzwePage = () => {
         magajuIbiro,
         envelope,
         comments,
+        burandaYavuyemo,
       },
     };
 
-   
+    
+    setSuccessMessage('Form submitted successfully!');
+    setTimeout(() => setSuccessMessage(''), 3000); 
+
+    // Reset form fields
+    setDate('');
+    setUtanzeRaporo('');
+    setIngano('');
+    setNewFood('');
+    setIfunguro('');
+    setIsezerano('');
+    setMagaju('');
+    setBuranda('');
+    setSelectedAmafu({
+      newFood: false,
+      ifunguro: false,
+      isezerano: false,
+      magaju: false,
+    });
+    setInganoYaEnvelope('');
+    setIsEnvelope5kg('');
+    setNewFoodIbiro({ a: 0, b: 0, c: 0 });
+    setIfunguroIbiro({ a: 0, b: 0, c: 0 });
+    setIsezeranoIbiro({ a: 0, b: 0, c: 0 });
+    setMagajuIbiro({ a: 0, b: 0, c: 0 });
+    setEnvelope({ ingano: 0, isEnvelope: 0, buranda: 0 });
+    setComments('');
+    setBurandaYavuyemo('')
   };
 
   return (
@@ -103,8 +122,11 @@ const IbisanzwePage = () => {
         <h2 className="text-2xl font-bold text-indigo-700 mb-4 text-center">
           AMAKURU YIBIGORI BIGIYE GUTUNGANYWA
         </h2>
-        
+
+
         <form onSubmit={handleSubmit} className="bg-indigo-50 p-4 md:p-6 rounded-lg shadow-lg">
+          {/* (Your form fields and structure here) */}
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-2 mb-4">
             <div>
               <label className="block text-indigo-700 font-medium mb-2">
@@ -157,6 +179,7 @@ const IbisanzwePage = () => {
                       className="form-checkbox text-indigo-600" 
                       checked={selectedAmafu[item]}
                       onChange={() => handleCheckboxChange(item)}
+                      
                     />
                     <span className="ml-2 text-indigo-700">{item}</span>
                   </label>
@@ -172,6 +195,7 @@ const IbisanzwePage = () => {
                 className="w-full p-2 border rounded-md mb-4" 
                 value={newFood}
                 onChange={(e) => setNewFood(e.target.value)}
+                required
               />
               <label className="block text-indigo-700 font-medium mb-2">Ifunguro</label>
               <input 
@@ -180,6 +204,7 @@ const IbisanzwePage = () => {
                 className="w-full p-2 border rounded-md mb-4" 
                 value={ifunguro}
                 onChange={(e) => setIfunguro(e.target.value)}
+                required
               />
               <label className="block text-indigo-700 font-medium mb-2">Isezerano</label>
               <input 
@@ -188,6 +213,7 @@ const IbisanzwePage = () => {
                 className="w-full p-2 border rounded-md mb-4" 
                 value={isezerano}
                 onChange={(e) => setIsezerano(e.target.value)}
+                required
               />
               <label className="block text-indigo-700 font-medium mb-2">Magaju</label>
               <input 
@@ -196,6 +222,7 @@ const IbisanzwePage = () => {
                 className="w-full p-2 border rounded-md" 
                 value={magaju}
                 onChange={(e) => setMagaju(e.target.value)}
+                required
               />
             </div>
 
@@ -231,6 +258,7 @@ const IbisanzwePage = () => {
                   <React.Fragment key={key}>
                     <input
                       type="number"
+                    
                       placeholder={`NF: ${[25, 10, 5][index]}KG`}
                       className="bg-gray-200 p-2 rounded"
                       onChange={(e) => handleNewFoodChange(key, e.target.value)}
@@ -239,7 +267,7 @@ const IbisanzwePage = () => {
                       type="text"
                       value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](newFoodIbiro[key])}
                       className="bg-gray-200 p-2 rounded"
-                      readOnly
+                      
                     />
                   </React.Fragment>
                 ))}
@@ -266,7 +294,7 @@ const IbisanzwePage = () => {
                       type="text"
                       value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](ifunguroIbiro[key])}
                       className="bg-gray-200 p-2 rounded"
-                      readOnly
+                      
                     />
                   </React.Fragment>
                 ))}
@@ -286,6 +314,7 @@ const IbisanzwePage = () => {
                   <React.Fragment key={key}>
                     <input
                       type="number"
+                      
                       placeholder={`IS: ${[25, 10, 5][index]}KG`}
                       className="bg-gray-200 p-2 rounded"
                       onChange={(e) => handleIsezeranoChange(key, e.target.value)}
@@ -294,7 +323,7 @@ const IbisanzwePage = () => {
                       type="text"
                       value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](isezeranoIbiro[key])}
                       className="bg-gray-200 p-2 rounded"
-                      readOnly
+                      
                     />
                   </React.Fragment>
                 ))}
@@ -314,6 +343,7 @@ const IbisanzwePage = () => {
                   <React.Fragment key={key}>
                     <input
                       type="number"
+                  
                       placeholder={`MG: ${[25, 10, 5][index]}KG`}
                       className="bg-gray-200 p-2 rounded"
                       onChange={(e) => handleMagajuChange(key, e.target.value)}
@@ -322,7 +352,7 @@ const IbisanzwePage = () => {
                       type="text"
                       value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](magajuIbiro[key])}
                       className="bg-gray-200 p-2 rounded"
-                      readOnly
+                      
                     />
                   </React.Fragment>
                 ))}
@@ -342,25 +372,31 @@ const IbisanzwePage = () => {
 <input 
 type="number"
 value={inganoYaEnvelope}
-placeholder="Enter Value"
+placeholder="IS:5KG"
 className="bg-gray-200 p-2 rounded"
 onChange={handleInganoChange}
 />
 <label className="block text-indigo-600 font-semibold mb-2">I.S Envelope 5KG</label>
 <input
 type="number"
-placeholder="calculated value"
+placeholder="0"
 className="bg-gray-200 p-2 rounded"
 value={isEnvelope5kg}
-readOnly
+readonly
+
 />
 </div>
 <div>
 <label className="block text-center text-indigo-600 font-medium">Buranda Yavuyemo</label>
 <input
 type="number"
+value={burandaYavuyemo}
 placeholder="Buranda Yavuyemo"
 className="bg-gray-200 p-2 rounded"
+onChange={(e) => setBurandaYavuyemo(e.target.value)}
+required
+
+
 />
 </div>
 </div>
@@ -370,21 +406,568 @@ className="bg-gray-200 p-2 rounded"
 className="mt-4 w-full p-2 rounded bg-gray-200"
 rows="4"
 placeholder="Enter comments here"
+value={comments}
+onChange={ (e) => setComments(e.target.value)}
 />
 
 
-<div className="mt-4 text-center">
-<button
-onClick={() => alert('Form submitted successfully!')}
-className="bg-indigo-600 text-white p-2 rounded w-1/2"
->
-Kubika
-</button>
-</div>
-</form>
-</div>
-</div>
 
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          {/* Submit button */}
+          <div className="mt-4 text-center">
+            <button
+              type="submit"
+              className="bg-indigo-600 text-white p-2 rounded w-1/2"
+            >
+              Kubika
+            </button>
+          </div>
+          {/* Display success message */}
+        {successMessage && (
+          <div className="text-center mb-4 p-2 bg-green-200 text-green-800 font-semibold rounded">
+            {successMessage}
+          </div>
+        )}
+        </form>
+      </div>
+    </div>
   );
-                };
-export default IbisanzwePage;
+};
+
+export default Gutunganywa;
