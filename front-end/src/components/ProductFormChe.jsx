@@ -171,7 +171,7 @@ const ProductFormChe = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div>
               <h3 className="text-xl font-bold text-indigo-700 mb-4">UBWOKO BW'AMAFU</h3>
-              {['newFood', 'ifunguro', 'isezerano', 'magaju'].map((item) => (
+              {['New Food', 'Ifunguro ryiza', 'Isezerano', 'Magaju'].map((item) => (
                 <div key={item} className="mb-2">
                   <label className="inline-flex items-center">
                     <input 
@@ -186,7 +186,7 @@ const ProductFormChe = () => {
                 </div>
               ))}
             </div>
-
+            
             <div>
               <label className="block text-indigo-700 font-medium mb-2">New Food</label>
               <input 
@@ -197,7 +197,7 @@ const ProductFormChe = () => {
                 onChange={(e) => setNewFood(e.target.value)}
                 required
               />
-              <label className="block text-indigo-700 font-medium mb-2">Ifunguro</label>
+              <label className="block text-indigo-700 font-medium mb-2">Ifunguro ryiza</label>
               <input 
                 type="text" 
                 placeholder="Enter value" 
@@ -227,9 +227,9 @@ const ProductFormChe = () => {
             </div>
 
             <div>
-              <h3 className="text-xl font-bold text-indigo-700 mb-4">BURANDA</h3>
+              
               <label className="block text-indigo-700 font-medium mb-2">
-                Buranda Kuvamo
+                Buranda iteganywa Kuvamo
               </label>
               <input 
                 type="text" 
@@ -278,7 +278,7 @@ const ProductFormChe = () => {
             </div>
 
             <div>
-              <h2 className="text-center text-white bg-indigo-500 py-2 font-semibold">IFUNGURO</h2>
+              <h2 className="text-center text-white bg-indigo-500 py-2 font-semibold">IFUNGURO RYIZA</h2>
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-center text-indigo-600 font-medium">Ibiro</p>
                 <p className="text-center text-indigo-600 font-medium">Imifuka</p>
@@ -368,8 +368,7 @@ const ProductFormChe = () => {
             <div>
               <label className="block text-indigo-600 font-semibold mb-2 ">ingano ya Envelope</label>
 
-
-         <input 
+           <input 
              type="number"
              value={inganoYaEnvelope}
              placeholder="IS:5KG"

@@ -11,11 +11,15 @@ const ProductFormPre = () => {
     reporter: '',
     comment: ''
   });
+  
+  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevD=>({ ...prevD, [name]: value }));
   };
+
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,6 +29,7 @@ const ProductFormPre = () => {
     scheme.body = JSON.stringify(formData)
     let res = await f('record-prepared-c',scheme)
   };
+  
 
   return (
     <div className="mx-auto p-4">
@@ -70,7 +75,7 @@ const ProductFormPre = () => {
     
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
-            <label className="block text-gray-700">Gukoborwa</label>
+            <label className="block text-gray-700">Ibigori bigiye Gukoborwa</label>
             <input
               type="text"
               name="prepared_c"
@@ -110,6 +115,7 @@ const ProductFormPre = () => {
             Submit
           </button>
         </div>
+       
       </form>
     </div>
   );

@@ -38,7 +38,7 @@ const Ibigiyegutunganywa = () => {
             <tr>
               <th className="border border-indigo-500 px-4 py-2">Itariki</th>
               <th className="border border-indigo-500 px-4 py-2">UTANZE RAPORO</th>
-              <th className="border border-indigo-500 px-4 py-2">INGANO YIBIGIYE GUKOBORWA</th>
+              <th className="border border-indigo-500 px-4 py-2">INGANO YIBIGIYE KUGOSORWA</th>
               <th className="border border-indigo-500 px-4 py-2">INGANO YIMYANDA YAVUYEMO</th>
               <th className="border border-indigo-500 px-4 py-2">IBIGORI BIGIYE GUKOBORWA</th>
               <th className="border border-indigo-500 px-4 py-2">Comments</th>
