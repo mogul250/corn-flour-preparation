@@ -6,6 +6,7 @@ import LoginForm from './components/LoginForm';
 import ProductForm from './components/ProductForm';
 import View from './ViewFile/vieafile/ViewFirst';
 import ProductFormPre from './components/ProductFormPre';
+import ProductFormChe from './components/ProductFormChe'
 
 
 import HomePages from './HomePages'
@@ -24,6 +25,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/product" element={<ProductForm />} />
         <Route path="/ProductFormPre" element={<ProductFormPre />} />
+        <Route path="/ProductFormChe" element={<ProductFormChe />} />
         <Route path="/view" element={<View/>} />
 
         {/* viewreort */}
