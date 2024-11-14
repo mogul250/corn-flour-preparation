@@ -6,25 +6,26 @@ import { rM } from "./response.message.controller.js";
 
 export const flourPackaging = async  (req,res)=>{
     try {
+        const calculateTotal = (ibiro) => Object.entries(ibiro).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
         let {incoming_c,reporter,waste_e,new_food,ifunguro,IF,IS,MA,NF,isezerano,magaju,envelope,waste_f,comment,date} = req.body,
         id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('preparation_track','r_weight'),
         nw = Number(lastStW)-Number(incoming_c)
         !date ? date = now() : null;
-        const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,IF,IS,MA,NF,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date]),
+        const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date]),
         insert3 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'minus',incoming_c-(incoming_c*2),'packaging',nw,now()])
         let total_nf = await getLRec('packaging_track','nf_t'),
         total_is = await getLRec('packaging_track','is_t'),
         total_ma = await getLRec('packaging_track','ma_t'),
         total_if = await getLRec('packaging_track','if_t'),
         total_env = await getLRec('packaging_track','env_t')
-        total_nf += NF
-        total_is+= IS
-        total_ma+= MA
-        total_if+=IF
+        total_nf += calculateTotal(ifunguro)
+        total_is+= calculateTotal(isezerano)
+        total_ma+= calculateTotal(magaju)
+        total_if+=calculateTotal(new_food)
         total_env+=(envelope*5)
         let weights = {
-            NF,IS,MA,IF,envelope
+            NF:calculateTotal(ifunguro),IS:calculateTotal(isezerano),MA:calculateTotal(magaju),IF:calculateTotal(new_food),envelope:total_env
         }
         const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','packaging',total_if,total_is,total_ma,total_nf,total_env,now()])
         if(!insert ||!insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
