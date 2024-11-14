@@ -68,9 +68,9 @@ const IbisanzwePage = () => {
               <tr>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Date</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Utanze Raporo</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Ingano Yibigiye Gutunganywa</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Ubwoko bwamafu agiye gutunganywa</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Buranda Iteganywa</th>
+                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Ingano Y'ibyatunganyijwa</th>
+                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Ubwoko bwamafu yatunganyijwe</th>
+                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Buranda Yateganyaga kuvamo</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Buranda Yavuyemo</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Icyongeweho</th>
               </tr>
