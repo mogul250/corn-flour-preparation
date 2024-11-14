@@ -148,6 +148,7 @@ const ProductFormChe = () => {
               <input 
                 type="" 
                 className="w-full p-2 border rounded-md" 
+                placeholder="Amazina" 
                 value={utanzeRaporo}
                 name='reporter'
                 onChange={(e) => setUtanzeRaporo(e.target.value)}
@@ -156,11 +157,11 @@ const ProductFormChe = () => {
             </div>
             <div>
               <label className="block text-indigo-700 font-medium mb-2">
-                Ingano y'Ibigori
+              Ingano Yibigiye Gutunganywa
               </label>
               <input 
                 type="text" 
-                placeholder="Enter amount" 
+                placeholder="Ibiro" 
                 className="w-full p-2 border rounded-md" 
                 value={incoming_c}
                 name='incoming_c'
@@ -194,7 +195,7 @@ const ProductFormChe = () => {
               <label className="block text-indigo-700 font-medium mb-2">New Food</label>
               <input 
                 type="text" 
-                placeholder="Enter value" 
+                placeholder="Ibiro" 
                 className="w-full p-2 border rounded-md mb-4" 
                 value={newFood}
                 name='nFWeight'
@@ -204,7 +205,7 @@ const ProductFormChe = () => {
               <label className="block text-indigo-700 font-medium mb-2">Ifunguro ryiza</label>
               <input 
                 type="text" 
-                placeholder="Enter value" 
+                placeholder="Ibiro" 
                 className="w-full p-2 border rounded-md mb-4" 
                 value={ifunguro}
                 name='ifWeight'
@@ -214,7 +215,7 @@ const ProductFormChe = () => {
               <label className="block text-indigo-700 font-medium mb-2">Isezerano</label>
               <input 
                 type="text" 
-                placeholder="Enter value" 
+                placeholder="Ibiro" 
                 className="w-full p-2 border rounded-md mb-4" 
                 value={isezerano}
                 name='isWeight'
@@ -224,7 +225,7 @@ const ProductFormChe = () => {
               <label className="block text-indigo-700 font-medium mb-2">Magaju</label>
               <input 
                 type="text" 
-                placeholder="Enter value" 
+                placeholder="Ibiro" 
                 name='maWeight'
                 className="w-full p-2 border rounded-md" 
                 value={magaju}
@@ -240,7 +241,7 @@ const ProductFormChe = () => {
               </label>
               <input 
                 type="text" 
-                placeholder="Enter value" 
+                placeholder="Ibiro" 
                 className="w-full p-2 border rounded-md" 
                 value={buranda}
                 name='waste_e'
