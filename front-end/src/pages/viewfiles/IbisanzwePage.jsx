@@ -69,7 +69,7 @@ const IbisanzwePage = () => {
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Date</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Utanze Raporo</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Ingano Yibigiye Gutunganywa</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">UBWOKO BWAMAFU</th>
+                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Ubwoko bwamafu agiye gutunganywa</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Buranda Iteganywa</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Buranda Yavuyemo</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Icyongeweho</th>
@@ -99,10 +99,10 @@ const IbisanzwePage = () => {
               <tr>
                 <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">NEW FOOD</th>
                 <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">ISEZERANO</th>
-                <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">IFUNGURO</th>
+                <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">IFUNGURO RYIZA</th>
                 <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">MAGAJU</th>
                 <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">INGANO Y'ENVELOPE</th>
-                <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">INGANO RIMAFU</th>
+                <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IFU YATEGANYWAGA KUVAMO</th>
               </tr>
               <tr className="bg-gray-50">
                 <th className="border p-2 text-indigo-500" >IBIRO</th>
@@ -113,8 +113,8 @@ const IbisanzwePage = () => {
                 <th className="border p-2 text-indigo-500">IMIFUKA</th>
                 <th className="border p-2 text-indigo-500">IBIRO</th>
                 <th className="border p-2 text-indigo-500">IMIFUKA</th>
-                <th className="border p-2 text-indigo-500">KG</th>
-                <th className="border p-2 text-indigo-500">IMIFUKA</th>
+                <th className="border p-2 text-indigo-500">IBIRO</th>
+                <th className="border p-2 text-indigo-500">ENVELOPE</th>
                 <th className="border p-2 text-indigo-500">NF</th>
                 <th className="border p-2 text-indigo-500">IF</th>
                 <th className="border p-2 text-indigo-500">IS</th>
