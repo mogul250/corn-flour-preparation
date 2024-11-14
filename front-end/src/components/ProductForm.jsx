@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { f, pS, setData } from '../../public/functions';
 
 const ProductForm = () => {
-  // eslint-disable-next-line no-undef
   
   const [formVars,setFormVars] = useState({
       dist_names: '',
