@@ -49,6 +49,8 @@ const IbishyashyaPage = () => {
               <th className="border border-indigo-500 px-4 py-2">Amafaranga Asabwa</th>
               <th className="border border-indigo-500 px-4 py-2">Amafaranga Yishyuwe</th>
               <th className="border border-indigo-500 px-4 py-2">Amafaranga Asigaye</th>
+              <th className="border border-indigo-500 px-4 py-2">Utanze Raporo</th>
+              <th className="border border-indigo-500 px-4 py-2">comment</th>
             </tr>
           </thead>
           <tbody>

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { f, pS } from '../../public/functions';
 
 const ProductFormChe = () => {
   
   const [date, setDate] = useState('');
   const [utanzeRaporo, setUtanzeRaporo] = useState('');
-  const [ingano, setIngano] = useState('');
+  const [incoming_c, setincoming_c] = useState('');
   const [newFood, setNewFood] = useState('');
   const [ifunguro, setIfunguro] = useState('');
   const [isezerano, setIsezerano] = useState('');
@@ -34,12 +35,12 @@ const ProductFormChe = () => {
     }
   };
 
-  const [newFoodIbiro, setNewFoodIbiro] = useState({ a: 0, b: 0, c: 0 });
-  const [ifunguroIbiro, setIfunguroIbiro] = useState({ a: 0, b: 0, c: 0 });
-  const [isezeranoIbiro, setIsezeranoIbiro] = useState({ a: 0, b: 0, c: 0 });
-  const [magajuIbiro, setMagajuIbiro] = useState({ a: 0, b: 0, c: 0 });
+  const [newFoodIbiro, setNewFoodIbiro] = useState({ '25': 0, '10': 0, '5': 0 });
+  const [ifunguroIbiro, setIfunguroIbiro] = useState({ '25': 0, '10': 0, '5': 0 });
+  const [isezeranoIbiro, setIsezeranoIbiro] = useState({ '25': 0, '10': 0, '5': 0 });
+  const [magajuIbiro, setMagajuIbiro] = useState({ '25': 0, '10': 0, '5': 0 });
   const [envelope, setEnvelope] = useState({ ingano: 0, isEnvelope: 0, buranda: 0 });
-  const [burandaYavuyemo, setBurandaYavuyemo] = useState('');
+  const [waste_f, setwaste_f] = useState('');
   const [comments, setComments] = useState('');
 
   const handleCheckboxChange = (item) => {
@@ -49,71 +50,69 @@ const ProductFormChe = () => {
     }));
   };
 
-  const calculateTotal = (ibiro) => Object.values(ibiro).reduce((sum, value) => sum + Number(value), 0);
+  const calculateTotal = (ibiro) => Object.entries(ibiro).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
   const calculateImifuka = (ibiroValue) => Math.floor(ibiroValue / 25);
   const icumiImifuka = (ibiroValue) => Math.floor(ibiroValue / 10);
   const bitanuImifuka = (ibiroValue) => Math.floor(ibiroValue / 5);
 
-  const handleNewFoodChange = (key, value) => setNewFoodIbiro(prev => ({ ...prev, [key]: value }));
-  const handleIfunguroChange = (key, value) => setIfunguroIbiro(prev => ({ ...prev, [key]: value }));
-  const handleIsezeranoChange = (key, value) => setIsezeranoIbiro(prev => ({ ...prev, [key]: value }));
-  const handleMagajuChange = (key, value) => setMagajuIbiro(prev => ({ ...prev, [key]: value }));
-  const handleEnvelopeChange = (key, value) => setEnvelope(prev => ({ ...prev, [key]: value }));
-
-  const handleSubmit = (e) => {
+  const handleNewFoodChange = (key, value) => setNewFoodIbiro(prev => ({ ...prev, [key]: Math.round(Number(value)/Number(key)) }));
+  const handleIfunguroChange = (key, value) => setIfunguroIbiro(prev => ({ ...prev, [key]: Math.round(Number(value)/Number(key)) }));
+  const handleIsezeranoChange = (key, value) => setIsezeranoIbiro(prev => ({ ...prev, [key]: Math.round(Number(value)/Number(key)) }));
+  const handleMagajuChange = (key, value) => setMagajuIbiro(prev => ({ ...prev, [key]: Math.round(Number(value)/Number(key)) }));
+  const handleEnvelopeChange = (key, value) => setEnvelope(prev => ({ ...prev, [key]: Math.round(Number(value)/Number(key)) }));
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = {
-      firstForm: {
-        utanzeRaporo,
+        reporter: utanzeRaporo,
         date,
-        ingano,
+        incoming_c: Number(incoming_c),
         selectedAmafu,
-        newFood,
-        ifunguro,
-        isezerano,
-        magaju,
-        buranda,
-      },
-      secondForm: {
-        newFoodIbiro,
-        ifunguroIbiro,
-        isezeranoIbiro,
-        magajuIbiro,
-        envelope,
-        comments,
-        burandaYavuyemo,
-      },
+        NF: Number(newFood),
+        IF: Number(ifunguro),
+        IS: Number(isezerano),
+        MA: Number(magaju),
+        waste_e:  Number(buranda),
+        new_food: newFoodIbiro,
+        ifunguro: ifunguroIbiro,
+        isezerano: isezeranoIbiro,
+        magaju: magajuIbiro,
+        envelope:  Number(isEnvelope5kg),
+        comment: comments,
+        waste_f: Number(waste_f),
     };
 
     
     setSuccessMessage('Form submitted successfully!');
     setTimeout(() => setSuccessMessage(''), 3000); 
-
+    console.log(formData)
+    const scheme = pS
+    scheme.body = JSON.stringify(formData)
+    let res = await f('packaging',scheme)
     // Reset form fields
-    setDate('');
-    setUtanzeRaporo('');
-    setIngano('');
-    setNewFood('');
-    setIfunguro('');
-    setIsezerano('');
-    setMagaju('');
-    setBuranda('');
-    setSelectedAmafu({
-      newFood: false,
-      ifunguro: false,
-      isezerano: false,
-      magaju: false,
-    });
-    setInganoYaEnvelope('');
-    setIsEnvelope5kg('');
-    setNewFoodIbiro({ a: 0, b: 0, c: 0 });
-    setIfunguroIbiro({ a: 0, b: 0, c: 0 });
-    setIsezeranoIbiro({ a: 0, b: 0, c: 0 });
-    setMagajuIbiro({ a: 0, b: 0, c: 0 });
-    setEnvelope({ ingano: 0, isEnvelope: 0, buranda: 0 });
-    setComments('');
-    setBurandaYavuyemo('')
+    // setDate('');
+    // setUtanzeRaporo('');
+    // setIngano('');
+    // setNewFood('');
+    // setIfunguro('');
+    // setIsezerano('');
+    // setMagaju('');
+    // setBuranda('');
+    // setSelectedAmafu({
+    //   newFood: false,
+    //   ifunguro: false,
+    //   isezerano: false,
+    //   magaju: false,
+    // });
+    // setInganoYaEnvelope('');
+    // setIsEnvelope5kg('');
+    // setNewFoodIbiro({ a: 0, b: 0, c: 0 });
+    // setIfunguroIbiro({ a: 0, b: 0, c: 0 });
+    // setIsezeranoIbiro({ a: 0, b: 0, c: 0 });
+    // setMagajuIbiro({ a: 0, b: 0, c: 0 });
+    // setEnvelope({ ingano: 0, isEnvelope: 0, buranda: 0 });
+    // setComments('');
+    // setwaste_f('')
   };
 
   return (
@@ -137,6 +136,7 @@ const ProductFormChe = () => {
                 placeholder="Enter name" 
                 className="w-full p-2 border rounded-md" 
                 value={date}
+                name='date'
                 onChange={(e) => setDate(e.target.value)}
                 required
               />
@@ -149,6 +149,7 @@ const ProductFormChe = () => {
                 type="" 
                 className="w-full p-2 border rounded-md" 
                 value={utanzeRaporo}
+                name='reporter'
                 onChange={(e) => setUtanzeRaporo(e.target.value)}
                 required
               />
@@ -161,8 +162,9 @@ const ProductFormChe = () => {
                 type="text" 
                 placeholder="Enter amount" 
                 className="w-full p-2 border rounded-md" 
-                value={ingano}
-                onChange={(e) => setIngano(e.target.value)}
+                value={incoming_c}
+                name='incoming_c'
+                onChange={(e) => setincoming_c(e.target.value)}
                 required
               />
             </div>
@@ -171,13 +173,14 @@ const ProductFormChe = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div>
               <h3 className="text-xl font-bold text-indigo-700 mb-4">UBWOKO BW'AMAFU</h3>
-              {['New Food', 'Ifunguro ryiza', 'Isezerano', 'Magaju'].map((item) => (
+              {['newFood', 'ifunguro', 'isezerano', 'magaju'].map((item) => (
                 <div key={item} className="mb-2">
                   <label className="inline-flex items-center">
                     <input 
                       type="checkbox" 
                       className="form-checkbox text-indigo-600" 
                       checked={selectedAmafu[item]}
+                      name='type'
                       onChange={() => handleCheckboxChange(item)}
                       
                     />
@@ -194,6 +197,7 @@ const ProductFormChe = () => {
                 placeholder="Enter value" 
                 className="w-full p-2 border rounded-md mb-4" 
                 value={newFood}
+                name='nFWeight'
                 onChange={(e) => setNewFood(e.target.value)}
                 required
               />
@@ -203,6 +207,7 @@ const ProductFormChe = () => {
                 placeholder="Enter value" 
                 className="w-full p-2 border rounded-md mb-4" 
                 value={ifunguro}
+                name='ifWeight'
                 onChange={(e) => setIfunguro(e.target.value)}
                 required
               />
@@ -212,6 +217,7 @@ const ProductFormChe = () => {
                 placeholder="Enter value" 
                 className="w-full p-2 border rounded-md mb-4" 
                 value={isezerano}
+                name='isWeight'
                 onChange={(e) => setIsezerano(e.target.value)}
                 required
               />
@@ -219,6 +225,7 @@ const ProductFormChe = () => {
               <input 
                 type="text" 
                 placeholder="Enter value" 
+                name='maWeight'
                 className="w-full p-2 border rounded-md" 
                 value={magaju}
                 onChange={(e) => setMagaju(e.target.value)}
@@ -236,6 +243,7 @@ const ProductFormChe = () => {
                 placeholder="Enter value" 
                 className="w-full p-2 border rounded-md" 
                 value={buranda}
+                name='waste_e'
                 onChange={(e) => setBuranda(e.target.value)}
                 required
               />
@@ -254,18 +262,19 @@ const ProductFormChe = () => {
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-center text-indigo-600 font-medium">Ibiro</p>
                 <p className="text-center text-indigo-600 font-medium">Imifuka</p>
-                {['a', 'b', 'c'].map((key, index) => (
+                {['25', '10', '5'].map((key, index) => (
                   <React.Fragment key={key}>
                     <input
                       type="number"
                     
                       placeholder={`NF: ${[25, 10, 5][index]}KG`}
                       className="bg-gray-200 p-2 rounded"
+                      name='nf'
                       onChange={(e) => handleNewFoodChange(key, e.target.value)}
                     />
                     <input
                       type="text"
-                      value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](newFoodIbiro[key])}
+                      value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](newFoodIbiro[key]* Number(key))}
                       className="bg-gray-200 p-2 rounded"
                       
                     />
@@ -282,17 +291,18 @@ const ProductFormChe = () => {
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-center text-indigo-600 font-medium">Ibiro</p>
                 <p className="text-center text-indigo-600 font-medium">Imifuka</p>
-                {['a', 'b', 'c'].map((key, index) => (
+                {['25', '10', '5'].map((key, index) => (
                   <React.Fragment key={key}>
                     <input
                       type="number"
+                      name='if'
                       placeholder={`IF: ${[25, 10, 5][index]}KG`}
                       className="bg-gray-200 p-2 rounded"
                       onChange={(e) => handleIfunguroChange(key, e.target.value)}
                     />
                     <input
                       type="text"
-                      value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](ifunguroIbiro[key])}
+                      value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](ifunguroIbiro[key]* Number(key))}
                       className="bg-gray-200 p-2 rounded"
                       
                     />
@@ -310,18 +320,18 @@ const ProductFormChe = () => {
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-center text-indigo-600 font-medium">Ibiro</p>
                 <p className="text-center text-indigo-600 font-medium">Imifuka</p>
-                {['a', 'b', 'c'].map((key, index) => (
+                {['25', '10', '5'].map((key, index) => (
                   <React.Fragment key={key}>
                     <input
                       type="number"
-                      
+                      name='is'
                       placeholder={`IS: ${[25, 10, 5][index]}KG`}
                       className="bg-gray-200 p-2 rounded"
                       onChange={(e) => handleIsezeranoChange(key, e.target.value)}
                     />
                     <input
                       type="text"
-                      value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](isezeranoIbiro[key])}
+                      value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](isezeranoIbiro[key]* Number(key))}
                       className="bg-gray-200 p-2 rounded"
                       
                     />
@@ -339,18 +349,18 @@ const ProductFormChe = () => {
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-center text-indigo-600 font-medium">Ibiro</p>
                 <p className="text-center text-indigo-600 font-medium">Imifuka</p>
-                {['a', 'b', 'c'].map((key, index) => (
+                {['25', '10', '5'].map((key, index) => (
                   <React.Fragment key={key}>
                     <input
                       type="number"
-                  
+                    name='mag'
                       placeholder={`MG: ${[25, 10, 5][index]}KG`}
                       className="bg-gray-200 p-2 rounded"
                       onChange={(e) => handleMagajuChange(key, e.target.value)}
                     />
                     <input
                       type="text"
-                      value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](magajuIbiro[key])}
+                      value={[calculateImifuka, icumiImifuka, bitanuImifuka][index](magajuIbiro[key]* Number(key))}
                       className="bg-gray-200 p-2 rounded"
                       
                     />
@@ -372,6 +382,7 @@ const ProductFormChe = () => {
              type="number"
              value={inganoYaEnvelope}
              placeholder="IS:5KG"
+             name='envelope'
              className="bg-gray-200 p-2 rounded"
              onChange={handleInganoChange}
           />
@@ -381,6 +392,7 @@ const ProductFormChe = () => {
              placeholder="0"
              className="bg-gray-200 p-2 rounded"
              value={isEnvelope5kg}
+             onChange={handleEnvelopeChange}
              readonly
 
           />
@@ -389,10 +401,11 @@ const ProductFormChe = () => {
             <label className="block text-center text-indigo-600 font-medium">Buranda Yavuyemo</label>
             <input
             type="number"
-            value={burandaYavuyemo}
+            value={waste_f}
+            name='waste_f'
             placeholder="Buranda Yavuyemo"
             className="bg-gray-200 p-2 rounded"
-            onChange={(e) => setBurandaYavuyemo(e.target.value)}
+            onChange={(e) => setwaste_f(e.target.value)}
             required
 
 
@@ -405,6 +418,7 @@ const ProductFormChe = () => {
          rows="4"
          placeholder="Enter comments here"
          value={comments}
+         name='comment'
          onChange={ (e) => setComments(e.target.value)}
         />
 
