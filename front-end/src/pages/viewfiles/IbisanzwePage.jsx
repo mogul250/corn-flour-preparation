@@ -26,7 +26,7 @@ const IbisanzwePage = () => {
       imifukaStore: { ibiro: '', imifuka: '' }
     },
     rimafu: {
-      row1: { nf: '', if: '', is: '1000', mg: '100' },
+      row1: { nf: '', if: '', is: '', mg: '' },
     }
   });
 

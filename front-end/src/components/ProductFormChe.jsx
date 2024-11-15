@@ -174,7 +174,7 @@ const ProductFormChe = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div>
               <h3 className="text-xl font-bold text-indigo-700 mb-4">UBWOKO BW'AMAFU</h3>
-              {['newFood', 'ifunguro', 'isezerano', 'magaju'].map((item) => (
+              {['newFood', 'ifunguro ryiza', 'isezerano', 'magaju'].map((item) => (
                 <div key={item} className="mb-2">
                   <label className="inline-flex items-center">
                     <input 
