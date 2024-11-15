@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 11, 2024 at 01:56 PM
+-- Generation Time: Nov 15, 2024 at 08:25 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,69 @@ SET time_zone = "+00:00";
 --
 -- Database: `cms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `packaging`
+--
+
+CREATE TABLE `packaging` (
+  `id` varchar(255) NOT NULL,
+  `incoming_c` float NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `waste_e` float NOT NULL,
+  `f_e` varchar(255) NOT NULL,
+  `if_t` float NOT NULL,
+  `is_t` float NOT NULL,
+  `ma_t` float NOT NULL,
+  `nf_t` float NOT NULL,
+  `new_food` varchar(500) NOT NULL,
+  `ifunguro` varchar(500) NOT NULL,
+  `isezerano` varchar(500) NOT NULL,
+  `magaju` varchar(500) NOT NULL,
+  `envelopes` float NOT NULL,
+  `waste_f` float NOT NULL,
+  `comment` varchar(1000) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `packaging`
+--
+
+INSERT INTO `packaging` (`id`, `incoming_c`, `reporter`, `waste_e`, `f_e`, `if_t`, `is_t`, `ma_t`, `nf_t`, `new_food`, `ifunguro`, `isezerano`, `magaju`, `envelopes`, `waste_f`, `comment`, `date`) VALUES
+('0848f5', 1100, 'heshima', 787, '{\"IF\":3434,\"IS\":77887,\"MA\":787,\"NF\":1000}', 65, 195, 125, 95, '{\"5\":0,\"10\":0,\"25\":0}', '{\"5\":2,\"10\":3,\"25\":1}', '{\"5\":8,\"10\":8,\"25\":3}', '{\"5\":9,\"10\":3,\"25\":2}', 2, 200, 'anaza day', '2024-11-11 00:00:00'),
+('0f4f89', 1100, 'heshima', 787, '{}', 0, 0, 0, 95, '{\"5\":3,\"10\":3,\"25\":2}', '{\"5\":0,\"10\":0,\"25\":0}', '{\"5\":0,\"10\":0,\"25\":0}', '{\"5\":0,\"10\":0,\"25\":0}', 2, 200, 'byakunze', '2024-11-15 00:00:00'),
+('llwtyl', 1100, 'heshima', 787, '{\"IF\":3434,\"IS\":77887,\"MA\":787,\"NF\":1000}', 65, 195, 125, 95, '{\"5\":3,\"10\":3,\"25\":2}', '{\"5\":2,\"10\":3,\"25\":1}', '{\"5\":8,\"10\":8,\"25\":3}', '{\"5\":9,\"10\":3,\"25\":2}', 2, 200, 'anaza day', '2024-11-11 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `packaging_track`
+--
+
+CREATE TABLE `packaging_track` (
+  `id` varchar(255) NOT NULL,
+  `weights` varchar(700) NOT NULL,
+  `act_type` varchar(255) NOT NULL,
+  `destination` varchar(255) NOT NULL,
+  `if_t` float NOT NULL,
+  `is_t` float NOT NULL,
+  `ma_t` float NOT NULL,
+  `nf_t` float NOT NULL,
+  `env_t` float NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `packaging_track`
+--
+
+INSERT INTO `packaging_track` (`id`, `weights`, `act_type`, `destination`, `if_t`, `is_t`, `ma_t`, `nf_t`, `env_t`, `date`) VALUES
+('0848f5', '{\"NF\":65,\"IS\":195,\"MA\":125,\"IF\":95,\"envelope\":20}', 'add', 'packaging', 190, 195, 125, 65, 20, '2024-11-15 10:07:03'),
+('0f4f89', '{\"NF\":0,\"IS\":0,\"MA\":0,\"IF\":95,\"envelope\":10}', 'add', 'packaging', 95, 0, 0, 0, 10, '2024-11-15 00:52:05'),
+('llwtyl', '{\"NF\":95,\"IS\":195,\"MA\":125,\"IF\":65,\"envelope\":30}', 'add', 'packaging', 255, 390, 250, 160, 30, '2024-11-15 10:11:09');
 
 -- --------------------------------------------------------
 
@@ -64,7 +127,12 @@ CREATE TABLE `preparation_track` (
 --
 
 INSERT INTO `preparation_track` (`id`, `act_type`, `weight`, `destination`, `r_weight`, `date`) VALUES
-('b40z7n', 'add', 98, 'preparation', 98, '2024-11-11 13:08:34');
+('0848f5', 'minus', -1100, 'packaging', 95800, '2024-11-15 10:07:03'),
+('0f4f89', 'minus', -1100, 'packaging', 96900, '2024-11-15 00:52:05'),
+('25a2f1', 'minus', -100, 'packaging', 98000, '2024-11-14 11:02:33'),
+('54v0mo', 'minus', -100, 'packaging', 198, '2024-11-13 21:31:37'),
+('b40z7n', 'add', 98, 'preparation', 98, '2024-11-11 13:08:34'),
+('llwtyl', 'minus', -1100, 'packaging', 94700, '2024-11-15 10:11:08');
 
 -- --------------------------------------------------------
 
@@ -147,6 +215,18 @@ INSERT INTO `users` (`id`, `names`, `email`, `role`, `password`, `2FA`, `dateadd
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `packaging`
+--
+ALTER TABLE `packaging`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `packaging_track`
+--
+ALTER TABLE `packaging_track`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `preparation`

@@ -138,7 +138,6 @@ const ProductFormChe = () => {
                 value={date}
                 name='date'
                 onChange={(e) => setDate(e.target.value)}
-                required
               />
             </div>
             <div>
