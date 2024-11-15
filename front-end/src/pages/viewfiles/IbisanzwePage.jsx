@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { adcm, f, pS } from '../../../public/functions';
 
 const IbisanzwePage = () => {
   
@@ -28,9 +29,30 @@ const IbisanzwePage = () => {
     rimafu: {
       row1: { nf: '', if: '', is: '1000', mg: '100' },
     }
-  });
+  }),[records,setRecords] = useState([]),
+  [totalsn,setTotalsn] = useState(
+    {
+      added: 0,
+      initamount: 0,
+      mtotal : 0
+    }
+  ), hasFetched = useRef(false)
 
-  
+  useEffect(()=>{
+    if (!hasFetched.current) {
+      const fetchRecs = async ()=>{
+        let schema = pS
+        schema.body = JSON.stringify({date: {}})
+        let recs = await f('packaging-report',pS)
+        setRecords(recs.metadata.report)
+        setTotalsn(
+          recs.metadata.mainTotals
+        )
+      }
+      fetchRecs()
+      hasFetched.current = true
+    }
+  },[])
   const getSelectedAmafu = (amafu) => {
     const selected = [];
     if (amafu.NF) selected.push('NF');
@@ -76,14 +98,32 @@ const IbisanzwePage = () => {
               </tr>
             </thead>
             <tbody>
+              {
+              records.map((element,index) => {
+
+                let isNFAvai = Object.values(element.new_food).find(el=> el),
+                isIFAvai = Object.values(element.ifunguro).find(el=> el),
+                isISAvai = Object.values(element.isezerano).find(el=> el),
+                isMAAvai = Object.values(element.magaju).find(el=> el),
+                avai_f = []
+                isNFAvai? avai_f.push('NF'): null
+                isIFAvai? avai_f.push('IF'): null
+                isISAvai? avai_f.push('IS'): null
+                isMAAvai? avai_f.push('MA'): null
+               return (
+                <tr key={index}>
+                    <td className="border p-2">{element.date}</td>
+                    <td className="border p-2">{element.reporter}</td>
+                    <td className="border p-2">{adcm(element.incoming_c)} KG</td>
+                    <td className="border p-2">{avai_f.toString()}</td>
+                    <td className="border p-2">{adcm(element.waste_e)} KG</td>
+                    <td className="border p-2">{adcm(element.waste_f)} KG</td>
+                    <td className="border p-2">{element.comment}</td>
+                </tr>)
+              })
+            }
               <tr>
-                <td className="border p-2">{formData.exampleData[0].date}</td>
-                <td className="border p-2">{formData.exampleData[0].utanzeRaporo}</td>
-                <td className="border p-2">{formData.exampleData[0].ingano}</td>
-                <td className="border p-2">{getSelectedAmafu(formData.exampleData[0].ubwokoBwamafu)}</td>
-                <td className="border p-2">{formData.exampleData[0].buranda}</td>
-                <td className="border p-2">{formData.exampleData[0].yavuyemo}</td>
-                <td className="border p-2">{formData.exampleData[0].icyongeweho}</td>
+                
               </tr>
             </tbody>
           </table>

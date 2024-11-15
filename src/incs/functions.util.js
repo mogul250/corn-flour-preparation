@@ -74,13 +74,24 @@ export async function getLDayStockTrackRec(table) {
         if (resp.length) {
             return resp[0]
         }else{
-            return []
+            return 0
         }
     } catch (error) {
         throw error
     }
 }
-
+export async function getLStockTrackRec(table) {
+    try {
+        let resp = await query(`SELECT * FROM ${table} ORDER BY date DESC LIMIT 1`)
+        if (resp.length) {
+            return resp[0]
+        }else{
+            return undefined
+        }
+    } catch (error) {
+        throw error
+    }
+}
 export function addToken(payload,isExpiring,expTime){
     const token = jwt.sign(payload,process.env.JWT_SEC_KEY,(isExpiring) ? {expiresIn:   expTime} : {})
     if (token) {

@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { adcm, f, pS } from '../../../public/functions';
 
 const IbishyashyaPage = () => {
@@ -12,20 +12,23 @@ const IbishyashyaPage = () => {
         initamount: 0,
         mtotal : 0
       }
-    )
+    ),
+    hasFetched = useRef(false)
     useEffect(()=>{
-      const fetchRecs = async ()=>{
-        let schema = pS
-        schema.body = JSON.stringify({date: {}})
-        let recs = await f('stock-1-report',pS)
-        setRecords(recs.metadata.report)
-        setTotals(
-          recs.metadata.mainTotals
-        )
+      if (!hasFetched.current) {
+        const fetchRecs = async ()=>{
+          let schema = pS
+          schema.body = JSON.stringify({date: {}})
+          let recs = await f('stock-1-report',pS)
+          setRecords(recs.metadata.report)
+          setTotals(
+            recs.metadata.mainTotals
+          )
+        }
+        fetchRecs()
+        hasFetched.current = true
       }
-      fetchRecs()
     },[])
-    console.log(records.length)
   return (
     <div className="container mx-auto p-4">
       {/* Title Section */}
