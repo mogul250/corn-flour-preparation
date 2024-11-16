@@ -7,7 +7,7 @@ import ProductForm from './components/ProductForm';
 import View from './ViewFile/vieafile/ViewFirst';
 import ProductFormPre from './components/ProductFormPre';
 import ProductFormChe from './components/ProductFormChe'
-
+import ProductFormSel from './components/ProductFormSel'
 
 import HomePages from './HomePages'
 import IbyinjiyePage from './pages/viewfiles/IbyinjiyePage';
@@ -16,6 +16,7 @@ import IbyagurishijwePage from './pages/viewfiles/IbyagurishijwePage'
 import IbyasohotsePage from './pages/viewfiles/IbyasohotsePage';
 import IbisanzwePage from './pages/viewfiles/IbisanzwePage'
 import GutunganyaPage from './pages/viewfiles/GutunganyaPage'
+
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/product" element={<ProductForm />} />
         <Route path="/ProductFormPre" element={<ProductFormPre />} />
         <Route path="/ProductFormChe" element={<ProductFormChe />} />
+        <Route path="/ProductFormSel" element={<ProductFormSel />} />
         <Route path="/view" element={<View/>} />
 
         {/* viewreort */}
