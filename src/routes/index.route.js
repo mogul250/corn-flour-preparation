@@ -3,7 +3,7 @@ import { addUser, login } from "../contollers/users.controller.js"
 import { authBulkUsers } from "../middlewares/users.authenticator.js"
 import { generateReport, recordCornPhase1 } from "../contollers/supply.controller.js"
 import { preparationReport, prepareCorn } from "../contollers/preparation.controller.js"
-import { flourPackaging, packagingReport } from "../contollers/packaging.js"
+import { flourPackaging, packagingReport } from "../contollers/packaging.controller.js"
 export const router = express.Router({strict:false})
 router.post('/login',login)
 router.post('/add-user',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),addUser)
