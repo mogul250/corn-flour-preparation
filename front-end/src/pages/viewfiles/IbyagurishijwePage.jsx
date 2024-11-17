@@ -37,6 +37,21 @@ const IbyagurishijwePage = () => {
 
     fetchData();
   }, []);
+  // useEffect(()=>{
+  //   if (!hasFetched.current) {
+  //     const fetchRecs = async ()=>{
+  //       let schema = pS
+  //       schema.body = JSON.stringify({date: {}})
+  //       let recs = await f('stock-1-report',pS)
+  //       setRecords(recs.metadata.report)
+  //       setTotals(
+  //         recs.metadata.mainTotals
+  //       )
+  //     }
+  //     fetchRecs()
+  //     hasFetched.current = true
+  //   }
+  // },[])
 
   const calculateTotal = (data) => {
     const { imifuka, igiciro } = data;

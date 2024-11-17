@@ -1,76 +1,62 @@
 import React, { useState, useEffect } from 'react';
+import { adcm, f, pS } from '../../public/functions';
 
-const ProductGrid = ({ title, isEnvelope, titleColor }) => {
-  const [rows, setRows] = useState([
-    { ibiro: '', imifuka: '', price: '', total: '' },
-    { ibiro: '', imifuka: '', price: '', total: '' },
-    { ibiro: '', imifuka: '', price: '', total: '' }
-  ]);
+const ProductFormSel = () => {
+  const [formData, setFormData] = useState({
+    date: '',
+    reporter: '',
+    distributor: '',
+    client: '',
+    g_amount: '',
+    NF: [
+      { ibiro: '', imifuka: 0, price: '', total: 0 },
+      { ibiro: '', imifuka: 0, price: '', total: 0 },
+      { ibiro: '', imifuka: 0, price: '', total: 0 }
+    ],
+    IS: [
+      { ibiro: '', imifuka: 0, price: '', total: 0 },
+      { ibiro: '', imifuka: 0, price: '', total: 0 },
+      { ibiro: '', imifuka: 0, price: '', total: 0 }
+    ],
+    IF: [
+      { ibiro: '', imifuka: 0, price: '', total: 0 },
+      { ibiro: '', imifuka: 0, price: '', total: 0 },
+      { ibiro: '', imifuka: 0, price: '', total: 0 }
+    ],
+    MA: [
+      { ibiro: '', imifuka: 0, price: '', total: 0 },
+      { ibiro: '', imifuka: 0, price: '', total: 0 },
+      { ibiro: '', imifuka: 0, price: '', total: 0 }
+    ],
+    envelope: [{ ibiro: '', imifuka: 0, price: '', total: 0 }],
+    r_amount: '',
+    no_sacks: '',
+    comment: '',
+  });
+  const handleGridInputChange = (fieldName, rowIndex, field, value) => {
+    setFormData(prevData => {
+      const newFlourData = [...prevData[fieldName]];
+      newFlourData[rowIndex] = {
+        ...newFlourData[rowIndex],
+        [field]: value,
+      };
 
-  const ibiroProportion = isEnvelope
-  ?{ 0: 5} 
-  :{
-    0: 25, 
-    1: 10, 
-    2: 5   
-  };
-
-  const calculateImifuka = (ibiro, rowIndex) => {
-    const proportion = ibiroProportion[rowIndex];
-    if (!proportion || !ibiro) return '';
-    
-    return Math.round(parseFloat(ibiro) / proportion);
-  };
-
-  const calculateTotal = (imifuka, price) => {
-    if (!imifuka || !price) return '';
-    return (parseFloat(imifuka) * parseFloat(price)).toFixed(2);
-  };
-
-  const handleInputChange = (rowIndex, field, value) => {
-    const newRows = [...rows];
-    newRows[rowIndex] = { ...newRows[rowIndex], [field]: value };
-
-
-    if (field === 'ibiro') {
-      newRows[rowIndex].imifuka = calculateImifuka(value, rowIndex);
-      
-      if (newRows[rowIndex].price) {
-        newRows[rowIndex].total = calculateTotal(
-          newRows[rowIndex].imifuka,
-          newRows[rowIndex].price
-        );
+      if (field === 'ibiro') {
+        const proportion = fieldName === 'envelope' ? 5 : [25, 10, 5][rowIndex];
+        newFlourData[rowIndex].imifuka = proportion ? Math.round(value / proportion) : '';
       }
-    }
+      if (field === 'price' || field === 'ibiro') {
+        newFlourData[rowIndex].total = (newFlourData[rowIndex].imifuka * newFlourData[rowIndex].price).toFixed(2) || '';
+      }
 
-  
-    if (field === 'price') {
-      newRows[rowIndex].total = calculateTotal(
-        newRows[rowIndex].imifuka,
-        value
-      );
-    }
-
-    setRows(newRows);
+      return {
+        ...prevData,
+        [fieldName]: newFlourData,
+      };
+    });
   };
 
-  const calculateGrandTotal = () => {
-    return rows
-      .reduce((sum, row) => {
-        const total = parseFloat(row.total) || 0;
-        return sum + total;
-      }, 0)
-      .toFixed(2);
-  };
-
-
-  useEffect(() => {
-    if (isEnvelope) {
-      setRows([rows[0]]);
-    }
-  }, [isEnvelope]);
-
-  return (
+  const ProductGrid = ({ title, fieldName, rows, isEnvelope, titleColor }) => (
     <div className="bg-white rounded-lg shadow-md overflow-hidden w-full">
       <h3 className={`${titleColor} text-center py-2 text-base font-semibold`}>
         {title}
@@ -99,9 +85,9 @@ const ProductGrid = ({ title, isEnvelope, titleColor }) => {
           <div key={index} className="grid grid-cols-4 gap-2 sm:gap-6 mb-4">
             <input
               type="number"
-              value={row.ibiro}
-              onChange={(e) => handleInputChange(index, 'ibiro', e.target.value)}
-              placeholder={`${title.slice(0, 2)}:${ibiroProportion[index] || ''}`}
+              defaultValue={row.ibiro}
+              onBlur={(e) =>{ handleGridInputChange(fieldName, index, 'ibiro', e.target.value);e.preventDefault()}}
+              placeholder={`${title.slice(0, 2)}:${isEnvelope ? 5 : [25, 10, 5][index]}`}
               className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
             />
             <input
@@ -112,8 +98,8 @@ const ProductGrid = ({ title, isEnvelope, titleColor }) => {
             />
             <input
               type="number"
-              value={row.price}
-              onChange={(e) => handleInputChange(index, 'price', e.target.value)}
+              defaultValue={row.price}
+              onBlur={(e) => {handleGridInputChange(fieldName, index, 'price', e.target.value);e.preventDefault()}}
               className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
             />
             <input
@@ -126,18 +112,87 @@ const ProductGrid = ({ title, isEnvelope, titleColor }) => {
         ))}
 
         <div className="text-right font-bold mt-4 sm:mt-6 text-sm sm:text-base text-indigo-600">
-          Total: {calculateGrandTotal()} KG
+          Total: {adcm(rows.reduce((sum, row) => sum + (parseFloat(row.total) || 0), 0).toFixed(2))} RWF
         </div>
       </div>
     </div>
   );
-};
-
-const ProductFormSel = () => {
-  const handleSubmit = (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevData => ({
+      ...prevData,
+      [name]: value
+    }));
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Your report has been submitted");
-    e.target.reset();
+    const transformData = (data) => {
+      const proportions = [25, 10, 5];
+      const result = {
+          weights: {},
+          pricings: {},
+          totals: {}
+      };
+      if(data.length){
+        data.forEach((item, index) => {
+            data.length == 1 ? index = 2 : index
+            const proportion = proportions[index].toString(); 
+            result.weights[proportion] = item.imifuka;
+            result.pricings[proportion] = parseFloat(item.price);
+            result.totals[proportion] = parseFloat(item.total);
+        });
+    
+        return result;
+
+      }else{
+        return data
+      }
+    }; 
+    const emptyVar = Object.keys(formData).find((key)=> !formData[key] && key != 'date')
+    if (emptyVar) return
+    let nfd = formData
+    nfd
+    nfd.NF = transformData(formData.NF)
+    nfd.IS = transformData(formData.IS)
+    nfd.IF = transformData(formData.IF)
+    nfd.MA = transformData(formData.MA)
+    nfd.envelope = transformData(nfd.envelope)
+    const scheme = pS
+    scheme.body = JSON.stringify(nfd)
+    let res = await f('sales',scheme)
+    nfd = formData
+    // e.target.reset();
+    // setFormData({
+    //   date: '',
+    //   reporter: '',
+    //   distributor: '',
+    //   client: '',
+    //   g_amount: '',
+    //   r_amount: '',
+    //   no_sacks: '',
+    //   NF: [
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 },
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 },
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 }
+    //   ],
+    //   IS: [
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 },
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 },
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 }
+    //   ],
+    //   IF: [
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 },
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 },
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 }
+    //   ],
+    //   MA: [
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 },
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 },
+    //     { ibiro: '', imifuka: 0, price: '', total: 0 }
+    //   ],
+    //   envelope: [{ ibiro: '', imifuka: 0, price: '', total: 0 }],
+    //   comment: ''
+    // });
   };
 
   return (
@@ -154,6 +209,9 @@ const ProductFormSel = () => {
               </label>
               <input
                 type="date"
+                name="date"
+                value={formData.date}
+                onChange={handleInputChange}
                 className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
                 required
               />
@@ -163,7 +221,10 @@ const ProductFormSel = () => {
                 Utanze Raporo
               </label>
               <input
-                type="number"
+                type="text"
+                name="reporter"
+                value={formData.reporter}
+                onChange={handleInputChange}
                 className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
                 required
               />
@@ -173,7 +234,10 @@ const ProductFormSel = () => {
                 Ugemuye Kw'isoko
               </label>
               <input
-                type="number"
+                type="text"
+                name="distributor"
+                value={formData.distributor}
+                onChange={handleInputChange}
                 className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
                 required
               />
@@ -183,10 +247,13 @@ const ProductFormSel = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
             <div>
               <label className="block text-xs sm:text-sm font-medium mb-2 text-indigo-600">
-                Umucuruzi
+                umukiliya
               </label>
               <input
                 type="text"
+                name="client"
+                value={formData.client}
+                onChange={handleInputChange}
                 className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
                 required
               />
@@ -197,6 +264,9 @@ const ProductFormSel = () => {
               </label>
               <input
                 type="text"
+                name="g_amount"
+                value={formData.g_amount}
+                onChange={handleInputChange}
                 className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
                 required
               />
@@ -207,6 +277,9 @@ const ProductFormSel = () => {
               </label>
               <input
                 type="text"
+                name="r_amount"
+                value={formData.r_amount}
+                onChange={handleInputChange}
                 className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
                 required
               />
@@ -219,21 +292,26 @@ const ProductFormSel = () => {
             </label>
             <input
               type="text"
+              name="no_sacks"
+              value={formData.no_sacks}
+              onChange={handleInputChange}
               className="w-full max-w-md px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
               required
             />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4 sm:gap-8">
-            <ProductGrid title="NEW FOOD" titleColor="text-indigo-600" />
-            <ProductGrid title="IFUNGURO" titleColor="text-indigo-600" />
-            <ProductGrid title="ISEZERANO" titleColor="text-indigo-600" />
-            <ProductGrid title="MAGAJU" titleColor="text-indigo-600" />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
+            <ProductGrid title="NEW FOOD" fieldName="NF" rows={formData.NF} titleColor="text-indigo-600" />
+            <ProductGrid title="IFUNGURO" fieldName="IF" rows={formData.IF} titleColor="text-indigo-600" />
+            <ProductGrid title="ISEZERANO" fieldName="IS" rows={formData.IS} titleColor="text-indigo-600" />
+            <ProductGrid title="MAGAJU" fieldName="MA" rows={formData.MA} titleColor="text-indigo-600" />
           </div>
 
           <div className="max-w-4xl text-indigo-600">
             <ProductGrid
               title="ISEZERANO ENVELOPE/5KG"
+              fieldName="envelope"
+              rows={formData.envelope}
               titleColor="text-indigo-600"
               isEnvelope={true}
             />
@@ -245,6 +323,10 @@ const ProductFormSel = () => {
             </label>
             <textarea
               rows="3"
+              name="comment"
+              value={formData.comment}
+              onChange={handleInputChange}
+              required
               className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
             />
           </div>

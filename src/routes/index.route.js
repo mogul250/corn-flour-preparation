@@ -4,6 +4,7 @@ import { authBulkUsers } from "../middlewares/users.authenticator.js"
 import { generateReport, recordCornPhase1 } from "../contollers/supply.controller.js"
 import { preparationReport, prepareCorn } from "../contollers/preparation.controller.js"
 import { flourPackaging, packagingReport } from "../contollers/packaging.controller.js"
+import { flourSales } from "../contollers/sales.controller.js"
 export const router = express.Router({strict:false})
 router.post('/login',login)
 router.post('/add-user',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),addUser)
@@ -12,6 +13,7 @@ router.post('/record-prepared-c',(req,res,next)=>authBulkUsers(req,res,next,['SY
 router.post('/stock-1-report',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),generateReport)
 router.post('/preparation-report',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),preparationReport)
 router.post('/packaging',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),flourPackaging)
+router.post('/sales',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),flourSales)
 router.post('/packaging-report',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),packagingReport)
 router.post('/',(req,res)=>{res.send("received")})
 
