@@ -127,12 +127,8 @@ const IbisanzwePage = () => {
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
 
-      
-      <div className="bg-white rounded-lg shadow-md p-4">
-        <h2 className="text-xl font-semibold text-indigo-800 mb-4 text-center ">RAPORO ZIBIRO NIMIFUKA KURI BURI IFU YAKOZWE</h2>
+          <h2 className="text-xl font-semibold text-indigo-800 mb-4 text-center ">RAPORO ZIBIRO NIMIFUKA KURI BURI IFU YAKOZWE</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full border-collapse border">
             <thead>
@@ -216,6 +212,12 @@ const IbisanzwePage = () => {
             </tbody>
           </table>
         </div>
+        </div>
+      </div>
+
+      
+      <div className="bg-white rounded-lg shadow-md p-4">
+       
       </div>
     </div>
   );

@@ -94,12 +94,8 @@ const IbyagurishijwePage = () => {
               ))}
             </tbody>
           </table>
-        </div>
-      </div>
-
-      {/* Products Table */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse border">
+          {/* Products Table */}
+          <table className="min-w-full border-collapse border">
           <thead>
             <tr>
               <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">NEW FOOD</th>
@@ -182,6 +178,12 @@ const IbyagurishijwePage = () => {
             </tr>
           </tbody>
         </table>
+        </div>
+      </div>
+
+      
+      <div className="overflow-x-auto">
+       
       </div>
     </div>
   );
