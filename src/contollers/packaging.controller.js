@@ -62,7 +62,6 @@ export const packagingReport = async (req,res)=>{
                 
             }
         }
-        console.log(date.start,date.stop)
         report = report.map(rep=>{
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
             rep.ifunguro = JSON.parse(rep.ifunguro)

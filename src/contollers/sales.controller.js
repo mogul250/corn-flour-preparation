@@ -53,7 +53,7 @@ export const flourSales = async  (req,res)=>{
         res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
     }
 }
-export const packagingReport = async (req,res)=>{
+export const salesReport = async (req,res)=>{
     try {
         const {date} = req.body
         if (!date.start || !date.stop) {
@@ -63,7 +63,7 @@ export const packagingReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT * from packaging where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop]),mtotal,added,initamount,lastRec
+        let report = await query('SELECT * from sales where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop]),mtotal,added,initamount,lastRec
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
             lastRec = await getLStockTrackRec('packaging_track')
@@ -77,14 +77,13 @@ export const packagingReport = async (req,res)=>{
                 
             }
         }
-        console.log(date.start,date.stop)
         report = report.map(rep=>{
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
-            rep.ifunguro = JSON.parse(rep.ifunguro)
-            rep.new_food = JSON.parse(rep.new_food)
-            rep.isezerano = JSON.parse(rep.isezerano)
-            rep.magaju = JSON.parse(rep.magaju)
-            rep.f_e = JSON.parse(rep.f_e)
+            // rep.ifunguro = JSON.parse(rep.ifunguro)
+            // rep.new_food = JSON.parse(rep.new_food)
+            // rep.isezerano = JSON.parse(rep.isezerano)
+            // rep.magaju = JSON.parse(rep.magaju)
+            // rep.f_e = JSON.parse(rep.f_e)
             return rep
         })
         

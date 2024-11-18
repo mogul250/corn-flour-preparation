@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { f, pS } from '../../../public/functions';
 
 const IbyagurishijwePage = () => {
-  const [marketData, setMarketData] = useState([]);
+  const [marketData, setMarketData] = useState([]),
+  [records,setRecords] = useState([])
   const [productData, setProductData] = useState({
     'NEW FOOD': [
       { ibiro: 1111, imifuka: 0, igiciro: 0 },
@@ -26,32 +28,32 @@ const IbyagurishijwePage = () => {
     'IS ENVELOPE/5KG': [
       { ibiro: 0, envelope: 0, igiciro: 0 }
     ],
-  });
+  }),hasFetched = useRef(false)
 
-  useEffect(() => {
-    const fetchData = () => {
-      setMarketData([
-        { date: '2023-05-01', reporter: 'John Doe', visitor: 'Jane Smith', trader: 'ABC Corp', marketFees: 5000, remainingFees: 1000, bagNumber: 'B001', additions: 'None' },
-      ]);
-    };
+  // useEffect(() => {
+  //   const fetchData = () => {
+  //     setMarketData([
+  //       { date: '2023-05-01', reporter: 'John Doe', visitor: 'Jane Smith', trader: 'ABC Corp', marketFees: 5000, remainingFees: 1000, bagNumber: 'B001', additions: 'None' },
+  //     ]);
+  //   };
 
-    fetchData();
-  }, []);
-  // useEffect(()=>{
-  //   if (!hasFetched.current) {
-  //     const fetchRecs = async ()=>{
-  //       let schema = pS
-  //       schema.body = JSON.stringify({date: {}})
-  //       let recs = await f('stock-1-report',pS)
-  //       setRecords(recs.metadata.report)
-  //       setTotals(
-  //         recs.metadata.mainTotals
-  //       )
-  //     }
-  //     fetchRecs()
-  //     hasFetched.current = true
-  //   }
-  // },[])
+  //   fetchData();
+  // }, []);
+  useEffect(()=>{
+    if (!hasFetched.current) {
+      const fetchRecs = async ()=>{
+        let schema = pS
+        schema.body = JSON.stringify({date: {}})
+        let recs = await f('sales-report',pS)
+        setRecords(recs.metadata.report)
+        setTotals(
+          recs.metadata.mainTotals
+        )
+      }
+      fetchRecs()
+      hasFetched.current = true
+    }
+  },[])
 
   const calculateTotal = (data) => {
     const { imifuka, igiciro } = data;
@@ -78,16 +80,16 @@ const IbyagurishijwePage = () => {
               </tr>
             </thead>
             <tbody>
-              {marketData.map((item, index) => (
+              {records.map((item, index) => (
                 <tr key={index}>
                   <td className="border p-2">{item.date}</td>
                   <td className="border p-2">{item.reporter}</td>
-                  <td className="border p-2">{item.visitor}</td>
-                  <td className="border p-2">{item.trader}</td>
-                  <td className="border p-2">{item.marketFees}</td>
-                  <td className="border p-2">{item.remainingFees}</td>
-                  <td className="border p-2">{item.bagNumber}</td>
-                  <td className="border p-2">{item.additions}</td>
+                  <td className="border p-2">{item.distributor}</td>
+                  <td className="border p-2">{item.client}</td>
+                  <td className="border p-2">{item.g_amount}</td>
+                  <td className="border p-2">{item.r_amount}</td>
+                  <td className="border p-2">{item.sack_no}</td>
+                  <td className="border p-2">{item.comment}</td>
                 </tr>
               ))}
             </tbody>
