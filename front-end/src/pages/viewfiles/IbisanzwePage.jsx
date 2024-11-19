@@ -1,289 +1,172 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { adcm, f, pS } from '../../../public/functions';
+import React, { useState, useMemo } from 'react'
+
+const initialFormData = {
+  exampleData: [
+    {
+      date: '2024-11-12',
+      utanzeRaporo: 'PABLOSCH',
+      ingano: '10',
+      ubwokoBwamafu: { NF: true, IF: false, IS: true, MG: false },
+      buranda: '300KG',
+      icyongeweho: 'ibyatunganyijwe byose byagenze neza',
+      yavuyemo: '350KG',
+    },
+  ],
+  ifuZavuyemo: { nf: '10', if: '50', is: '20', mg: '75' },
+  newFood: {
+    nf25: { ibiro: '25', imifuka: '2' },
+    nf10: { ibiro: '30', imifuka: '3' },
+    nf5: { ibiro: '20', imifuka: '4' }
+  },
+  isezerano: {
+    is25: { ibiro: '60', imifuka: '2' },
+    is10: { ibiro: '40', imifuka: '4' },
+    is5: { ibiro: '25', imifuka: '5' }
+  },
+  ifunguro: {
+    if25: { ibiro: '55', imifuka: '2' },
+    if10: { ibiro: '35', imifuka: '3' },
+    if5: { ibiro: '22', imifuka: '4' }
+  },
+  magaju: {
+    mg25: { ibiro: '45', imifuka: '1' },
+    mg10: { ibiro: '30', imifuka: '3' },
+    mg5: { ibiro: '18', imifuka: '3' }
+  },
+  envelope: {
+    ibiro: '10',
+    imifuka: '1'
+  },
+}
+
+const calculateTotals = (data) => ({
+  newFoodTotal: Object.values(data.newFood).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
+  isezeranoTotal: Object.values(data.isezerano).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
+  ifunguroTotal: Object.values(data.ifunguro).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
+  magajuTotal: Object.values(data.magaju).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
+  ifuZavuyemoTotal: Object.values(data.ifuZavuyemo).reduce((acc, curr) => acc + Number(curr), 0),
+  envelopeTotal: Number(data.envelope.ibiro)
+})
 
 const IbisanzwePage = () => {
-  
-  const [formData, setFormData] = useState({
-    
-    exampleData: [
-      {
-        date: '2024-11-12',
-        utanzeRaporo: 'PABLOSCH',
-        ingano: '10',
-        ubwokoBwamafu: { NF: true, IF: false, IS: true, MG: false },
-        buranda: '300KG',
-        icyongeweho: 'ibyatunganyijwe byose byagenze neza',
-        yavuyemo: '350KG'
-      }
-    ],
-
-    newFood: {
-      nf25: { ibiro: '', imifuka: '' },
-      nf10: { ibiro: '', imifuka: '' },
-      nf5: { ibiro: '', imifuka: '' }
-    },
-    envelope: {
-      ibiroStore: { ibiro: '', imifuka: '' },
-      imifukaStore: { ibiro: '', imifuka: '' }
-    },
-    rimafu: {
-      row1: { nf: '', if: '', is: '', mg: '' },
-    }
-  }),[records,setRecords] = useState([]),
-  [totalsn,setTotalsn] = useState(
-    {
-      added: 0,
-      initamount: 0,
-      mtotal : 0
-    }
-  ), hasFetched = useRef(false)
-
-  useEffect(()=>{
-    if (!hasFetched.current) {
-      const fetchRecs = async ()=>{
-        let schema = pS
-        schema.body = JSON.stringify({date: {}})
-        let recs = await f('packaging-report',pS)
-        setRecords(recs.metadata.report)
-        setTotalsn(
-          recs.metadata.mainTotals
-        )
-      }
-      fetchRecs()
-      hasFetched.current = true
-    }
-  },[])
-  const getSelectedAmafu = (amafu) => {
-    const selected = [];
-    if (amafu.NF) selected.push('NF');
-    if (amafu.IF) selected.push('IF');
-    if (amafu.IS) selected.push('IS');
-    if (amafu.MG) selected.push('MG');
-    return selected.join(', ');
-  };
-
-  const calculateTotals = () => ({
-    newFoodImifuka: 
-      Number(formData.newFood.nf25.imifuka || 0) +
-      Number(formData.newFood.nf10.imifuka || 0) +
-      Number(formData.newFood.nf5.imifuka || 0),
-    envelopeImifuka:
-      Number(formData.envelope.ibiroStore.imifuka || 0) +
-      Number(formData.envelope.imifukaStore.imifuka || 0),
-    rimafuImifuka: 
-      Number(formData.rimafu.row1.nf || 0) +
-      Number(formData.rimafu.row1.if || 0) +
-      Number(formData.rimafu.row1.is || 0) +
-      Number(formData.rimafu.row1.mg || 0)
-  });
-
-  const totals = calculateTotals();
+  const [formData, setFormData] = useState(initialFormData)
+  const totals = useMemo(() => calculateTotals(formData), [formData])
 
   return (
-    <div className="w-full p-4 space-y-8">
-      
+    <div className="container mx-auto p-4 space-y-8">
       <div className="bg-white rounded-lg shadow-md p-4">
-        <h2 className="text-xl font-semibold text-indigo-800 mb-4 text-center">RAPORO ZIBYATUNGANYIJWE  </h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse border">
+        <h2 className="text-2xl font-bold text-center text-indigo-800 mb-4">
+          RAPORO ZIBYATUNGANYIJWE
+        </h2>
+       
+        
+        <div className="overflow-x-auto mb-8">
+          <table className="min-w-full bg-white border border-indigo-200">
             <thead>
-              <tr>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Date</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Utanze Raporo</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Ingano Y'ibyatunganyijwa</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Ubwoko bwamafu yatunganyijwe</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Buranda Yateganyaga kuvamo</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Buranda Yavuyemo</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Icyongeweho</th>
-              </tr>
-            </thead>
-              {
-                records.map((element,index) => {
-                  
-                  let isNFAvai = Object.values(element.new_food).find(el=> el),
-                isIFAvai = Object.values(element.ifunguro).find(el=> el),
-                isISAvai = Object.values(element.isezerano).find(el=> el),
-                isMAAvai = Object.values(element.magaju).find(el=> el),
-                avai_f = []
-                isNFAvai? avai_f.push('NF'): null
-                isIFAvai? avai_f.push('IF'): null
-                isISAvai? avai_f.push('IS'): null
-                isMAAvai? avai_f.push('MA'): null
-               return (
-                <tbody key={index}>
-                    <tr >
-                        <td className="border p-2">{element.date}</td>
-                        <td className="border p-2">{element.reporter}</td>
-                        <td className="border p-2">{adcm(element.incoming_c)} KG</td>
-                        <td className="border p-2">{avai_f.toString()}</td>
-                        <td className="border p-2">{adcm(element.waste_e)} KG</td>
-                        <td className="border p-2">{adcm(element.waste_f)} KG</td>
-                        <td className="border p-2">{element.comment}</td>
-                    </tr>
-                    {/* <tr>
-                    <td colSpan={8}>
-                      <div className="overflow-x-auto">
-                        <table className="min-w-full border-collapse border">
-                          <thead>
-                            <tr>
-                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IFU YATEGANYWAGA KUVAMO</th>
-                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">NEW FOOD</th>
-                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IFUNGURO</th>
-                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">ISEZERANO</th>
-                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">MAGAJU</th>
-                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IS ENVELOPE/5KG</th>
-                            </tr>
-                            <tr className="bg-gray-50">
-                              {['IFU YATEGANYWAGA KUVAMO','NEW FOOD', 'IFUNGURO', 'ISEZERANO', 'MAGAJU'].map(product => (
-                                <React.Fragment key={product}>
-                                  <th className="border p-2">ibiro</th>
-                                  <th className="border p-2">imifuka</th>
-                                </React.Fragment>
-                              ))}
-                              <th className="border p-2">ibiro</th>
-                              <th className="border p-2">envelope</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {[0, 1, 2].map((rowIndex) => (
-                              <tr key={rowIndex}>
-                                {[1,2,3,4,5,6].map((data,index) => {
-                                  if (index == 5 && rowIndex > 0) {
-                                    return null;
-                                  }
-                                  let currentI = null
-                                  index == 0 ? currentI = 'f_e':index == 1 ? currentI = 'new_food': index == 2 ? currentI = 'ifunguro' : index == 3 ? currentI= 'isezerano' : index == 4 ? currentI= 'magaju': index == 5 ? currentI = 'envelope': null
-                                  let unit,count
-                                  // if (currentI != 'f_e') {
-                                  //     unit = Number(Object.keys(element[currentI]).reverse()[rowIndex]) || null,
-                                  //     count = Number(Object.values(element[currentI]).reverse()[rowIndex]) || null  
-                                    
-                                  // }
-                                  return (
-                                    <React.Fragment key={`${currentI}-${rowIndex}`}>
-                                      <td className="border p-2">
-                                        <input
-                                          value={unit}
-                                          className="w-full bg-gray-50"
-                                        />
-                                      </td>
-                                      <td className="border p-2">
-                                        <input
-                                          value={count}
-                                          className="w-full bg-gray-50"
-                                        />
-                                      </td>
-                                    </React.Fragment>
-                                  );
-                                })}
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </td>
-
-                  </tr> */}
-                </tbody>
-                )
-              })
-            }
-              <tr>
-                
-              </tr>
-          </table>
-
-          <h2 className="text-xl font-semibold text-indigo-800 mb-4 text-center ">RAPORO ZIBIRO NIMIFUKA KURI BURI IFU YAKOZWE</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse border">
-            <thead>
-              <tr>
-                <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">NEW FOOD</th>
-                <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">ISEZERANO</th>
-                <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">IFUNGURO RYIZA</th>
-                <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">MAGAJU</th>
-                <th colSpan="2" className="border bg-gray-100 p-2 text-left text-indigo-500">INGANO Y'ENVELOPE</th>
-                <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IFU YATEGANYWAGA KUVAMO</th>
-              </tr>
-              <tr className="bg-gray-50">
-                <th className="border p-2 text-indigo-500" >IBIRO</th>
-                <th className="border p-2 text-indigo-500">IMIFUKA</th>
-                <th className="border p-2 text-indigo-500">IBIRO</th>
-                <th className="border p-2 text-indigo-500">IMIFUKA</th>
-                <th className="border p-2 text-indigo-500">IBIRO</th>
-                <th className="border p-2 text-indigo-500">IMIFUKA</th>
-                <th className="border p-2 text-indigo-500">IBIRO</th>
-                <th className="border p-2 text-indigo-500">IMIFUKA</th>
-                <th className="border p-2 text-indigo-500">IBIRO</th>
-                <th className="border p-2 text-indigo-500">ENVELOPE</th>
-                <th className="border p-2 text-indigo-500">NF</th>
-                <th className="border p-2 text-indigo-500">IF</th>
-                <th className="border p-2 text-indigo-500">IS</th>
-                <th className="border p-2 text-indigo-500">MG</th>
+              <tr className="bg-indigo-50">
+                <th className="border border-indigo-200 p-2 text-left">Date</th>
+                <th className="border border-indigo-200 p-2 text-left">Utanze Raporo</th>
+                <th className="border border-indigo-200 p-2 text-left">Ingano</th>
+                <th className="border border-indigo-200 p-2 text-left">Ubwoko bwamafu</th>
+                <th className="border border-indigo-200 p-2 text-left">Buranda Yavuyemo</th>
+                <th className="border border-indigo-200 p-2 text-left">Icyongeweho</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td className="border p-2">{formData.newFood.nf25.ibiro}</td>
-                <td className="border p-2">{formData.newFood.nf25.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf25.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf25.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf25.ibiro}</td>
-                <td className="border p-2">{formData.newFood.nf25.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf25.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf25.imifuka}</td>
-                <td className="border p-2" rowSpan="3">{formData.envelope.ibiroStore.ibiro}</td>
-                <td className="border p-2" rowSpan="3">{formData.envelope.ibiroStore.imifuka}</td>
-                 
-                <td className="border p-2">{formData.rimafu.row1.nf}</td>
-                <td className="border p-2">{formData.rimafu.row1.if}</td>
-                <td className="border p-2">{formData.rimafu.row1.is}</td>
-                <td className="border p-2">{formData.rimafu.row1.mg}</td>
+              {formData.exampleData.map((item, index) => (
+                <tr key={index} className="hover:bg-indigo-50">
+                  <td className="border border-indigo-200 p-2">{item.date}</td>
+                  <td className="border border-indigo-200 p-2">{item.utanzeRaporo}</td>
+                  <td className="border border-indigo-200 p-2">{item.ingano}</td>
+                  <td className="border border-indigo-200 p-2">
+                    {Object.entries(item.ubwokoBwamafu)
+                      .filter(([_, value]) => value)
+                      .map(([key]) => key)
+                      .join(', ')}
+                  </td>
+                  <td className="border border-indigo-200 p-2">{item.buranda}</td>
+                  <td className="border border-indigo-200 p-2">{item.icyongeweho}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-indigo-200">
+            <thead>
+              <tr className="bg-indigo-50">
+                <th colSpan="4" className="border border-indigo-200 p-2 text-left">IFU ZAVUYEMO</th>
+                <th colSpan="2" className="border border-indigo-200 p-2 text-left">NEW FOOD</th>
+                <th colSpan="2" className="border border-indigo-200 p-2 text-left">ISEZERANO</th>
+                <th colSpan="2" className="border border-indigo-200 p-2 text-left">IFUNGURO</th>
+                <th colSpan="2" className="border border-indigo-200 p-2 text-left">MAGAJU</th>
+                <th colSpan="2" className="border border-indigo-200 p-2 text-left">ENVELOPE</th>
               </tr>
-              <tr>
-                <td className="border p-2">{formData.newFood.nf10.ibiro}</td>
-                <td className="border p-2">{formData.newFood.nf10.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf10.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf10.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf10.ibiro}</td>
-                <td className="border p-2">{formData.newFood.nf10.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf10.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf10.imifuka}</td>
+              <tr className="bg-indigo-50">
+                <th className="border border-indigo-200 p-2">NF</th>
+                <th className="border border-indigo-200 p-2">IF</th>
+                <th className="border border-indigo-200 p-2">IS</th>
+                <th className="border border-indigo-200 p-2">MG</th>
+                <th className="border border-indigo-200 p-2">IBIRO</th>
+                <th className="border border-indigo-200 p-2">IMIFUKA</th>
+                <th className="border border-indigo-200 p-2">IBIRO</th>
+                <th className="border border-indigo-200 p-2">IMIFUKA</th>
+                <th className="border border-indigo-200 p-2">IBIRO</th>
+                <th className="border border-indigo-200 p-2">IMIFUKA</th>
+                <th className="border border-indigo-200 p-2">IBIRO</th>
+                <th className="border border-indigo-200 p-2">IMIFUKA</th>
+                <th className="border border-indigo-200 p-2">IBIRO</th>
+                <th className="border border-indigo-200 p-2">IMIFUKA</th>
               </tr>
-              <tr>
-                <td className="border p-2">{formData.newFood.nf5.ibiro}</td>
-                <td className="border p-2">{formData.newFood.nf5.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf5.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf5.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf5.ibiro}</td>
-                <td className="border p-2">{formData.newFood.nf5.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf5.imifuka}</td>
-                <td className="border p-2">{formData.newFood.nf5.imifuka}</td>
-              </tr>
-              <tr className="font-bold bg-gray-50">
-                <td className="border p-2"></td>
-                <td className="border p-2">{totals.newFoodImifuka}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2">{totals.newFoodImifuka}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2">{totals.newFoodImifuka}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2">{totals.newFoodImifuka}</td>
-                <td className="border p-2"></td>
-                <td className="border p-2">{totals.envelopeImifuka}</td>
-                <td className="border p-2">TOTAL</td>
-                <td className="border p-2" colSpan="4">{totals.rimafuImifuka}</td>
+            </thead>
+            <tbody>
+              {['25', '10', '5'].map((weight) => (
+                <tr key={weight} className="hover:bg-indigo-50">
+                  {weight === '25' && (
+                    <>
+                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.ifuZavuyemo.nf}</td>
+                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.ifuZavuyemo.if}</td>
+                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.ifuZavuyemo.is}</td>
+                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.ifuZavuyemo.mg}</td>
+                    </>
+                  )}
+                  <td className="border border-indigo-200 p-2">{formData.newFood[`nf${weight}`].ibiro}</td>
+                  <td className="border border-indigo-200 p-2">{formData.newFood[`nf${weight}`].imifuka}</td>
+                  <td className="border border-indigo-200 p-2">{formData.isezerano[`is${weight}`].ibiro}</td>
+                  <td className="border border-indigo-200 p-2">{formData.isezerano[`is${weight}`].imifuka}</td>
+                  <td className="border border-indigo-200 p-2">{formData.ifunguro[`if${weight}`].ibiro}</td>
+                  <td className="border border-indigo-200 p-2">{formData.ifunguro[`if${weight}`].imifuka}</td>
+                  <td className="border border-indigo-200 p-2">{formData.magaju[`mg${weight}`].ibiro}</td>
+                  <td className="border border-indigo-200 p-2">{formData.magaju[`mg${weight}`].imifuka}</td>
+                  {weight === '25' && (
+                    <>
+                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.envelope.ibiro}</td>
+                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.envelope.imifuka}</td>
+                    </>
+                  )}
+                </tr>
+              ))}
+              <tr className="font-bold bg-indigo-50">
+                <td colSpan="4" className="border border-indigo-200 p-2">{totals.ifuZavuyemoTotal}</td>
+                <td className="border border-indigo-200 p-2">{totals.newFoodTotal}</td>
+                <td className="border border-indigo-200 p-2">{Math.round(totals.newFoodTotal / 25)}</td>
+                <td className="border border-indigo-200 p-2">{totals.isezeranoTotal}</td>
+                <td className="border border-indigo-200 p-2">{Math.round(totals.isezeranoTotal / 25)}</td>
+                <td className="border border-indigo-200 p-2">{totals.ifunguroTotal}</td>
+                <td className="border border-indigo-200 p-2">{Math.round(totals.ifunguroTotal / 25)}</td>
+                <td className="border border-indigo-200 p-2">{totals.magajuTotal}</td>
+                <td className="border border-indigo-200 p-2">{Math.round(totals.magajuTotal / 25)}</td>
+                <td className="border border-indigo-200 p-2">{totals.envelopeTotal}</td>
+                <td className="border border-indigo-200 p-2">{formData.envelope.imifuka}</td>
               </tr>
             </tbody>
           </table>
         </div>
-        </div>
-      </div>
-      <div className="bg-white rounded-lg shadow-md p-4">
-       
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default IbisanzwePage;
+export default IbisanzwePage

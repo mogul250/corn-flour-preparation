@@ -99,7 +99,7 @@ const IbyagurishijwePage = () => {
                               <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">ISEZERANO</th>
                               <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">MAGAJU</th>
                               <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IS ENVELOPE/5KG</th>
-                            </tr>
+                            </tr> 
                             <tr className="bg-gray-50">
                               {['NEW FOOD', 'IFUNGURO', 'ISEZERANO', 'MAGAJU'].map(product => (
                                 <React.Fragment key={product}>
@@ -109,7 +109,7 @@ const IbyagurishijwePage = () => {
                                   <th className="border p-2">total (RWF)</th>
                                 </React.Fragment>
                               ))}
-                              <th className="border p-2">ibiro</th>
+ol d=                              <th className="border p-2">ibiro</th> 
                               <th className="border p-2">envelope</th>
                               <th className="border p-2">Igiciro (RWF)</th>
                               <th className="border p-2">total (RWF)</th>
