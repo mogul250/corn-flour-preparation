@@ -35,24 +35,29 @@ const ProductFormSel = () => {
   });
   const handleGridInputChange = (fieldName, rowIndex, field, value) => {
     setFormData(prevData => {
-      const newFlourData = [...prevData[fieldName]];
-      newFlourData[rowIndex] = {
-        ...newFlourData[rowIndex],
-        [field]: value,
-      };
-
-      if (field === 'ibiro') {
-        const proportion = fieldName === 'envelope' ? 5 : [25, 10, 5][rowIndex];
-        newFlourData[rowIndex].imifuka = proportion ? Math.round(value / proportion) : '';
+      try {
+        const newFlourData = [...prevData[fieldName]];
+        newFlourData[rowIndex] = {
+          ...newFlourData[rowIndex],
+          [field]: value,
+        };
+  
+        if (field === 'ibiro') {
+          const proportion = fieldName === 'envelope' ? 5 : [25, 10, 5][rowIndex];
+          newFlourData[rowIndex].imifuka = proportion ? Math.round(value / proportion) : '';
+        }
+        if (field === 'price' || field === 'ibiro') {
+          newFlourData[rowIndex].total = (newFlourData[rowIndex].imifuka * newFlourData[rowIndex].price).toFixed(2) || '';
+        }
+  
+        return {
+          ...prevData,
+          [fieldName]: newFlourData,
+        };
+        
+      } catch (error) {
+        return prevData
       }
-      if (field === 'price' || field === 'ibiro') {
-        newFlourData[rowIndex].total = (newFlourData[rowIndex].imifuka * newFlourData[rowIndex].price).toFixed(2) || '';
-      }
-
-      return {
-        ...prevData,
-        [fieldName]: newFlourData,
-      };
     });
   };
 

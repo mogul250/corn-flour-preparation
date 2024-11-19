@@ -23,22 +23,20 @@ export const flourSales = async  (req,res)=>{
         let totals = await getLRec('sales_track','totals')
 
         !totals ? totals = {nf: 0,is:0,ma:0,if:0,envelope:0} : totals = JSON.parse(totals)
-        console.log(totals)
 
         totals.nf += calculateTotal(NF)
         totals.is+= calculateTotal(IS)
         totals.ma+= calculateTotal(MA)
         totals.if+=calculateTotal(IF)
         totals.envelope +=calculateTotal(envelope)
-        console.log(totals)
         let weights = {
             NF:calculateTotal(NF),IS:calculateTotal(IS),MA:calculateTotal(MA),IF:calculateTotal(IF),envelope:calculateTotal(envelope)
         }
-        NF = Object.fromEntries(Object.entries(NF).map(([key,value])=> [key,value.weights]))
-        IS = Object.fromEntries(Object.entries(IS).map(([key,value])=> [key,value.weights]))
-        MA = Object.fromEntries(Object.entries(MA).map(([key,value])=> [key,value.weights]))
-        envelope = Object.fromEntries(Object.entries(envelope).map(([key,value])=> [key,value.weights]))
-        IF = Object.fromEntries(Object.entries(IF).map(([key,value])=> [key,value.weights]))
+        // NF = Object.fromEntries(Object.entries(NF).map(([key,value])=> [key,value.weights]))
+        // IS = Object.fromEntries(Object.entries(IS).map(([key,value])=> [key,value.weights]))
+        // MA = Object.fromEntries(Object.entries(MA).map(([key,value])=> [key,value.weights]))
+        // envelope = Object.fromEntries(Object.entries(envelope).map(([key,value])=> [key,value.weights]))
+        // IF = Object.fromEntries(Object.entries(IF).map(([key,value])=> [key,value.weights]))
         // return IF
         !date ? date = now() : null;
         const insert = await query(`INSERT INTO sales VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,client,g_amount,r_amount,no_sacks,JSON.stringify(IF),JSON.stringify(IS),JSON.stringify(MA),JSON.stringify(NF),JSON.stringify(envelope),comment,date])
@@ -79,11 +77,11 @@ export const salesReport = async (req,res)=>{
         }
         report = report.map(rep=>{
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
-            // rep.ifunguro = JSON.parse(rep.ifunguro)
-            // rep.new_food = JSON.parse(rep.new_food)
-            // rep.isezerano = JSON.parse(rep.isezerano)
-            // rep.magaju = JSON.parse(rep.magaju)
-            // rep.f_e = JSON.parse(rep.f_e)
+            rep.ifunguro = JSON.parse(rep.ifunguro)
+            rep.new_food = JSON.parse(rep.new_food)
+            rep.isezerano = JSON.parse(rep.isezerano)
+            rep.magaju = JSON.parse(rep.magaju)
+            rep.envelope = JSON.parse(rep.envelope)
             return rep
         })
         
