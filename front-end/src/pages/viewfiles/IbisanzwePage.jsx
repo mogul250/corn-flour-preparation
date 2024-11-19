@@ -279,8 +279,6 @@ const IbisanzwePage = () => {
         </div>
         </div>
       </div>
-
-      
       <div className="bg-white rounded-lg shadow-md p-4">
        
       </div>

@@ -124,7 +124,6 @@ const IbyagurishijwePage = () => {
                                   }
                                   let currentI = null
                                   index == 0 ? currentI = 'new_food': index == 1 ? currentI = 'ifunguro' : index == 2 ? currentI= 'isezerano' : index == 3 ? currentI= 'magaju': index == 4 ? currentI = 'envelope': null
-                                  // console.log(item[currentI])
                                   let unit = Number(Object.keys(item[currentI].weights).reverse()[rowIndex]) || null,
                                   count = Number(Object.values(item[currentI].weights).reverse()[rowIndex]) || null,
                                   price = Number(Object.values(item[currentI].pricings).reverse()[rowIndex]) || null
