@@ -97,11 +97,10 @@ const IbisanzwePage = () => {
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Icyongeweho</th>
               </tr>
             </thead>
-            <tbody>
               {
-              records.map((element,index) => {
-
-                let isNFAvai = Object.values(element.new_food).find(el=> el),
+                records.map((element,index) => {
+                  
+                  let isNFAvai = Object.values(element.new_food).find(el=> el),
                 isIFAvai = Object.values(element.ifunguro).find(el=> el),
                 isISAvai = Object.values(element.isezerano).find(el=> el),
                 isMAAvai = Object.values(element.magaju).find(el=> el),
@@ -111,21 +110,87 @@ const IbisanzwePage = () => {
                 isISAvai? avai_f.push('IS'): null
                 isMAAvai? avai_f.push('MA'): null
                return (
-                <tr key={index}>
-                    <td className="border p-2">{element.date}</td>
-                    <td className="border p-2">{element.reporter}</td>
-                    <td className="border p-2">{adcm(element.incoming_c)} KG</td>
-                    <td className="border p-2">{avai_f.toString()}</td>
-                    <td className="border p-2">{adcm(element.waste_e)} KG</td>
-                    <td className="border p-2">{adcm(element.waste_f)} KG</td>
-                    <td className="border p-2">{element.comment}</td>
-                </tr>)
+                <tbody key={index}>
+                    <tr >
+                        <td className="border p-2">{element.date}</td>
+                        <td className="border p-2">{element.reporter}</td>
+                        <td className="border p-2">{adcm(element.incoming_c)} KG</td>
+                        <td className="border p-2">{avai_f.toString()}</td>
+                        <td className="border p-2">{adcm(element.waste_e)} KG</td>
+                        <td className="border p-2">{adcm(element.waste_f)} KG</td>
+                        <td className="border p-2">{element.comment}</td>
+                    </tr>
+                    {/* <tr>
+                    <td colSpan={8}>
+                      <div className="overflow-x-auto">
+                        <table className="min-w-full border-collapse border">
+                          <thead>
+                            <tr>
+                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IFU YATEGANYWAGA KUVAMO</th>
+                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">NEW FOOD</th>
+                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IFUNGURO</th>
+                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">ISEZERANO</th>
+                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">MAGAJU</th>
+                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IS ENVELOPE/5KG</th>
+                            </tr>
+                            <tr className="bg-gray-50">
+                              {['IFU YATEGANYWAGA KUVAMO','NEW FOOD', 'IFUNGURO', 'ISEZERANO', 'MAGAJU'].map(product => (
+                                <React.Fragment key={product}>
+                                  <th className="border p-2">ibiro</th>
+                                  <th className="border p-2">imifuka</th>
+                                </React.Fragment>
+                              ))}
+                              <th className="border p-2">ibiro</th>
+                              <th className="border p-2">envelope</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {[0, 1, 2].map((rowIndex) => (
+                              <tr key={rowIndex}>
+                                {[1,2,3,4,5,6].map((data,index) => {
+                                  if (index == 5 && rowIndex > 0) {
+                                    return null;
+                                  }
+                                  let currentI = null
+                                  index == 0 ? currentI = 'f_e':index == 1 ? currentI = 'new_food': index == 2 ? currentI = 'ifunguro' : index == 3 ? currentI= 'isezerano' : index == 4 ? currentI= 'magaju': index == 5 ? currentI = 'envelope': null
+                                  let unit,count
+                                  // if (currentI != 'f_e') {
+                                  //     unit = Number(Object.keys(element[currentI]).reverse()[rowIndex]) || null,
+                                  //     count = Number(Object.values(element[currentI]).reverse()[rowIndex]) || null  
+                                    
+                                  // }
+                                  return (
+                                    <React.Fragment key={`${currentI}-${rowIndex}`}>
+                                      <td className="border p-2">
+                                        <input
+                                          value={unit}
+                                          className="w-full bg-gray-50"
+                                        />
+                                      </td>
+                                      <td className="border p-2">
+                                        <input
+                                          value={count}
+                                          className="w-full bg-gray-50"
+                                        />
+                                      </td>
+                                    </React.Fragment>
+                                  );
+                                })}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+
+                  </tr> */}
+                </tbody>
+                )
               })
             }
               <tr>
                 
               </tr>
-            </tbody>
           </table>
 
           <h2 className="text-xl font-semibold text-indigo-800 mb-4 text-center ">RAPORO ZIBIRO NIMIFUKA KURI BURI IFU YAKOZWE</h2>
