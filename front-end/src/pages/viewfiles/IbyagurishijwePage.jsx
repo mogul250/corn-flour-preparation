@@ -77,7 +77,7 @@ const IbyagurishijwePage = () => {
               </tr>
             </thead>
               {records.map((item, index) => (
-                <tbody>
+                <tbody key={index}>
                   <tr key={index}>
                     <td className="border p-2">{item.date}</td>
                     <td className="border p-2">{item.reporter}</td>
@@ -109,7 +109,7 @@ const IbyagurishijwePage = () => {
                                   <th className="border p-2">total (RWF)</th>
                                 </React.Fragment>
                               ))}
-ol d=                              <th className="border p-2">ibiro</th> 
+                              <th className="border p-2">ibiro</th> 
                               <th className="border p-2">envelope</th>
                               <th className="border p-2">Igiciro (RWF)</th>
                               <th className="border p-2">total (RWF)</th>
