@@ -8,6 +8,7 @@ import View from './ViewFile/vieafile/ViewFirst';
 import ProductFormPre from './components/ProductFormPre';
 import ProductFormChe from './components/ProductFormChe'
 import ProductFormSel from './components/ProductFormSel'
+import ProductFormOut from './components/ProductFormOut'
 
 import HomePages from './HomePages'
 import IbyinjiyePage from './pages/viewfiles/IbyinjiyePage';
@@ -28,6 +29,7 @@ function App() {
         <Route path="/ProductFormPre" element={<ProductFormPre />} />
         <Route path="/ProductFormChe" element={<ProductFormChe />} />
         <Route path="/ProductFormSel" element={<ProductFormSel />} />
+        <Route path="/ProductFormOut" element={<ProductFormOut />} />
         <Route path="/view" element={<View/>} />
 
         {/* viewreort */}
