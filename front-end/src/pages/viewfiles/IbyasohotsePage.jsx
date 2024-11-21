@@ -60,11 +60,6 @@ const initialFormData = {
     igiciro:'250',
     frw: '10'
   },
-
-
-
-
-
   
 }
 
@@ -84,7 +79,7 @@ const IbyasohotsePage = () => {
     <div className="container mx-auto p-4 space-y-8">
       <div className="bg-white rounded-lg shadow-md p-4">
         <h2 className="text-2xl font-bold text-center text-indigo-800 mb-4">
-          RAPORO
+          RAPORO YUWAGEMUYE IFU KWISOKO
         </h2>
        
         <div className="overflow-x-auto mb-8">
@@ -197,14 +192,7 @@ const IbyasohotsePage = () => {
                     <th className="border border-indigo-200 p-2">FRW</th>
                   </React.Fragment>
                 ))}
-              </tr>
-
-
-
-
-
-
-       
+              </tr>       
             </thead>
             <tbody>
               {['25', '10', '5'].map((weight) => (
@@ -230,11 +218,6 @@ const IbyasohotsePage = () => {
                   <td className="border border-indigo-200 p-2">{formData.magaju[`mg${weight}`].imifuka}</td>
                   <td className="border border-indigo-200 p-2">{formData.magaju[`mg${weight}`].igiciro}</td>
                   <td className="border border-indigo-200 p-2">{formData.magaju[`mg${weight}`].frw}</td>
-                  
-
-
-
-
                   {weight === '25' && (
                     <>
                       <td rowSpan="3" className="border border-indigo-200 p-2">{formData.envelope.ibiro}</td>

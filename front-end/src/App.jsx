@@ -9,6 +9,7 @@ import ProductFormPre from './components/ProductFormPre';
 import ProductFormChe from './components/ProductFormChe'
 import ProductFormSel from './components/ProductFormSel'
 import ProductFormOut from './components/ProductFormOut'
+import ProductFormStc from './components/ProductFormStc'
 
 import HomePages from './HomePages'
 import IbyinjiyePage from './pages/viewfiles/IbyinjiyePage';
@@ -30,14 +31,15 @@ function App() {
         <Route path="/ProductFormChe" element={<ProductFormChe />} />
         <Route path="/ProductFormSel" element={<ProductFormSel />} />
         <Route path="/ProductFormOut" element={<ProductFormOut />} />
+        <Route path="/ProductFormStc" element={<ProductFormStc />} />
         <Route path="/view" element={<View/>} />
 
         {/* viewreort */}
-        <Route path="/HomePages" element={< HomePages/>} />
+        <Route path="/HomePages" element={<HomePages/>} />
         <Route path="/Ibishyashya" element={<IbishyashyaPage />} />
         <Route path="/Gutunganya" element={<GutunganyaPage />} />
         <Route path="/Ibyinjiye" element={<IbyinjiyePage />} />
-        <Route path="/Ibyagurishijwe" element={<IbyagurishijwePage />} />
+        <Route path="/Ibyagurishijwe" element={<IbyagurishijwePage />} /> 
         <Route path="/Ibyasohotse" element={<IbyasohotsePage />} />
         <Route path="/Ibisanzwe" element={<IbisanzwePage />} />
       

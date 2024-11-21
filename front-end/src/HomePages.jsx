@@ -9,9 +9,14 @@ const HomePages = () => {
     { name: ' Ibishyashya', path: '/Ibishyashya' },
     { name: 'Gutunganywa 1', path: '/Gutunganya'},
     { name: ' Gutunganywa 2', path: '/ibisanzwe' },
-    { name: ' ibyagurishijwe', path: '/ibyagurishijwe' },
+    { name: ' Ibyagiye Kwisoko', path: '/ibyagurishijwe' },
     { name: ' ibyasohotse', path: '/ibyasohotse' },
-    { name: ' Ibinjiye', path: '/Ibyinjiye' },
+    { name: ' Sitoke', path: '/Ibyinjiye' },
+    { name: ' Ibyagarutse', path: '/Ibyagarutse' },
+    { name: 'Buranda 1', path: '/Buranda 1' },
+    { name: 'Buranda 2', path: '/Buranda 2' },
+    { name: 'Depanse', path: '/Depanse' },
+    { name: 'List Yabakozi', path: '/List Yabakozi' },
     
   ];
 
