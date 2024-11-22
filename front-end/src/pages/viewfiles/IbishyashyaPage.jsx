@@ -72,6 +72,8 @@ const IbishyashyaPage = () => {
                     <td className="border border-indigo-500 px-4 py-2">{adcm(element.gross_price)} RWF</td>
                     <td className="border border-indigo-500 px-4 py-2">{adcm(element.amount_paid)} RWF</td>
                     <td className="border border-indigo-500 px-4 py-2">{adcm(element.r_amount)} RWF</td>
+                    <td className="border border-indigo-500 px-4 py-2">{element.reporter}</td>
+                    <td className="border border-indigo-500 px-4 py-2">{element.comment}</td>
                 </tr>)
               })
             }

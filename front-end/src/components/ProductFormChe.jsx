@@ -85,7 +85,6 @@ const ProductFormChe = () => {
     
     setSuccessMessage('Form submitted successfully!');
     setTimeout(() => setSuccessMessage(''), 3000); 
-    console.log(formData)
     const scheme = pS
     scheme.body = JSON.stringify(formData)
     let res = await f('packaging',scheme)
