@@ -33,7 +33,7 @@ const IbishyashyaPage = () => {
     <div className="container mx-auto p-4">
       {/* Title Section */}
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-indigo-600">Utanze Raporo:{reporterName}</h1>
+      
         <h2 className="text-xl mt-2 text-center">RAPORO Y'IBIGORI BYINJIYE MU RUGANDA</h2>
       </div>
 
@@ -105,10 +105,6 @@ const IbishyashyaPage = () => {
               {/* Add more rows as needed */}
             </tbody>
           </table>
-        </div>
-        <div className="mb-6">
-            <h1 className="text-2xl font-bold text-indigo-600">comments:{additionalInfo}</h1>
-            
         </div>
       </div>
     </div>
