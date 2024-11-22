@@ -138,3 +138,40 @@ export const flourSalesNR = async  (req,res)=>{
         res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
     }
 }
+export const salesNRReport = async (req,res)=>{
+    try {
+        const {date} = req.body
+        if (!date.start || !date.stop) {
+            let lastm = DateTime.fromFormat(now(), 'yyyy-MM-dd HH:mm:ss')
+            lastm = lastm.minus({months: 1})
+            lastm = lastm.toFormat('yyyy-MM-dd')
+            date.start = lastm
+            date.stop = now()
+        }
+        let report = await query('SELECT * from sales_n_returns where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop]),mtotal,added,initamount,lastRec
+        if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        // if(report.length){
+        //     lastRec = await getLStockTrackRec('packaging_track')
+        //     if(lastRec != [] && lastRec){
+        //         // added = lastStW-Number(lastRec.weight)
+        //         // mtotal = Number(lastStW)
+        //         // initamount = lastRec.r_weight
+        //         lastRec.weights = JSON.parse(lastRec.weights)
+        //         lastRec.date = DateTime.fromISO(lastRec.date).toFormat('yyyy LLL dd')
+
+                
+        //     }
+        // }
+        report = report.map(rep=>{
+            rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
+            rep.p_delivered = JSON.parse(rep.p_delivered)
+            rep.p_sold = JSON.parse(rep.p_sold)
+            return rep
+        })
+        
+        res.status(rM.sM.entRemessage.rC).send({success: rM.sM.entRemessage.s,message: rM.sM.entRemessage.c,metadata: {report}})
+    } catch (error) {
+        console.log(error)
+        res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+    }
+}

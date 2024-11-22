@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { adcm, f, pS } from '../../public/functions';
 
@@ -55,9 +56,10 @@ const ProductFormSel = () => {
           [fieldName]: newFlourData,
         };
         
+      // eslint-disable-next-line no-unused-vars
       } catch (error) {
         return prevData
-      }
+      } 
     });
   };
 

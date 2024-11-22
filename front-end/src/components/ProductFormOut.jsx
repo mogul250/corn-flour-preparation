@@ -128,9 +128,9 @@ const ProductFormOut = () => {
         />
         <input
           type="text"
-          defaultValue={formData.p_sold[object][index]?.igiciro || ''}
+          defaultValue={formData.p_sold[object][index]?.price || ''}
           onBlur={(e)=>seFdata(e,size)}
-          name='igiciro'
+          name='price'
           className="w-full px-3 py-2 text-sm border rounded"
         />
         <input
@@ -250,9 +250,9 @@ const ProductFormOut = () => {
           />
           <input
             type="text"
-            defaultValue={formData.p_sold['envelope'][0]?.igiciro || ''}
+            defaultValue={formData.p_sold['envelope'][0]?.price || ''}
             onBlur={e=>seFdata(e,5)}
-            name='igiciro'
+            name='price'
             className="w-full px-3 py-2 text-sm border rounded"
           />
           <input
@@ -353,7 +353,6 @@ const ProductFormOut = () => {
                value={formData.date}
                onChange={handleInputChange}
                className="w-full px-3 py-2 border rounded"
-               required
              />
            </div>
            <div>

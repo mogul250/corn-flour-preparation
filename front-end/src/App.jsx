@@ -10,6 +10,7 @@ import ProductFormChe from './components/ProductFormChe';
 import ProductFormSel from './components/ProductFormSel';
 import ProductFormOut from './components/ProductFormOut';
 import ProductFormStc from './components/ProductFormStc';
+import ProductFormBack from './components/ProductFormBack';
 
 import HomePages from './HomePages'
 import IbyinjiyePage from './pages/viewfiles/IbyinjiyePage';
@@ -18,6 +19,7 @@ import IbyagurishijwePage from './pages/viewfiles/IbyagurishijwePage';
 import IbyasohotsePage from './pages/viewfiles/IbyasohotsePage';
 import IbisanzwePage from './pages/viewfiles/IbisanzwePage';
 import GutunganyaPage from './pages/viewfiles/GutunganyaPage';
+import IbyagarutsePage from './pages/viewfiles/IbyagarutsePage';
 
 
 function App() {
@@ -32,6 +34,7 @@ function App() {
         <Route path="/ProductFormSel" element={<ProductFormSel />} />
         <Route path="/ProductFormOut" element={<ProductFormOut />} />
         <Route path="/ProductFormStc" element={<ProductFormStc />} />
+        <Route path="/ProductFormBack" element={<ProductFormBack />} />
         <Route path="/view" element={<View/>} />
 
         {/* viewreort */}
@@ -42,6 +45,7 @@ function App() {
         <Route path="/Ibyagurishijwe" element={<IbyagurishijwePage />} /> 
         <Route path="/Ibyasohotse" element={<IbyasohotsePage />} />
         <Route path="/Ibisanzwe" element={<IbisanzwePage />} />
+        <Route path="/Ibyagarutse" element={<IbyagarutsePage />} />
       
       </Routes>
     </Router>
