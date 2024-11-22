@@ -156,7 +156,6 @@ const ProductFormSel = () => {
     const emptyVar = Object.keys(formData).find((key)=> !formData[key] && key != 'date')
     if (emptyVar) return
     let nfd = formData
-    nfd
     nfd.NF = transformData(formData.NF)
     nfd.IS = transformData(formData.IS)
     nfd.IF = transformData(formData.IF)
