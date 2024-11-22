@@ -6,18 +6,18 @@ import LoginForm from './components/LoginForm';
 import ProductForm from './components/ProductForm';
 import View from './ViewFile/vieafile/ViewFirst';
 import ProductFormPre from './components/ProductFormPre';
-import ProductFormChe from './components/ProductFormChe'
-import ProductFormSel from './components/ProductFormSel'
-import ProductFormOut from './components/ProductFormOut'
-import ProductFormStc from './components/ProductFormStc'
+import ProductFormChe from './components/ProductFormChe';
+import ProductFormSel from './components/ProductFormSel';
+import ProductFormOut from './components/ProductFormOut';
+import ProductFormStc from './components/ProductFormStc';
 
 import HomePages from './HomePages'
 import IbyinjiyePage from './pages/viewfiles/IbyinjiyePage';
 import IbishyashyaPage from './pages/viewfiles/IbishyashyaPage';
-import IbyagurishijwePage from './pages/viewfiles/IbyagurishijwePage'
+import IbyagurishijwePage from './pages/viewfiles/IbyagurishijwePage';
 import IbyasohotsePage from './pages/viewfiles/IbyasohotsePage';
-import IbisanzwePage from './pages/viewfiles/IbisanzwePage'
-import GutunganyaPage from './pages/viewfiles/GutunganyaPage'
+import IbisanzwePage from './pages/viewfiles/IbisanzwePage';
+import GutunganyaPage from './pages/viewfiles/GutunganyaPage';
 
 
 function App() {
