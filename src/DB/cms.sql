@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 19, 2024 at 09:44 AM
+-- Generation Time: Nov 22, 2024 at 03:19 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -179,6 +179,30 @@ INSERT INTO `sales` (`id`, `reporter`, `distributor`, `client`, `g_amount`, `r_a
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sales_n_returns`
+--
+
+CREATE TABLE `sales_n_returns` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(1000) NOT NULL,
+  `distributor` varchar(255) NOT NULL,
+  `client` varchar(255) NOT NULL,
+  `p_delivered` varchar(255) NOT NULL,
+  `p_sold` varchar(1000) NOT NULL,
+  `comment` varchar(1000) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sales_n_returns`
+--
+
+INSERT INTO `sales_n_returns` (`id`, `reporter`, `distributor`, `client`, `p_delivered`, `p_sold`, `comment`, `date`) VALUES
+('64x40w', 'heshima', 'kapooo', 'nyamanswa', '{\"NF\":{\"5\":20,\"10\":5,\"25\":4},\"IS\":{\"5\":12,\"10\":17,\"25\":8},\"IF\":{\"5\":14,\"10\":6,\"25\":2},\"MA\":{\"5\":0,\"10\":0,\"25\":3},\"envelope\":{\"5\":20}}', '{\"NF\":{\"weights\":{\"5\":16,\"10\":6,\"25\":4},\"pricings\":{\"5\":1000,\"10\":300,\"25\":199},\"totals\":{\"5\":16000,\"10\":1800,\"25\":796}},\"IS\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"IF\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"MA\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"envelope\":{\"weights\":{\"5\":20},\"pricings\":{\"5\":1000},\"totals\":{\"5\":20000}}}', 'byakunze', '2024-11-22 16:06:21');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sales_track`
 --
 
@@ -311,6 +335,12 @@ ALTER TABLE `preparation_track`
 -- Indexes for table `sales`
 --
 ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sales_n_returns`
+--
+ALTER TABLE `sales_n_returns`
   ADD PRIMARY KEY (`id`);
 
 --

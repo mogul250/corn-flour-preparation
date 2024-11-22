@@ -4,38 +4,7 @@ import { adcm, f, pS } from '../../../public/functions';
 const IbyagurishijwePage = () => {
   const [marketData, setMarketData] = useState([]),
   [records,setRecords] = useState([])
-  const [productData, setProductData] = useState({
-    'NEW FOOD': [
-      [
-      { ibiro: 1111, imifuka: 0, igiciro: 0 },
-      { ibiro: 2, imifuka: 0, igiciro: 0 },
-      { ibiro: 3, imifuka: 0, igiciro: 0 }
-    ],
-    [
-      { ibiro: 1111, imifuka: 0, igiciro: 0 },
-      { ibiro: 2, imifuka: 0, igiciro: 0 },
-      { ibiro: 3, imifuka: 0, igiciro: 0 }
-    ]
-  ],
-    'IFUNGURO': [
-      { ibiro: 0, imifuka: 0, igiciro: 0 },
-      { ibiro: 0, imifuka: 0, igiciro: 0 },
-      { ibiro: 0, imifuka: 0, igiciro: 0 }
-    ],
-    'ISEZERANO': [
-      { ibiro: 0, imifuka: 0, igiciro: 0 },
-      { ibiro: 0, imifuka: 0, igiciro: 0 },
-      { ibiro: 0, imifuka: 0, igiciro: 0 }
-    ],
-    'MAGAJU': [
-      { ibiro: 0, imifuka: 0, igiciro: 0 },
-      { ibiro: 0, imifuka: 0, igiciro: 0 },
-      { ibiro: 0, imifuka: 0, igiciro: 0 }
-    ],
-    'IS ENVELOPE/5KG': [
-      { ibiro: 0, envelope: 0, igiciro: 0 }
-    ],
-  }),hasFetched = useRef(false)
+  ,hasFetched = useRef(false)
   useEffect(()=>{
     if (!hasFetched.current) {
       const fetchRecs = async ()=>{
@@ -52,10 +21,6 @@ const IbyagurishijwePage = () => {
     }
   },[])
 
-  const calculateTotal = (data) => {
-    const { imifuka, igiciro } = data;
-    return (imifuka * igiciro).toFixed(2);
-  };
 
   return (
     <div className="w-full p-4 space-y-8">
