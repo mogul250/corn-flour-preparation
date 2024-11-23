@@ -1,9 +1,8 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { adcm, f, pS } from '../../../public/functions'
 
-
 const IbyasohotsePage = () => {
-  [records,setRecords] = useState([]),
+  const [records,setRecords] = useState([]),
   hasFetched = useRef(false)
   useEffect(()=>{
     if (!hasFetched.current) {

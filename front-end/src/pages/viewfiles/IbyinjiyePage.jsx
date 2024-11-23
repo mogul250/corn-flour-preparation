@@ -58,9 +58,6 @@ const IbyinjiyePage = () => {
           schema.body = JSON.stringify({date: {}})
           let recs = await f('packaging-track-report',pS)
           setRecords(recs.metadata.report)
-          // setTotals(
-          //   recs.metadata.mainTotals
-          // )
         }
         fetchRecs()
         hasFetched.current = true
