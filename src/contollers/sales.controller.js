@@ -8,9 +8,10 @@ export const flourSales = async  (req,res)=>{
     try {
         const calculateTotal = (ibiro) => Object.entries(ibiro.weights).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
         let {distributor,reporter,g_amount,NF,IF,r_amount,no_sacks,IS,MA,envelope,comment,date,client} = req.body,
-        id = rsg(6,true,true,!1,!1),
+        id = rsg(6,true,true,!1,!1)
+        !date ? date = now() : null;
         // lastStW = await getLRec('packaging_track','r_weight'),
-        l_nf = await getLRec('packaging_track','nf_t'),
+       let l_nf = await getLRec('packaging_track','nf_t'),
         l_is = await getLRec('packaging_track','is_t'),
         l_ma = await getLRec('packaging_track','ma_t'),
         l_if = await getLRec('packaging_track','if_t'),

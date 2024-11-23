@@ -1,80 +1,8 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { adcm, f, pS } from '../../../public/functions'
 
-const initialFormData = {
-  exampleData: [
-    {
-      date: '2024-11-12',
-      utanzeRaporo: 'PABLOSCH',
-      uwagemuye: 'NYAmaNSWA',
-      umukiliya: 'MEDIAtrice',
-      icyongeweho: 'ibyatunganyijwe byose byagenze neza',
-    },
-  ],
-  newFood: {
-    nf25: { ibiro: '25', imifuka: '2' },
-    nf10: { ibiro: '30', imifuka: '3' },
-    nf5: { ibiro: '20', imifuka: '4' }
-  },
-  isezerano: {
-    is25: { ibiro: '25', imifuka: '1' },
-    is10: { ibiro: '15', imifuka: '3' },
-    is5: { ibiro: '20', imifuka: '4' }
-  },
-  ifunguro: {
-    if25: { ibiro: '55', imifuka: '2' },
-    if10: { ibiro: '35', imifuka: '3' },
-    if5: { ibiro: '22', imifuka: '4' }
-  },
-  magaju: {
-    mg25: { ibiro: '50', imifuka: '2' },
-    mg10: { ibiro: '40', imifuka: '4' },
-    mg5: { ibiro: '30', imifuka: '6' }
-  },
-  envelope: {
-    ibiro: '150',
-    imifuka: '15'
-  },
-  newFood: {
-    nf25: { ibiro: '25', imifuka: '2',igiciro:'350',frw:'700' },
-    nf10: { ibiro: '30', imifuka: '3',igiciro:'350',frw:'1050' },
-    nf5: { ibiro: '20', imifuka: '4',igiciro:'350',frw:'1400' }
-  },
-  isezerano: {
-    is25: { ibiro: '60', imifuka: '2',igiciro:'350',frw:'700' },
-    is10: { ibiro: '40', imifuka: '4',igiciro:'350',frw:'1400' },
-    is5: { ibiro: '25', imifuka: '5',igiciro:'350',frw:'1750' }
-  },
-  ifunguro: {
-    if25: { ibiro: '55', imifuka: '2',igiciro:'350',frw:'700' },
-    if10: { ibiro: '35', imifuka: '3',igiciro:'350',frw:'1050' },
-    if5: { ibiro: '22', imifuka: '4',igiciro:'350',frw:'1400' }
-  },
-  magaju: {
-    mg25: { ibiro: '45', imifuka: '1',igiciro:'350',frw:'350' },
-    mg10: { ibiro: '30', imifuka: '3',igiciro:'350',frw:'1050' },
-    mg5: { ibiro: '18', imifuka: '3',igiciro:'350',frw:'1050' }
-  },
-  envelope: {
-    ibiro: '10',
-    imifuka: '1',
-    igiciro:'250',
-    frw: '10'
-  },
-  
-}
-
-const calculateTotals = (data) => ({
-  newFoodTotal: Object.values(data.newFood).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
-  isezeranoTotal: Object.values(data.isezerano).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
-  ifunguroTotal: Object.values(data.ifunguro).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
-  magajuTotal: Object.values(data.magaju).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
-  envelopeTotal: Number(data.envelope.ibiro)
-})
 
 const IbyasohotsePage = () => {
-  const [formData, setFormData] = useState(initialFormData)
-  const totals = useMemo(() => calculateTotals(formData), [formData]),
   [records,setRecords] = useState([]),
   hasFetched = useRef(false)
   useEffect(()=>{

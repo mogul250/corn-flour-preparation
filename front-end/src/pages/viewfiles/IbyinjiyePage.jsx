@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useRef, useEffect } from 'react'
+import { adcm, f, pS } from '../../../public/functions'
 
 const initialFormData = {
   exampleData: [
@@ -47,7 +48,24 @@ const calculateTotals = (data) => ({
 
 const IbyinjiyePage = () => {
   const [formData] = useState(initialFormData)
-  const totals = useMemo(() => calculateTotals(formData), [formData])
+  const totals = useMemo(() => calculateTotals(formData), [formData]),
+  [records,setRecords] = useState([]),
+    hasFetched = useRef(false)
+    useEffect(()=>{
+      if (!hasFetched.current) {
+        const fetchRecs = async ()=>{
+          let schema = pS
+          schema.body = JSON.stringify({date: {}})
+          let recs = await f('packaging-track-report',pS)
+          setRecords(recs.metadata.report)
+          // setTotals(
+          //   recs.metadata.mainTotals
+          // )
+        }
+        fetchRecs()
+        hasFetched.current = true
+      }
+    },[])
 
   return (
     <div className="container mx-auto p-4 max-w-full">
@@ -66,97 +84,101 @@ const IbyinjiyePage = () => {
                 <th className="border border-indigo-200 p-2 text-left">Icyongeweho</th>
               </tr>
             </thead>
-            <tbody>
-              {formData.exampleData.map((item, index) => (
-                <tr key={index} className="hover:bg-indigo-50">
-                  <td className="border border-indigo-200 p-2">{item.date}</td>
-                  <td className="border border-indigo-200 p-2">{item.utanzeRaporo}</td>
-                  <td className="border border-indigo-200 p-2">{item.umufuka}</td>
-                  <td className="border border-indigo-200 p-2">{item.icyongeweho}</td>
-                </tr>
-              ))}
-            </tbody>
+              {records.map((item, index) => {
+                return(<tbody key={index}>
+                  <tr key={index} className="hover:bg-indigo-50">
+                    <td className="border border-indigo-200 p-2">{item.date}</td>
+                    <td className="border border-indigo-200 p-2">{item.reporter}</td>
+                    <td className="border border-indigo-200 p-2">{item.umufuka}</td>
+                    <td className="border border-indigo-200 p-2">{item.comment}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={4}>
+                      <div className="w-full overflow-x-auto">
+                        <table className="w-full bg-white border border-indigo-200 text-sm md:text-base">
+                          <thead>
+                            <tr className="bg-indigo-50">
+                              {['NEW FOOD', 'ISEZERANO', 'IFUNGURO', 'MAGAJU', 'ENVELOPE'].map((section) => (
+                                <React.Fragment key={section}>
+                                  <th colSpan="4" className="border border-indigo-200 p-2 text-center">{section}</th>
+                                </React.Fragment>
+                              ))}
+                            </tr>
+                            <tr className="bg-indigo-50">
+                              {['NEW FOOD', 'ISEZERANO', 'IFUNGURO', 'MAGAJU', 'ENVELOPE'].map((section) => (
+                                <React.Fragment key={section}>
+                                  <th className="border border-indigo-200 p-2">IBIRO BYAKOZWE</th>
+                                  <th className="border border-indigo-200 p-2">STOCK SHYA</th>
+                                  <th className="border border-indigo-200 p-2">STOCK YARI IHARI</th>
+                                  <th className="border border-indigo-200 p-2">IMIFUKA YOSE</th>
+                                </React.Fragment>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {['25', '10', '5'].map((weight) => (
+                              <tr key={weight} className="hover:bg-indigo-50">
+                                <td className="border border-indigo-200 p-2">{adcm(item.ls.NF[weight]* Number(weight))}</td>
+                                <td className="border border-indigo-200 p-2">{item.ls.NF[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.r_weights.NF[weight] - item.ls.NF[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.r_weights.NF[weight]}</td>
+
+                                <td className="border border-indigo-200 p-2">{adcm(item.ls.IS[weight]* Number(weight))}</td>
+                                <td className="border border-indigo-200 p-2">{item.ls.IS[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.r_weights.IS[weight] - item.ls.IS[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.r_weights.IS[weight]}</td>
+
+                                <td className="border border-indigo-200 p-2">{adcm(item.ls.IF[weight]* Number(weight))}</td>
+                                <td className="border border-indigo-200 p-2">{item.ls.IF[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.r_weights.IF[weight] - item.ls.IF[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.r_weights.IF[weight]}</td>
+
+                                <td className="border border-indigo-200 p-2">{adcm(item.ls.MA[weight]* Number(weight))}</td>
+                                <td className="border border-indigo-200 p-2">{item.ls.MA[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.r_weights.MA[weight] - item.ls.MA[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.r_weights.MA[weight]}</td>
+
+                                {weight === '25' && (
+                                  <>
+                                    <td rowSpan="3" className="border border-indigo-200 p-2">{adcm(item.ls.envelope['5']* Number('5'))}</td>
+                                    <td rowSpan="3" className="border border-indigo-200 p-2">{item.ls.envelope['5']}</td>
+                                    <td rowSpan="3" className="border border-indigo-200 p-2">{item.r_weights.envelope['5'] - item.ls.envelope['5']}</td>
+                                    <td rowSpan="3" className="border border-indigo-200 p-2">{item.r_weights.envelope['5']}</td>
+                                  </>
+                                )}
+                              </tr>
+                            ))}
+                            <tr className="font-bold bg-indigo-50">
+                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.ls.NF).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.ls.NF).reduce((sum,index)=>(sum+ (index)),0))}</td>
+                              <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
+                              
+                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.ls.IS).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.ls.IS).reduce((sum,index)=>(sum+ (index)),0))}</td>
+                              <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
+                              
+                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.ls.IF).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.ls.IF).reduce((sum,index)=>(sum+ (index)),0))}</td>
+                              <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
+                              
+                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.ls.MA).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.ls.MA).reduce((sum,index)=>(sum+ (index)),0))}</td>
+                              <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
+                              
+                              <td className="border border-indigo-200 p-2">{adcm(item.ls.envelope['5']* Number('5'))}</td>
+                              <td className="border border-indigo-200 p-2">{item.ls.envelope['5']}</td>
+                              <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>)
+              })}
           </table>
         </div>
 
-        <div className="w-full overflow-x-auto">
-          <table className="w-full bg-white border border-indigo-200 text-sm md:text-base">
-            <thead>
-              <tr className="bg-indigo-50">
-                {['NEW FOOD', 'ISEZERANO', 'IFUNGURO', 'MAGAJU', 'ENVELOPE'].map((section) => (
-                  <React.Fragment key={section}>
-                    <th colSpan="4" className="border border-indigo-200 p-2 text-center">{section}</th>
-                  </React.Fragment>
-                ))}
-              </tr>
-              <tr className="bg-indigo-50">
-                {['NEW FOOD', 'ISEZERANO', 'IFUNGURO', 'MAGAJU', 'ENVELOPE'].map((section) => (
-                  <React.Fragment key={section}>
-                    <th className="border border-indigo-200 p-2">IBIRO BYAKOZWE</th>
-                    <th className="border border-indigo-200 p-2">STOCK SHYA</th>
-                    <th className="border border-indigo-200 p-2">STOCK YARI IHARI</th>
-                    <th className="border border-indigo-200 p-2">IMIFUKA YOSE</th>
-                  </React.Fragment>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {['25', '10', '5'].map((weight) => (
-                <tr key={weight} className="hover:bg-indigo-50">
-                  <td className="border border-indigo-200 p-2">{formData.newFood[`nf${weight}`].ibiro}</td>
-                  <td className="border border-indigo-200 p-2">{formData.newFood[`nf${weight}`].shya}</td>
-                  <td className="border border-indigo-200 p-2">{formData.newFood[`nf${weight}`].imifukaIhari}</td>
-                  <td className="border border-indigo-200 p-2">{formData.newFood[`nf${weight}`].imifukaYose}</td>
-
-                  <td className="border border-indigo-200 p-2">{formData.isezerano[`is${weight}`].ibiro}</td>
-                  <td className="border border-indigo-200 p-2">{formData.isezerano[`is${weight}`].shya}</td>
-                  <td className="border border-indigo-200 p-2">{formData.isezerano[`is${weight}`].imifukaIhari}</td>
-                  <td className="border border-indigo-200 p-2">{formData.isezerano[`is${weight}`].imifukaYose}</td>
-
-                  <td className="border border-indigo-200 p-2">{formData.ifunguro[`if${weight}`].ibiro}</td>
-                  <td className="border border-indigo-200 p-2">{formData.ifunguro[`if${weight}`].shya}</td>
-                  <td className="border border-indigo-200 p-2">{formData.ifunguro[`if${weight}`].imifukaIhari}</td>
-                  <td className="border border-indigo-200 p-2">{formData.ifunguro[`if${weight}`].imifukaYose}</td>
-
-                  <td className="border border-indigo-200 p-2">{formData.magaju[`mg${weight}`].ibiro}</td>
-                  <td className="border border-indigo-200 p-2">{formData.magaju[`mg${weight}`].shya}</td>
-                  <td className="border border-indigo-200 p-2">{formData.magaju[`mg${weight}`].imifukaIhari}</td>
-                  <td className="border border-indigo-200 p-2">{formData.magaju[`mg${weight}`].imifukaYose}</td>
-
-                  {weight === '25' && (
-                    <>
-                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.envelope.ibiro}</td>
-                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.envelope.shya}</td>
-                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.envelope.imifukaIhari}</td>
-                      <td rowSpan="3" className="border border-indigo-200 p-2">{formData.envelope.imifukaYose}</td>
-                    </>
-                  )}
-                </tr>
-              ))}
-              <tr className="font-bold bg-indigo-50">
-                <td className="border border-indigo-200 p-2">{totals.newFoodTotal}</td>
-                <td className="border border-indigo-200 p-2">{Math.round(totals.newFoodTotal / 25)}</td>
-                <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
-                
-                <td className="border border-indigo-200 p-2">{totals.isezeranoTotal}</td>
-                <td className="border border-indigo-200 p-2">{Math.round(totals.isezeranoTotal / 25)}</td>
-                <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
-                
-                <td className="border border-indigo-200 p-2">{totals.ifunguroTotal}</td>
-                <td className="border border-indigo-200 p-2">{Math.round(totals.ifunguroTotal / 25)}</td>
-                <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
-                
-                <td className="border border-indigo-200 p-2">{totals.magajuTotal}</td>
-                <td className="border border-indigo-200 p-2">{Math.round(totals.magajuTotal / 25)}</td>
-                <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
-                
-                <td className="border border-indigo-200 p-2">{totals.envelopeTotal}</td>
-                <td className="border border-indigo-200 p-2">{formData.envelope.shya}</td>
-                <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
       </div>
     </div>
   )

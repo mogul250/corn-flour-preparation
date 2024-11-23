@@ -12,7 +12,7 @@ export const prepareCorn = async  (req,res)=>{
         lastSt1W = await getLRec('stock1_track','r_weight'),
         nw = Number(lastStW)+Number(prepared_c),
         nw2 = Number(lastSt1W)-Number(prepared_c)
-        !date ? date = now() : null;
+        !date ? date = now() : date;
         const insert = await query(`INSERT INTO preparation VALUES (?,?,?,?,?,?,?)`,[id,incoming_c,prepared_c,waste_f,reporter,comment,date]),
         insert2 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'add',prepared_c,'preparation',nw,now()]),
         insert3 = await query('INSERT INTO stock1_track VALUES (?,?,?,?,?,?)',[id,'minus',prepared_c-(prepared_c*2),'preparation',nw2,now()])
