@@ -11,6 +11,9 @@ import ProductFormSel from './components/ProductFormSel';
 import ProductFormOut from './components/ProductFormOut';
 import ProductFormStc from './components/ProductFormStc';
 import ProductFormBack from './components/ProductFormBack';
+import ProductFormBranPre from './components/ProductFormBranPre';
+import ProductFormBranSel from './components/ProductFormBranSel';
+import ProductFormDep from './components/ProductFormDep';
 
 import HomePages from './HomePages'
 import IbyinjiyePage from './pages/viewfiles/IbyinjiyePage';
@@ -20,6 +23,9 @@ import IbyasohotsePage from './pages/viewfiles/IbyasohotsePage';
 import IbisanzwePage from './pages/viewfiles/IbisanzwePage';
 import GutunganyaPage from './pages/viewfiles/GutunganyaPage';
 import IbyagarutsePage from './pages/viewfiles/IbyagarutsePage';
+import Buranda1Page from './pages/viewfiles/Buranda1Page';
+import Buranda2Page from './pages/viewfiles/Buranda2Page';
+import DepansePage from './pages/viewfiles/DepansePage';
 
 
 function App() {
@@ -35,6 +41,10 @@ function App() {
         <Route path="/ProductFormOut" element={<ProductFormOut />} />
         <Route path="/ProductFormStc" element={<ProductFormStc />} />
         <Route path="/ProductFormBack" element={<ProductFormBack />} />
+        <Route path="/ProductFormBranPre" element={<ProductFormBranPre />} />
+        <Route path="/ProductFormBranSel" element={<ProductFormBranSel />} />
+        <Route path="/ProductFormDep" element={<ProductFormDep />} />
+
         <Route path="/view" element={<View/>} />
 
         {/* viewreort */}
@@ -46,6 +56,9 @@ function App() {
         <Route path="/Ibyasohotse" element={<IbyasohotsePage />} />
         <Route path="/Ibisanzwe" element={<IbisanzwePage />} />
         <Route path="/Ibyagarutse" element={<IbyagarutsePage />} />
+        <Route path="/Buranda 1" element={< Buranda1Page />} />
+        <Route path="/Buranda 2" element={< Buranda2Page />} />
+        <Route path="/Depanse" element={< DepansePage />} />
       
       </Routes>
     </Router>
