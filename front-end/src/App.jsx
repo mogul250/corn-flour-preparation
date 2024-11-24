@@ -14,6 +14,7 @@ import ProductFormBack from './components/ProductFormBack';
 import ProductFormBranPre from './components/ProductFormBranPre';
 import ProductFormBranSel from './components/ProductFormBranSel';
 import ProductFormDep from './components/ProductFormDep';
+import ProductFormEmp from './components/ProductFormEmp';
 
 import HomePages from './HomePages'
 import IbyinjiyePage from './pages/viewfiles/IbyinjiyePage';
@@ -26,6 +27,7 @@ import IbyagarutsePage from './pages/viewfiles/IbyagarutsePage';
 import Buranda1Page from './pages/viewfiles/Buranda1Page';
 import Buranda2Page from './pages/viewfiles/Buranda2Page';
 import DepansePage from './pages/viewfiles/DepansePage';
+import AbakoziPage from './pages/viewfiles/AbakoziPage';
 
 
 function App() {
@@ -44,7 +46,7 @@ function App() {
         <Route path="/ProductFormBranPre" element={<ProductFormBranPre />} />
         <Route path="/ProductFormBranSel" element={<ProductFormBranSel />} />
         <Route path="/ProductFormDep" element={<ProductFormDep />} />
-
+        <Route path="/ProductFormEmp" element={<ProductFormEmp/>} />
         <Route path="/view" element={<View/>} />
 
         {/* viewreort */}
@@ -59,7 +61,7 @@ function App() {
         <Route path="/Buranda 1" element={< Buranda1Page />} />
         <Route path="/Buranda 2" element={< Buranda2Page />} />
         <Route path="/Depanse" element={< DepansePage />} />
-      
+        <Route path="/List Yabakozi" element={< AbakoziPage />} />
       </Routes>
     </Router>
   );
