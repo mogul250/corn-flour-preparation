@@ -20,16 +20,16 @@ const ProductFormDep= () => {
     reporter: "",
     comment: "",
     expenses: {
-      MAZUTU: "",
-      ABAKARANI: "",
-      TANDBOY: "",
-      SHOFERI: "",
-      SHAMBRE: "",
-      KURYA: "",
-      URUGENDO: "",
-      AMAFARANGAASABWAKUBYACURUJWE: "",
-      AMAFARANGAAVERISHIJE: "",
-      ANDIMAFARANGA: "",
+      Mazutu: "",
+      Abakarani: "",
+      Tandboy: "",
+      Shoferi: "",
+      Shambre: "",
+      Kurya: "",
+      Urugendo: "",
+      Amafarangaasabwakubyacurujwe: "",
+      Amafarangaaverishije: "",
+      Andimafaranga: "",
     },
   });
 
@@ -53,19 +53,20 @@ const ProductFormDep= () => {
     e.preventDefault();
     let nfd = structuredClone(formData)
     nfd.expenses = {
-      diesel: nfd.expenses['MAZUTU'],
-      lifters: nfd.expenses['ABAKARANI'],
-      boys: nfd.expenses['TANDBOY'],
-      driver: nfd.expenses['SHOFERI'],
-      room: nfd.expenses['SHAMBRE'],
-      food: nfd.expenses['KURYA'],
-      travel: nfd.expenses['URUGENDO'],
-      r_amount: nfd.expenses['AMAFARANGA ASABWA KUBYACURUJWE'],
-      inc_amount: nfd.expenses['AMAFARANGA AVERISHIJE'],
-      g_amount: nfd.expenses['ANDI MAFARANDA']
+      diesel: nfd.expenses['Mazutu'],
+      lifters: nfd.expenses['Abakarani'],
+      boys: nfd.expenses['Tandboy'],
+      driver: nfd.expenses['Shoferi'],
+      room: nfd.expenses['Shambre'],
+      food: nfd.expenses['Kurya'],
+      travel: nfd.expenses['Urugendo'],
+      r_amount: nfd.expenses['Amafaranga asabwa kubyacurujwe'],
+      inc_amount: nfd.expenses['Amafaranga averishijwe'],
+      g_amount: nfd.expenses['Andi mafaranga']
     }
     const scheme = pS
     scheme.body = JSON.stringify(nfd)
+    console.log(formData)
     let res = await f('expensesController',scheme)
     setShowMessage(true);
     setTimeout(() => {
