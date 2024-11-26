@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const HomePages = () => {
+  
   const [searchQuery, setSearchQuery] = useState('');
 
   const links = [
