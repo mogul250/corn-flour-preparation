@@ -6,15 +6,15 @@ const HomePages = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const links = [
-    { name: ' Ibishyashya', path: '/Ibishyashya' },
+    { name: 'Ibigori bishyashya', path: '/Ibishyashya' },
     { name: 'Gutunganywa 1', path: '/Gutunganya'},
-    { name: ' Gutunganywa 2', path: '/ibisanzwe' },
-    { name: ' Ibyagiye Kwisoko', path: '/ibyagurishijwe' },
-    { name: ' ibyasohotse', path: '/ibyasohotse' },
-    { name: ' Sitoke', path: '/Ibyinjiye' },
-    { name: ' Ibyagarutse', path: '/Ibyagarutse' },
-    { name: 'Buranda 1', path: '/Buranda 1' },
-    { name: 'Buranda 2', path: '/Buranda 2' },
+    { name: 'Gutunganywa 2', path: '/ibisanzwe' },
+    { name: 'Sitoke', path: '/Ibyinjiye' },
+    { name: 'Buranda yakozwe', path: '/Buranda 1' },
+    { name: 'Buranda yacurujwe', path: '/Buranda 2' },
+    { name: 'Ibyagiye Kwisoko', path: '/ibyagurishijwe' },
+    { name: 'Uwagemuye kwisoko', path: '/ibyasohotse' },
+    { name: 'Ibyagarutse', path: '/Ibyagarutse' },
     { name: 'Depanse', path: '/Depanse' },
     { name: 'List Yabakozi', path: '/List Yabakozi' },
     

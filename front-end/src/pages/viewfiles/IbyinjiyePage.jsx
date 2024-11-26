@@ -59,10 +59,10 @@ const IbyinjiyePage = () => {
                             <tr className="bg-indigo-50">
                               {['NEW FOOD', 'ISEZERANO', 'IFUNGURO', 'MAGAJU', 'ENVELOPE'].map((section) => (
                                 <React.Fragment key={section}>
-                                  <th className="border border-indigo-200 p-2">IBIRO BYAKOZWE</th>
-                                  <th className="border border-indigo-200 p-2">STOCK SHYA</th>
-                                  <th className="border border-indigo-200 p-2">STOCK YARI IHARI</th>
-                                  <th className="border border-indigo-200 p-2">IMIFUKA YOSE</th>
+                                  <th className="border border-indigo-200 p-2">Ibiro byakozwe</th>
+                                  <th className="border border-indigo-200 p-2">Imifuka yakozwe</th>
+                                  <th className="border border-indigo-200 p-2">Imifuka yari hari</th>
+                                  <th className="border border-indigo-200 p-2">Imifuka yose muri stoke</th>
                                 </React.Fragment>
                               ))}
                             </tr>

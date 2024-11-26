@@ -85,9 +85,9 @@ const ProductFormStc = () => {
       <h3 className="font-medium mb-3">{title}</h3>
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
         <span className="text-sm font-medium">Ibiro By'akozwe</span>
-        <span className="text-sm font-medium">Envelope zakozwe</span>
-        <span className="text-sm font-medium">Envelope zari zihari </span>
-        <span className="text-sm font-medium">Envelope zose hamwe muri stoke </span>
+        <span className="text-sm font-medium">Imifuka yakozwe</span>
+        <span className="text-sm font-medium">Imifuka yari hari </span>
+        <span className="text-sm font-medium">Imifuka yose iri muri stoke </span>
       </div>
       <ProductRowDetailed prefix={prefix} size="25" />
       <ProductRowDetailed prefix={prefix} size="10" />
@@ -117,9 +117,9 @@ const ProductFormStc = () => {
         <h3 className="font-medium mb-3">IS YA ENVELOPE</h3>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
           <span className="text-sm font-medium">Ibiro By'akozwe</span>
-          <span className="text-sm font-medium">Stock Shya</span>
-          <span className="text-sm font-medium">Stock Yari Ihari </span>
-          <span className="text-sm font-medium">Stock Yose Hamwe </span>
+          <span className="text-sm font-medium">Envelope yakozwe</span>
+          <span className="text-sm font-medium">Envelope zari zihari </span>
+          <span className="text-sm font-medium">Envelope zose ziri muri stoke</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
           <input
@@ -270,7 +270,7 @@ const ProductFormStc = () => {
             <div className="flex flex-col gap-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-indigo-600">
                 <DetailedProductSection title="NEW FOOD" prefix="NF" />
-                <DetailedProductSection title="IFUNGURO" prefix="IF" />
+                <DetailedProductSection title="IFUNGURO RYIZA" prefix="IF" />
               </div>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-indigo-600">
