@@ -38,7 +38,7 @@ const IbyinjiyePage = () => {
               {records.map((item, index) => {
                 return(<tbody key={index}>
                   <tr key={index} className="hover:bg-indigo-50">
-                    <td className="border border-indigo-200 p-2">{item.date}</td>
+                    <td className="border bg-gray-400 border-indigo-200 p-2">{item.date}</td>
                     <td className="border border-indigo-200 p-2">{item.reporter}</td>
                     <td className="border border-indigo-200 p-2">{item.umufuka}</td>
                     <td className="border border-indigo-200 p-2">{item.comment}</td>

@@ -162,8 +162,8 @@ const ProductFormOut = () => {
       <div className="grid grid-cols-4 gap-4 mb-2">
         <span className="text-sm font-medium">Ibiro</span>
         <span className="text-sm font-medium">Imifuka</span>
-        <span className="text-sm font-medium">Igiciro</span>
-        <span className="text-sm font-medium">Frw Asabwa</span>
+        <span className="text-sm font-medium">Igiciro kumufuka</span>
+        <span className="text-sm font-medium">Amafaranga yose hamwe yimifuka</span>
       </div>
       <ProductRowDetailed prefix={prefix} object={object} size="25" />
       <ProductRowDetailed prefix={prefix} object={object} size="10" />
@@ -229,9 +229,9 @@ const ProductFormOut = () => {
         <h3 className="font-medium mb-3">IS YA ENVELOPE</h3>
         <div className="grid grid-cols-4 gap-4 mb-2">
           <span className="text-sm font-medium">Ibiro</span>
-          <span className="text-sm font-medium">Imifuka</span>
-          <span className="text-sm font-medium">Igiciro</span>
-          <span className="text-sm font-medium">Frw Asabwa</span>
+          <span className="text-sm font-medium">envelope</span>
+          <span className="text-sm font-medium">Igiciro kuranvelope</span>
+          <span className="text-sm font-medium">Amafaranga yose hamwe kuranvelope</span>
         </div>
         <div className="grid grid-cols-4 gap-4">
           <input
@@ -337,7 +337,7 @@ const ProductFormOut = () => {
    <div className="min-h-screen bg-gray-50 p-6">
      <div className="max-w-7xl mx-auto">
        <h1 className="text-xl font-bold mb-6 text-center text-indigo-600">
-         IBYABEREYE KWISOKO
+         UWAGEMUYE KWISOKO
        </h1>
        
        <form onSubmit={handleSubmit} className="space-y-8">

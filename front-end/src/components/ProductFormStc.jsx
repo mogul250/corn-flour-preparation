@@ -79,15 +79,109 @@ const ProductFormStc = () => {
       </div>
     );
   };
+<<<<<<< Updated upstream
   
   const DetailedProductSection = ({ title, prefix }) => (
+=======
+
+  const handleIgiciroChange = (e) => {
+    const value = e.target.value;
+    setIgiciroValue(value);
+    
+    if (imifukaValue && value) {
+      const calculatedFrwAsabwa = Math.floor(parseFloat(value) + parseFloat(imifukaValue)).toString();
+      setFrwAsabwaValue(calculatedFrwAsabwa);
+    }
+  };
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
+      <input
+        type="number"
+        placeholder={`${prefix}:${size}KG`}
+        value={ibiruValue}
+        onChange={handleIbiruChange}
+        className="w-full px-3 py-2 text-sm border rounded"
+      />
+      <input
+        type="text"
+        value={imifukaValue}
+        readOnly
+        className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
+      />
+      <input
+        type="text"
+        value={igiciroValue}
+        onChange={handleIgiciroChange}
+        className="w-full px-3 py-2 text-sm border rounded"
+      />
+      <input
+        type="text"
+        value={frwAsabwaValue}
+        readOnly
+        className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
+      />
+    </div>
+  );
+};
+
+const DetailedProductSection = ({ title, prefix }) => (
+  <div className="bg-white rounded shadow-sm p-4">
+    <h3 className="font-medium mb-3">{title}</h3>
+    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
+      <span className="text-sm font-medium">Ibiro By'akozwe</span>
+      <span className="text-sm font-medium">Imifuka yakozwe</span>
+      <span className="text-sm font-medium">Imifuka yarihari</span>
+      <span className="text-sm font-medium">Imifuka yose Hamwe muri stoke </span>
+    </div>
+    <ProductRowDetailed prefix={prefix} size="25" />
+    <ProductRowDetailed prefix={prefix} size="10" />
+    <ProductRowDetailed prefix={prefix} size="5" />
+  </div>
+);
+
+const DetailedEnvelopeSection = () => {
+  const [ibiruValue, setIbiruValue] = useState('');
+  const [imifukaValue, setImifukaValue] = useState('');
+  const [igiciroValue, setIgiciroValue] = useState('');
+  const [frwAsabwaValue, setFrwAsabwaValue] = useState('');
+
+  const handleIbiruChange = (e) => {
+    const value = e.target.value;
+    setIbiruValue(value);
+    
+    if (value) {
+      const calculatedImifuka = Math.floor(parseFloat(value) / 5).toString();
+      setImifukaValue(calculatedImifuka);
+    } else {
+      setImifukaValue('');
+    }
+
+    if (igiciroValue && value) {
+      const calculatedFrwAsabwa = Math.floor(parseFloat(igiciroValue) + (parseFloat(value) / 5)).toString();
+      setFrwAsabwaValue(calculatedFrwAsabwa);
+    }
+  };
+
+  const handleIgiciroChange = (e) => {
+    const value = e.target.value;
+    setIgiciroValue(value);
+    
+    if (imifukaValue && value) {
+      const calculatedFrwAsabwa = Math.floor(parseFloat(value) + parseFloat(imifukaValue)).toString();
+      setFrwAsabwaValue(calculatedFrwAsabwa);
+    }
+  };
+
+  return (
+>>>>>>> Stashed changes
     <div className="bg-white rounded shadow-sm p-4">
       <h3 className="font-medium mb-3">{title}</h3>
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
         <span className="text-sm font-medium">Ibiro By'akozwe</span>
-        <span className="text-sm font-medium">Stock Shya</span>
-        <span className="text-sm font-medium">Stock Yari Ihari </span>
-        <span className="text-sm font-medium">Stock Yose Hamwe </span>
+        <span className="text-sm font-medium">Envelope zakozwe</span>
+        <span className="text-sm font-medium">Envelope zari zihari </span>
+        <span className="text-sm font-medium">Envelope zose hamwe muri stoke </span>
       </div>
       <ProductRowDetailed prefix={prefix} size="25" />
       <ProductRowDetailed prefix={prefix} size="10" />
@@ -182,6 +276,7 @@ const ProductFormStc = () => {
             result.totals[proportion] = parseFloat(item.total) || 0;
         });
     
+<<<<<<< Updated upstream
         return result;
   
       }else{
@@ -201,6 +296,10 @@ const ProductFormStc = () => {
     let res = await f('stockController',scheme)
     
     setShowSuccessMessage(true);
+=======
+    setShowSuccessMessage(true);
+    
+>>>>>>> Stashed changes
     setTimeout(() => {
       setShowSuccessMessage(false);
     }, 3000);
@@ -253,7 +352,11 @@ const ProductFormStc = () => {
               />
             </div>
             <div>
+<<<<<<< Updated upstream
               <label htmlFor="sack_no" className="block text-sm font-medium mb-1 text-indigo-600">Numero Y'umufuka</label>
+=======
+              <label htmlFor="ugemuye" className="block text-sm font-medium mb-1 text-indigo-600">Numero y'umufuka</label>
+>>>>>>> Stashed changes
               <input
                 type="text"
                 id="sack_no"

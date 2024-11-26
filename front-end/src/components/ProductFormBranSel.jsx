@@ -96,6 +96,7 @@ function ProductFormBranSel() {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {[
+<<<<<<< Updated upstream
                 { name: "date", label: "ITARIKI", type: "date" },
                 { name: "reporter", label: "UTANZE RAPORO", type: "text" },
                 { name: "client", label: "IZINA RY'UMUKIRIYA", type: "text" },
@@ -103,6 +104,15 @@ function ProductFormBranSel() {
                 { name: "price", label: "price", type: "number" },
                 { name: "g_amount", label: "AMAFARANGA YOSE", type: "number", readOnly: true },
                 { name: "r_amount", label: "AMAFARANGA ASIGAYE", type: "number" }
+=======
+                { name: "itariki", label: "ITARIKI", type: "date" },
+                { name: "utanzeRaporo", label: "UTANZE RAPORO", type: "text" },
+                { name: "umukiliya", label: "IZINA RY'UMUKIRIYA", type: "text" },
+                { name: "ibiroYatwaye", label: "IBIRO YATWAYE", type: "number" },
+                { name: "igiciro", label: "IGICIRO", type: "number" },
+                { name: "amafarangaYose", label: "AMAFARANGA YOSE", type: "number", readOnly: true },
+                { name: "amafarangaAsigaye", label: "AMAFARANGA ASIGAYE KWISHYURA", type: "number" }
+>>>>>>> Stashed changes
               ].map((field) => (
                 <div key={field.name}>
                   <label className="block text-xs sm:text-sm font-medium text-indigo-600 mb-1">

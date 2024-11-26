@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RegisterForm from './components/RegisterForm';
 import LoginForm from './components/LoginForm';
 import ProductForm from './components/ProductForm';
+import HomeReport from './HomeReport'
 import View from './ViewFile/vieafile/ViewFirst';
 import ProductFormPre from './components/ProductFormPre';
 import ProductFormChe from './components/ProductFormChe';
@@ -34,9 +35,10 @@ function App() {
   return (
     <Router>
       <Routes>
+       <Route path="/HomeReport" element={<HomeReport/>} />
         <Route path="/" element={<RegisterForm />} />
         <Route path="/login" element={<LoginForm />} />
-        <Route path="/product" element={<ProductForm />} />
+        <Route path="/ProductForm" element={<ProductForm />} />
         <Route path="/ProductFormPre" element={<ProductFormPre />} />
         <Route path="/ProductFormChe" element={<ProductFormChe />} />
         <Route path="/ProductFormSel" element={<ProductFormSel />} />

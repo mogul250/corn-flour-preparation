@@ -43,7 +43,7 @@ const IbyasohotsePage = () => {
                 return (
                   <tbody key={index}>
                     <tr className="hover:bg-indigo-50">
-                      <td className="border border-indigo-200 p-2">{item.date}</td>
+                      <td className="border bg-gray-400 border-indigo-200 p-2">{item.date}</td>
                       <td className="border border-indigo-200 p-2">{item.reporter}</td>
                       <td className="border border-indigo-200 p-2">{item.distributor}</td>
                       <td className="border border-indigo-200 p-2">{item.client}</td>
@@ -128,10 +128,10 @@ const IbyasohotsePage = () => {
                               <tr className="bg-indigo-50">
                                 {['NEW FOOD', 'ISEZERANO', 'IFUNGURO', 'MAGAJU', 'ENVELOPE'].map((section) => (
                                   <React.Fragment key={section}>
-                                    <th className="border border-indigo-200 p-2">IBIRO</th>
-                                    <th className="border border-indigo-200 p-2">IMIFUKA</th>
-                                    <th className="border border-indigo-200 p-2">IGICIRO (RWF)</th>
-                                    <th className="border border-indigo-200 p-2">FRW</th>
+                                    <th className="border border-indigo-200 p-2">Ibiro</th>
+                                    <th className="border border-indigo-200 p-2">Imifuka</th>
+                                    <th className="border border-indigo-200 p-2">Igiciro kumufuka</th>
+                                    <th className="border border-indigo-200 p-2">Amafaranga yose hamwe </th>
                                   </React.Fragment>
                                 ))}
                               </tr>       

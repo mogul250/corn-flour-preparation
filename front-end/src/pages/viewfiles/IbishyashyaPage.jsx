@@ -62,7 +62,7 @@ const IbishyashyaPage = () => {
               records.map((element,index) => {
                return (
                 <tr key={index}>
-                    <td className="border border-indigo-500 px-4 py-2">({element.date})</td>
+                    <td className="border bg-gray-400 border-indigo-500 px-4 py-2">({element.date})</td>
                     <td className="border border-indigo-500 px-4 py-2">{element.dist_names}</td>
                     <td className="border border-indigo-500 px-4 py-2">{element.dist_plate_no}</td>
                     <td className="border border-indigo-500 px-4 py-2">{adcm(element.weight)} KG</td>

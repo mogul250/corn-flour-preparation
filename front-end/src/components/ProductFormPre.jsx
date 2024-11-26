@@ -11,8 +11,8 @@ const ProductFormPre = () => {
     reporter: '',
     comment: ''
   });
-  
-  
+
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

@@ -78,12 +78,12 @@ const ProductFormSel = () => {
           </div>
           <div className="text-center">
             <span className="text-xs sm:text-sm font-medium whitespace-pre-wrap text-indigo-600">
-              Price/u{'\n'}mufuka
+              Igiciro{'\n'}kumufuka
             </span>
           </div>
           <div className="text-center">
             <span className="text-xs sm:text-sm font-medium whitespace-pre-wrap text-indigo-600">
-              Total/im{'\n'}ifuka
+              Amafaranga yose{'\n'}kumifuka
             </span>
           </div>
         </div>
@@ -205,7 +205,7 @@ const ProductFormSel = () => {
     <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6">
         <h1 className="text-xl sm:text-2xl font-bold text-indigo-500 text-center mb-6 sm:mb-8">
-          Amakuru Y'ifu Zagiye Kw'isoko
+        KAWUNGA YAGIYE KWISOKO
         </h1>
         <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">

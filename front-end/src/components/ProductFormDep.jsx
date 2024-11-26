@@ -92,10 +92,10 @@ const ProductFormDep= () => {
   };
 
  
-  const firstRowExpenses = ["MAZUTU", "ABAKARANI", "TANDBOY"];
-  const secondRowExpenses = ["SHOFERI", "SHAMBRE", "KURYA"];
-  const thirdRowExpenses = ["URUGENDO", "AMAFARANGA ASABWA KUBYACURUJWE","AMAFARANGA AVERISHIJE"];
-  const fouthRowExpenses = ["ANDI MAFARANDA"];
+  const firstRowExpenses = ["Mazutu", "Abakarani", "Tandboy"];
+  const secondRowExpenses = ["Shoferi", "Shambre", "Kurya"];
+  const thirdRowExpenses = ["Urugendo", "Amafaranga asabwa kubyacurujwe","Amafaranga averishijwe"];
+  const fouthRowExpenses = ["Andi mafaranga"];
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
@@ -113,7 +113,7 @@ const ProductFormDep= () => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-indigo-500">ITARIKI</label>
+              <label className="block text-sm font-medium text-indigo-500">Itariki</label>
               <input
                 type="date"
                 className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -123,7 +123,7 @@ const ProductFormDep= () => {
               />
             </div>
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-indigo-500">UTANZE RAPORO</label>
+              <label className="block text-sm font-medium text-indigo-500">Utanze raporo</label>
               <input
                 type="text"
                 className="w-full px-3 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -192,7 +192,7 @@ const ProductFormDep= () => {
               htmlFor="comment"
               className="mb-1 text-indigo-500 font-medium"
             >
-              ICYONGERWAHO
+              Icyongerwaho
             </label>
             <textarea
               id="comment"

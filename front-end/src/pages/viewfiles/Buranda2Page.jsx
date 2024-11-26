@@ -50,7 +50,7 @@ import { adcm, f, pS } from "../../../public/functions";
                   AMAFARANGA YOSE
                 </th>
                 <th className="border p-3 text-left text-sm font-semibold text-gray-700">
-                  AMAFARANGA ASIGAYE
+                  AMAFARANGA ASIGAJE KWISHYURA
                 </th>
                 <th className="border p-3 text-left text-sm font-semibold text-gray-700">
                   ICYONGEWEHO

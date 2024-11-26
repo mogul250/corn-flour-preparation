@@ -28,7 +28,7 @@ const IbyagarutsePage= () => {
           <table className="min-w-full bg-white border border-indigo-200">
             <thead>
               <tr className="bg-indigo-50">
-                <th className="border border-indigo-200 p-2 text-left">Date</th>
+                <th className="border  border-indigo-200 p-2 text-left">Date</th>
                 <th className="border border-indigo-200 p-2 text-left">Utanze Raporo</th>
                 <th className="border border-indigo-200 p-2 text-left">Icyongerwaho</th>
  
@@ -38,7 +38,7 @@ const IbyagarutsePage= () => {
                 return (
                   <tbody key={index}>
                     <tr key={index} className="hover:bg-indigo-50">
-                      <td className="border border-indigo-200 p-2">{item.date}</td>
+                      <td className="border bg-gray-400 border-indigo-200 p-2">{item.date}</td>
                       <td className="border border-indigo-200 p-2">{item.reporter}</td>
                       <td className="border border-indigo-200 p-2">{item.comment}</td>
                     </tr>

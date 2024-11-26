@@ -103,7 +103,7 @@ const  hasFetched = useRef(false),
                  return (
                   <tbody key={index}>
                    <tr className="hover:bg-indigo-50">
-                      <td className="border border-indigo-200 p-2">{item.date}</td>
+                      <td className="border bg-gray-400 border-indigo-200 p-2">{item.date}</td>
                       <td className="border border-indigo-200 p-2">{item.reporter}</td>
                       <td className="border border-indigo-200 p-2">{item.incoming_c}</td>
                       <td className="border border-indigo-200 p-2">
@@ -118,7 +118,7 @@ const  hasFetched = useRef(false),
                           <table className="min-w-full bg-white border border-indigo-200">
                             <thead>
                               <tr className="bg-indigo-50">
-                                <th colSpan="4" className="border border-indigo-200 p-2 text-left">IFU ZAVUYEMO</th>
+                                <th colSpan="4" className="border border-indigo-200 p-2 text-left">IFU ZATEGANKWAGA KUVAMO</th>
                                 <th colSpan="2" className="border border-indigo-200 p-2 text-left">NEW FOOD</th>
                                 <th colSpan="2" className="border border-indigo-200 p-2 text-left">ISEZERANO</th>
                                 <th colSpan="2" className="border border-indigo-200 p-2 text-left">IFUNGURO</th>

@@ -190,6 +190,7 @@ const ProductFormChe = () => {
             </div>
             
             <div>
+             <h3 className="text-xl font-bold text-indigo-700 mb-4">IFU ITEGANKWA KUVAMO</h3>
               <label className="block text-indigo-700 font-medium mb-2">New Food</label>
               <input 
                 type="text" 
@@ -231,10 +232,10 @@ const ProductFormChe = () => {
                 required
               />
             </div>
-
-            <div>
+            {/*
+             <div>
               
-              <label className="block text-indigo-700 font-medium mb-2">
+            <label className="block text-indigo-700 font-medium mb-2">
                 Buranda iteganywa Kuvamo
               </label>
               <input 
@@ -247,6 +248,7 @@ const ProductFormChe = () => {
                 required
               />
             </div>
+            */}
           </div>
 
       

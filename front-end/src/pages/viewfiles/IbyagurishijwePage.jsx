@@ -44,7 +44,7 @@ const IbyagurishijwePage = () => {
               {records.map((item, index) => (
                 <tbody key={index}>
                   <tr key={index}>
-                    <td className="border p-2">{item.date}</td>
+                    <td className="border bg-gray-400 p-2">{item.date}</td>
                     <td className="border p-2">{item.reporter}</td>
                     <td className="border p-2">{item.distributor}</td>
                     <td className="border p-2">{item.client}</td>
