@@ -36,11 +36,12 @@ const IbyinjiyePage = () => {
               </tr>
             </thead>
               {records.map((item, index) => {
+                console.log(item.sack_no)
                 return(<tbody key={index}>
                   <tr key={index} className="hover:bg-indigo-50">
                     <td className="border bg-gray-400 border-indigo-200 p-2">{item.date}</td>
                     <td className="border border-indigo-200 p-2">{item.reporter}</td>
-                    <td className="border border-indigo-200 p-2">{item.umufuka}</td>
+                    <td className="border border-indigo-200 p-2">{item.sack_no}</td>
                     <td className="border border-indigo-200 p-2">{item.comment}</td>
                   </tr>
                   <tr>

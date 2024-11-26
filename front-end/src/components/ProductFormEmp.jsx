@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { f, pS } from "../../public/functions";
 
 const ProductFormEmp= () => {
   const [workers, setWorkers] = useState([
@@ -35,8 +36,10 @@ const ProductFormEmp= () => {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
-    
-   
+    const worker  = workers.findLast((element) => true);
+    const scheme = pS
+    scheme.body = JSON.stringify(worker)
+    let res = await f('employeesController',scheme)
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     setIsSubmitting(false);

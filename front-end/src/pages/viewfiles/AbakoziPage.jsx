@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { f, pS } from "../../../public/functions";
 
 const initialFormData = {
   exampleData: [
@@ -19,8 +20,20 @@ const initialFormData = {
 };
 
  function AbakoziPage() {
-  const [formData] = useState(initialFormData);
-
+  const [records,setRecords] = useState([]),
+  hasFetched = useRef(false)
+  useEffect(()=>{
+    if (!hasFetched.current) {
+      const fetchRecs = async ()=>{
+        let schema = pS
+        schema.body = JSON.stringify({date: {}})
+        let recs = await f('employeesReport',pS)
+        setRecords(recs.metadata.report)
+      }
+      fetchRecs()
+      hasFetched.current = true
+    }
+  },[])
   return (
     <div className="container mx-auto p-4 space-y-8">
       <div className="bg-white rounded-lg shadow-md p-6">
@@ -59,7 +72,7 @@ const initialFormData = {
               </tr>
             </thead>
             <tbody>
-              {formData.exampleData.map((item, index) => (
+              {records.map((item, index) => (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="border p-3 text-sm text-gray-600">
                     {item.names}
@@ -68,7 +81,7 @@ const initialFormData = {
                     {item.phone}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.jobTitle}
+                    {item.title}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
                     {item.salary}
@@ -80,10 +93,10 @@ const initialFormData = {
                     {item.social}
                   </td>
                    <td className="border p-3 text-sm text-gray-600">
-                    {item.salaryAdvance}
+                    {item.advance}
                   </td>
                    <td className="border p-3 text-sm text-gray-600">
-                    {item.remainSalary}
+                    {item.r_salary}
                   </td>
                 </tr>
               ))}
