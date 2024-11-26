@@ -1,10 +1,11 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
+import { f, pS } from "../../public/functions";
 
 function ProductFormBranPre() {
   const [formData, setFormData] = useState({
-    itariki: "",
-    utanzeRaporo: "",
+    date: "",
+    reporter: "",
     buranda1: "",
     buranda2: "",
     buranda3: "",
@@ -30,16 +31,17 @@ function ProductFormBranPre() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     
     setIsSubmitted(true);
-
-    
+    const scheme = pS
+    scheme.body = JSON.stringify(formData)
+    let res = await f('leftoversController',scheme)
     setFormData({
-      itariki: "",
-      utanzeRaporo: "",
+      date: "",
+      reporter: "",
       buranda1: "",
       buranda2: "",
       buranda3: "",
@@ -67,8 +69,8 @@ function ProductFormBranPre() {
                 </label>
                 <input
                   type="date"
-                  name="itariki"
-                  value={formData.itariki}
+                  name="date"
+                  value={formData.date}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border rounded border-indigo-300 focus:ring focus:ring-indigo-200"
                   required
@@ -80,8 +82,8 @@ function ProductFormBranPre() {
                 </label>
                 <input
                   type="text"
-                  name="utanzeRaporo"
-                  value={formData.utanzeRaporo}
+                  name="reporter"
+                  value={formData.reporter}
                   onChange={handleChange}
                   className="w-full px-3 py-2 border rounded border-indigo-300 focus:ring focus:ring-indigo-200"
                   required

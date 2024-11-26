@@ -1,21 +1,22 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
-
-const initialFormData = {
-  exampleData: [
-    {
-      date: "2024-11-12",
-      utanzeRaporo: "NYAMASWANTE",
-      burandaIhari: "100",
-      burandaYinjiye: "300",
-      burandaYose: "400",
-      icyongeweho: "Ibyatunganyijwe byose byagenze neza",
-    },
-  ],
-};
+import React, { useEffect, useRef, useState } from "react";
+import { f, pS } from "../../../public/functions";
 
  function Buranda1Page() {
-  const [formData] = useState(initialFormData);
+  const [records,setRecords] = useState([]),
+  hasFetched = useRef(false)
+  useEffect(()=>{
+    if (!hasFetched.current) {
+      const fetchRecs = async ()=>{
+        let schema = pS
+        schema.body = JSON.stringify({date: {}})
+        let recs = await f('leftoversReport',pS)
+        setRecords(recs.metadata.report)
+      }
+      fetchRecs()
+      hasFetched.current = true
+    }
+  },[])
 
   return (
     <div className="container mx-auto p-4 space-y-8">
@@ -49,25 +50,25 @@ const initialFormData = {
               </tr>
             </thead>
             <tbody>
-              {formData.exampleData.map((item, index) => (
+              {records.map((item, index) => (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="border bg-gray-400 p-3 text-sm text-gray-600">
                     {item.date}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.utanzeRaporo}
+                    {item.reporter}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.burandaIhari}
+                    {item.w_pre}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.burandaYinjiye}
+                    {item.w_incoming}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.burandaYose}
+                    {item.w_tot}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.icyongeweho}
+                    {item.comment}
                   </td>
                 </tr>
               ))}

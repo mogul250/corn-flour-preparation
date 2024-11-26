@@ -1,15 +1,16 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
+import { f, pS } from "../../public/functions";
 
 function ProductFormBranSel() {
   const [formData, setFormData] = useState({
-    itariki: "",
-    utanzeRaporo: "",
-    umukiliya: "",
-    ibiroYatwaye: "",
-    igiciro: "",
-    amafarangaYose: "",
-    amafarangaAsigaye: "",
+    date: "",
+    reporter: "",
+    client: "",
+    weight: "",
+    price: "",
+    g_amount: "",
+    r_amount: "",
     comment: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -21,23 +22,21 @@ function ProductFormBranSel() {
       const updatedData = { ...prevData, [name]: value };
 
      
-      if (name === "ibiroYatwaye" || name === "igiciro") {
-        const ibiroYatwaye = parseFloat(updatedData.ibiroYatwaye) || 0;
-        const igiciro = parseFloat(updatedData.igiciro) || 0;
-        updatedData.amafarangaYose = (ibiroYatwaye * igiciro).toFixed(2); 
+      if (name === "weight" || name === "price") {
+        const weight = parseFloat(updatedData.weight) || 0;
+        const price = parseFloat(updatedData.price) || 0;
+        updatedData.g_amount = (weight * price).toFixed(2); 
       }
 
       return updatedData;
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit =  async (e) => {
     e.preventDefault();
-
-    
     const requiredFields = [
-      'itariki', 'utanzeRaporo', 'umukiliya', 
-      'ibiroYatwaye', 'igiciro', 'amafarangaAsigaye'
+      'date', 'reporter', 'client', 
+      'weight', 'price', 'r_amount'
     ];
     
     const isFormValid = requiredFields.every(field => 
@@ -51,16 +50,18 @@ function ProductFormBranSel() {
 
     
     setIsSubmitted(true);
-
+    const scheme = pS
+    scheme.body = JSON.stringify(formData)
+    let res = await f('leftoversOutController',scheme)
     
     const resetForm = {
-      itariki: "",
-      utanzeRaporo: "",
-      umukiliya: "",
-      ibiroYatwaye: "",
-      igiciro: "",
-      amafarangaYose: "",
-      amafarangaAsigaye: "",
+      date: "",
+      reporter: "",
+      client: "",
+      weight: "",
+      price: "",
+      g_amount: "",
+      r_amount: "",
       comment: "",
     };
     setFormData(resetForm);
@@ -95,13 +96,13 @@ function ProductFormBranSel() {
             
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
               {[
-                { name: "itariki", label: "ITARIKI", type: "date" },
-                { name: "utanzeRaporo", label: "UTANZE RAPORO", type: "text" },
-                { name: "umukiliya", label: "IZINA RY'UMUKIRIYA", type: "text" },
-                { name: "ibiroYatwaye", label: "IBIRO YATWAYE", type: "number" },
-                { name: "igiciro", label: "IGICIRO", type: "number" },
-                { name: "amafarangaYose", label: "AMAFARANGA YOSE", type: "number", readOnly: true },
-                { name: "amafarangaAsigaye", label: "AMAFARANGA ASIGAYE", type: "number" }
+                { name: "date", label: "ITARIKI", type: "date" },
+                { name: "reporter", label: "UTANZE RAPORO", type: "text" },
+                { name: "client", label: "IZINA RY'UMUKIRIYA", type: "text" },
+                { name: "weight", label: "IBIRO YATWAYE", type: "number" },
+                { name: "price", label: "price", type: "number" },
+                { name: "g_amount", label: "AMAFARANGA YOSE", type: "number", readOnly: true },
+                { name: "r_amount", label: "AMAFARANGA ASIGAYE", type: "number" }
               ].map((field) => (
                 <div key={field.name}>
                   <label className="block text-xs sm:text-sm font-medium text-indigo-600 mb-1">
@@ -151,8 +152,7 @@ function ProductFormBranSel() {
               <div 
                 className="text-center text-green-600 font-medium mt-4 
                   animate-fade-in-down animate-duration-300 
-                  bg-green-50 p-3 rounded-md border border-green-200"
-              >
+                  bg-green-50 p-3 rounded-md border border-green-200">
                 Successfully submitted!!!
               </div>
             )}

@@ -327,7 +327,6 @@ const ProductFormOut = () => {
   nfd.p_taken.IF = transformData(nfd.p_taken.IF)
   nfd.p_taken.MA = transformData(nfd.p_taken.MA)
   nfd.p_taken.envelope = transformData(nfd.p_taken.envelope)
-  console.log(nfd)
   const scheme = pS
   scheme.body = JSON.stringify(nfd)
   let res = await f('sales-nr',scheme)

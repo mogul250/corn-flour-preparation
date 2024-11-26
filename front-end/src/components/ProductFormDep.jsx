@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { f, pS } from "../../public/functions";
 
 const ExpenseBox = ({ title, value, onChange }) => (
   <div className="space-y-2">
@@ -17,7 +18,7 @@ const ProductFormDep= () => {
   const [formData, setFormData] = useState({
     date: "",
     reporter: "",
-    comments: "",
+    comment: "",
     expenses: {
       MAZUTU: "",
       ABAKARANI: "",
@@ -48,32 +49,46 @@ const ProductFormDep= () => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log(formData);
-    
+    let nfd = structuredClone(formData)
+    nfd.expenses = {
+      diesel: nfd.expenses['MAZUTU'],
+      lifters: nfd.expenses['ABAKARANI'],
+      boys: nfd.expenses['TANDBOY'],
+      driver: nfd.expenses['SHOFERI'],
+      room: nfd.expenses['SHAMBRE'],
+      food: nfd.expenses['KURYA'],
+      travel: nfd.expenses['URUGENDO'],
+      r_amount: nfd.expenses['AMAFARANGA ASABWA KUBYACURUJWE'],
+      inc_amount: nfd.expenses['AMAFARANGA AVERISHIJE'],
+      g_amount: nfd.expenses['ANDI MAFARANDA']
+    }
+    const scheme = pS
+    scheme.body = JSON.stringify(nfd)
+    let res = await f('expensesController',scheme)
     setShowMessage(true);
     setTimeout(() => {
       setShowMessage(false);
     }, 3000);
     
-    setFormData({
-      date: "",
-      reporter: "",
-      comments: "",
-      expenses: {
-        MAZUTU: "",
-        ABAKARANI: "",
-        TANDBOY: "",
-        SHOFERI: "",
-        SHAMBRE: "",
-        KURYA: "",
-        URUGENDO: "",
-        AMAFARANGAASABWAKUBYACURUJWE: "",
-        AMAFARANGAAVERISHIJE: "",
-        ANDIMAFARANDA: "",
-      },
-    });
+    // setFormData({
+    //   date: "",
+    //   reporter: "",
+    //   comment: "",
+    //   expenses: {
+    //     MAZUTU: "",
+    //     ABAKARANI: "",
+    //     TANDBOY: "",
+    //     SHOFERI: "",
+    //     SHAMBRE: "",
+    //     KURYA: "",
+    //     URUGENDO: "",
+    //     AMAFARANGAASABWAKUBYACURUJWE: "",
+    //     AMAFARANGAAVERISHIJE: "",
+    //     ANDIMAFARANDA: "",
+    //   },
+    // });
   };
 
  
@@ -185,8 +200,8 @@ const ProductFormDep= () => {
               className="w-full lg:w-1/2 border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500"
               rows="4"
               placeholder="Icyongerwaho..."
-              value={formData.comments}
-              onChange={(e) => handleFieldChange("comments", e.target.value)}
+              value={formData.comment}
+              onChange={(e) => handleFieldChange("comment", e.target.value)}
             ></textarea>
           </div>
 

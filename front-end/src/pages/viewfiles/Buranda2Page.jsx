@@ -1,23 +1,24 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { adcm, f, pS } from "../../../public/functions";
 
-const initialFormData = {
-  exampleData: [
-    {
-      date: "2024-11-12",
-      utanzeRaporo: "NYAMASWANTE",
-      umukiliya:"PABLOSCH",
-     ibiroYatwaye: "100",
-      igiciro: "300",
-      amafarangaYose: "400",
-      amafarangaAsigaye: "3500",
-      icyongeweho: "Ibyatunganyijwe byose byagenze neza",
-    },
-  ],
-};
+
 
  function Buranda2Page() {
-  const [formData] = useState(initialFormData);
+  const [records,setRecords] = useState([]),
+  hasFetched = useRef(false)
+  useEffect(()=>{
+    if (!hasFetched.current) {
+      const fetchRecs = async ()=>{
+        let schema = pS
+        schema.body = JSON.stringify({date: {}})
+        let recs = await f('leftoverOutReport',pS)
+        setRecords(recs.metadata.report)
+      }
+      fetchRecs()
+      hasFetched.current = true
+    }
+  },[])
 
   return (
     <div className="container mx-auto p-4 space-y-8">
@@ -57,31 +58,31 @@ const initialFormData = {
               </tr>
             </thead>
             <tbody>
-              {formData.exampleData.map((item, index) => (
+              {records.map((item, index) => (
                 <tr key={index} className="hover:bg-gray-50">
                   <td className="border bg-gray-400 p-3 text-sm text-gray-600">
                     {item.date}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.utanzeRaporo}
+                    {item.reporter}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.umukiliya}
+                    {item.client}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.ibiroYatwaye}
+                    {item.weight}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.igiciro}
+                    {adcm(item.price)}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.amafarangaYose}
+                    {adcm(item.g_amount)}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.amafarangaAsigaye}
+                    {adcm(item.r_amount)}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {item.icyongeweho}
+                    {item.comment}
                   </td>
                   
                 </tr>

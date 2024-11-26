@@ -1,62 +1,16 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react'
 import { adcm, f, pS } from '../../../public/functions'
 
-const initialFormData = {
-  exampleData: [
-    {
-      date: '2024-11-12',
-      utanzeRaporo: 'PABLOSCH',
-      umufuka:'BB02',
-      icyongeweho: 'ibyatunganyijwe byose byagenze neza',
-    },
-  ],
-  newFood: {
-    nf25: { ibiro: '25', shya: '1', imifukaIhari:'50', imifukaYose:'75' },
-    nf10: { ibiro: '25', shya: '1', imifukaIhari:'50', imifukaYose:'75' },
-    nf5: { ibiro: '25', shya: '1', imifukaIhari:'50', imifukaYose:'75' }
-  },
-  isezerano: {
-    is25: { ibiro: '60', shya: '2', imifukaIhari:'350', imifukaYose:'700' },
-    is10: { ibiro: '40', shya: '4', imifukaIhari:'350', imifukaYose:'1400' },
-    is5: { ibiro: '25', shya: '5', imifukaIhari:'350', imifukaYose:'1750' }
-  },
-  ifunguro: {
-    if25: { ibiro: '55', shya: '2', imifukaIhari:'350', imifukaYose:'700' },
-    if10: { ibiro: '35', shaya: '3', imifukaIhari:'350', imifukaYose:'1050' },
-    if5: { ibiro: '22', shya: '4', imifukaIhari:'350', imifukaYose:'1400' }
-  },
-  magaju: {
-    mg25: { ibiro: '45', shya: '1', imifukaIhari:'350', imifukaYose:'350' },
-    mg10: { ibiro: '30', shya: '3', imifukaIhari:'350', imifukaYose:'1050' },
-    mg5: { ibiro: '18', shya: '3', imifukaIhari:'350', imifukaYose:'1050' }
-  },
-  envelope: {
-    ibiro: '10',
-    shya: '1',
-    imifukaIhari:'250',
-    imifukaYose: '10'
-  }
-}
-
-const calculateTotals = (data) => ({
-  newFoodTotal: Object.values(data.newFood).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
-  isezeranoTotal: Object.values(data.isezerano).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
-  ifunguroTotal: Object.values(data.ifunguro).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
-  magajuTotal: Object.values(data.magaju).reduce((acc, curr) => acc + Number(curr.ibiro), 0),
-  envelopeTotal: Number(data.envelope.ibiro)
-})
 
 const IbyinjiyePage = () => {
-  const [formData] = useState(initialFormData)
-  const totals = useMemo(() => calculateTotals(formData), [formData]),
-  [records,setRecords] = useState([]),
+  const  [records,setRecords] = useState([]),
     hasFetched = useRef(false)
     useEffect(()=>{
       if (!hasFetched.current) {
         const fetchRecs = async ()=>{
           let schema = pS
           schema.body = JSON.stringify({date: {}})
-          let recs = await f('packaging-track-report',pS)
+          let recs = await f('stockReport',pS)
           setRecords(recs.metadata.report)
         }
         fetchRecs()
@@ -115,55 +69,55 @@ const IbyinjiyePage = () => {
                           <tbody>
                             {['25', '10', '5'].map((weight) => (
                               <tr key={weight} className="hover:bg-indigo-50">
-                                <td className="border border-indigo-200 p-2">{adcm(item.ls.NF[weight]* Number(weight))}</td>
-                                <td className="border border-indigo-200 p-2">{item.ls.NF[weight]}</td>
-                                <td className="border border-indigo-200 p-2">{item.r_weights.NF[weight] - item.ls.NF[weight]}</td>
-                                <td className="border border-indigo-200 p-2">{item.r_weights.NF[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{adcm(item.new_food.incoming[weight]* Number(weight))}</td>
+                                <td className="border border-indigo-200 p-2">{item.new_food.incoming[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.new_food.current[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.new_food.totals[weight]}</td>
 
-                                <td className="border border-indigo-200 p-2">{adcm(item.ls.IS[weight]* Number(weight))}</td>
-                                <td className="border border-indigo-200 p-2">{item.ls.IS[weight]}</td>
-                                <td className="border border-indigo-200 p-2">{item.r_weights.IS[weight] - item.ls.IS[weight]}</td>
-                                <td className="border border-indigo-200 p-2">{item.r_weights.IS[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{adcm(item.isezerano.incoming[weight]* Number(weight))}</td>
+                                <td className="border border-indigo-200 p-2">{item.isezerano.incoming[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.isezerano.current[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.isezerano.totals[weight]}</td>
 
-                                <td className="border border-indigo-200 p-2">{adcm(item.ls.IF[weight]* Number(weight))}</td>
-                                <td className="border border-indigo-200 p-2">{item.ls.IF[weight]}</td>
-                                <td className="border border-indigo-200 p-2">{item.r_weights.IF[weight] - item.ls.IF[weight]}</td>
-                                <td className="border border-indigo-200 p-2">{item.r_weights.IF[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{adcm(item.ifunguro.incoming[weight]* Number(weight))}</td>
+                                <td className="border border-indigo-200 p-2">{item.ifunguro.incoming[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.ifunguro.current[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.ifunguro.totals[weight]}</td>
 
-                                <td className="border border-indigo-200 p-2">{adcm(item.ls.MA[weight]* Number(weight))}</td>
-                                <td className="border border-indigo-200 p-2">{item.ls.MA[weight]}</td>
-                                <td className="border border-indigo-200 p-2">{item.r_weights.MA[weight] - item.ls.MA[weight]}</td>
-                                <td className="border border-indigo-200 p-2">{item.r_weights.MA[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{adcm(item.magaju.incoming[weight]* Number(weight))}</td>
+                                <td className="border border-indigo-200 p-2">{item.magaju.incoming[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.magaju.current[weight]}</td>
+                                <td className="border border-indigo-200 p-2">{item.magaju.totals[weight]}</td>
 
                                 {weight === '25' && (
                                   <>
-                                    <td rowSpan="3" className="border border-indigo-200 p-2">{adcm(item.ls.envelope['5']* Number('5'))}</td>
-                                    <td rowSpan="3" className="border border-indigo-200 p-2">{item.ls.envelope['5']}</td>
-                                    <td rowSpan="3" className="border border-indigo-200 p-2">{item.r_weights.envelope['5'] - item.ls.envelope['5']}</td>
-                                    <td rowSpan="3" className="border border-indigo-200 p-2">{item.r_weights.envelope['5']}</td>
+                                    <td rowSpan="3" className="border border-indigo-200 p-2">{adcm(item.envelope.incoming['5']* Number('5'))}</td>
+                                    <td rowSpan="3" className="border border-indigo-200 p-2">{item.envelope.incoming['5']}</td>
+                                    <td rowSpan="3" className="border border-indigo-200 p-2">{item.envelope.current['5']}</td>
+                                    <td rowSpan="3" className="border border-indigo-200 p-2">{item.envelope.totals['5']}</td>
                                   </>
                                 )}
                               </tr>
                             ))}
                             <tr className="font-bold bg-indigo-50">
-                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.ls.NF).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
-                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.ls.NF).reduce((sum,index)=>(sum+ (index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.new_food.incoming).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.new_food.incoming).reduce((sum,index)=>(sum+ (index)),0))}</td>
                               <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
                               
-                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.ls.IS).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
-                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.ls.IS).reduce((sum,index)=>(sum+ (index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.isezerano.incoming).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.isezerano.incoming).reduce((sum,index)=>(sum+ (index)),0))}</td>
                               <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
                               
-                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.ls.IF).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
-                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.ls.IF).reduce((sum,index)=>(sum+ (index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.ifunguro.incoming).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.ifunguro.incoming).reduce((sum,index)=>(sum+ (index)),0))}</td>
                               <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
                               
-                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.ls.MA).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
-                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.ls.MA).reduce((sum,index)=>(sum+ (index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.entries(item.magaju.incoming).reduce((sum,[key,index])=>(sum+ (key*index)),0))}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(Object.values(item.magaju.incoming).reduce((sum,index)=>(sum+ (index)),0))}</td>
                               <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
                               
-                              <td className="border border-indigo-200 p-2">{adcm(item.ls.envelope['5']* Number('5'))}</td>
-                              <td className="border border-indigo-200 p-2">{item.ls.envelope['5']}</td>
+                              <td className="border border-indigo-200 p-2">{adcm(item.envelope.incoming['5']* Number('5'))}</td>
+                              <td className="border border-indigo-200 p-2">{item.envelope.incoming['5']}</td>
                               <td className="border border-indigo-200 p-2" colSpan="2">Total</td>
                             </tr>
                           </tbody>

@@ -1,170 +1,158 @@
 import React, { useState } from 'react';
+import { f, pS } from '../../public/functions';
 
-const ProductRowDetailed = ({ prefix, size, onValueChange }) => {
-  const [ibiruValue, setIbiruValue] = useState('');
-  const [imifukaValue, setImifukaValue] = useState('');
-  const [igiciroValue, setIgiciroValue] = useState('');
-  const [frwAsabwaValue, setFrwAsabwaValue] = useState('');
 
-  const handleIbiruChange = (e) => {
-    const value = e.target.value;
-    setIbiruValue(value);
-    
-    let calculatedImifuka = '';
-    if (size === '25') {
-      calculatedImifuka = value ? Math.floor(parseFloat(value) / 25).toString() : '';
-    } else if (size === '10') {
-      calculatedImifuka = value ? Math.floor(parseFloat(value) / 10).toString() : '';
-    } else if (size === '5') {
-      calculatedImifuka = value ? Math.floor(parseFloat(value) / 5).toString() : '';
-    }
-
-    setImifukaValue(calculatedImifuka);
-
-    if (igiciroValue && calculatedImifuka) {
-      const calculatedFrwAsabwa = Math.floor(parseFloat(igiciroValue) + parseFloat(calculatedImifuka)).toString();
-      setFrwAsabwaValue(calculatedFrwAsabwa);
-    }
-
-    onValueChange && onValueChange(value, calculatedImifuka);
+const ProductFormStc = () => {
+  const [formData, setFormData] = useState({
+    date: '',
+    reporter: '',
+    sack_no: '',
+    NF: [
+        { ibiro: '', imifuka: 0,current: 0, total: 0},
+        { ibiro: '', imifuka: 0,current: 0, total: 0},
+        { ibiro: '', imifuka: 0,current: 0, total: 0}
+      ],
+      IS: [
+        { ibiro: '', imifuka: 0,current: 0, total: 0},
+        { ibiro: '', imifuka: 0,current: 0, total: 0},
+        { ibiro: '', imifuka: 0,current: 0, total: 0}
+      ],
+      IF: [
+        { ibiro: '', imifuka: 0,current: 0, total: 0},
+        { ibiro: '', imifuka: 0,current: 0, total: 0},
+        { ibiro: '', imifuka: 0,current: 0, total: 0}
+      ],
+      MA: [
+        { ibiro: '', imifuka: 0,current: 0, total: 0},
+        { ibiro: '', imifuka: 0,current: 0, total: 0},
+        { ibiro: '', imifuka: 0,current: 0, total: 0}
+      ],
+      envelope: [{ ibiro: '', imifuka: 0,current: 0, total: 0}],
+    comment: ''
+  });
+  const ProductRowDetailed = ({ prefix, size, onValueChange }) => {
+    let index
+      size == '25'? index = 0: size == '10'? index = 1 : size == '5'? index = 2 : index = 0
+      const seFdata = (e,size)=>{
+        const { name, value } = e.target;
+        let objName = (name == 'ibiro') ? 'imifuka' : 'total'
+        const updatedFormData = { ...formData };
+        updatedFormData[prefix] = [...updatedFormData[prefix]];
+        updatedFormData[prefix][index] = {
+          ...updatedFormData[prefix][index],
+          [name]: Number(value),
+          [objName]: objName == 'imifuka' ? (Math.round(Number(value) / Number(size))) : Math.round(Number(value)) + Number(updatedFormData[prefix][index].imifuka),
+        };
+        setFormData(updatedFormData);
+        
+      }
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
+        <input
+          type="number"
+           defaultValue={formData[prefix][index]?.ibiro || ''}
+          onBlur={(e)=>seFdata(e,size)}
+          placeholder={`${prefix}:${size}KG`}
+          name='ibiro'
+          className="w-full px-3 py-2 text-sm border rounded"
+        />
+        <input
+          type="text"
+          value={formData[prefix][index]?.imifuka || ''}
+          readOnly
+          className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
+        />
+        <input
+          type="text"
+          defaultValue={formData[prefix][index]?.current || ''}
+          onBlur={(e)=>seFdata(e,size)}
+          placeholder={`${prefix}:${size}KG`}
+          name='current'
+          className="w-full px-3 py-2 text-sm border rounded"
+        />
+        <input
+          type="text"
+          value={formData[prefix][index]?.total || ''}
+          readOnly
+          className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
+        />
+      </div>
+    );
   };
-
-  const handleIgiciroChange = (e) => {
-    const value = e.target.value;
-    setIgiciroValue(value);
-    
-    if (imifukaValue && value) {
-      const calculatedFrwAsabwa = Math.floor(parseFloat(value) + parseFloat(imifukaValue)).toString();
-      setFrwAsabwaValue(calculatedFrwAsabwa);
-    }
-  };
-
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
-      <input
-        type="number"
-        placeholder={`${prefix}:${size}KG`}
-        value={ibiruValue}
-        onChange={handleIbiruChange}
-        className="w-full px-3 py-2 text-sm border rounded"
-      />
-      <input
-        type="text"
-        value={imifukaValue}
-        readOnly
-        className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
-      />
-      <input
-        type="text"
-        value={igiciroValue}
-        onChange={handleIgiciroChange}
-        className="w-full px-3 py-2 text-sm border rounded"
-      />
-      <input
-        type="text"
-        value={frwAsabwaValue}
-        readOnly
-        className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
-      />
-    </div>
-  );
-};
-
-const DetailedProductSection = ({ title, prefix }) => (
-  <div className="bg-white rounded shadow-sm p-4">
-    <h3 className="font-medium mb-3">{title}</h3>
-    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
-      <span className="text-sm font-medium">Ibiro By'akozwe</span>
-      <span className="text-sm font-medium">Stock Shya</span>
-      <span className="text-sm font-medium">Stock Yari Ihari </span>
-      <span className="text-sm font-medium">Stock Yose Hamwe </span>
-    </div>
-    <ProductRowDetailed prefix={prefix} size="25" />
-    <ProductRowDetailed prefix={prefix} size="10" />
-    <ProductRowDetailed prefix={prefix} size="5" />
-  </div>
-);
-
-const DetailedEnvelopeSection = () => {
-  const [ibiruValue, setIbiruValue] = useState('');
-  const [imifukaValue, setImifukaValue] = useState('');
-  const [igiciroValue, setIgiciroValue] = useState('');
-  const [frwAsabwaValue, setFrwAsabwaValue] = useState('');
-
-  const handleIbiruChange = (e) => {
-    const value = e.target.value;
-    setIbiruValue(value);
-    
-    if (value) {
-      const calculatedImifuka = Math.floor(parseFloat(value) / 5).toString();
-      setImifukaValue(calculatedImifuka);
-    } else {
-      setImifukaValue('');
-    }
-
-    if (igiciroValue && value) {
-      const calculatedFrwAsabwa = Math.floor(parseFloat(igiciroValue) + (parseFloat(value) / 5)).toString();
-      setFrwAsabwaValue(calculatedFrwAsabwa);
-    }
-  };
-
-  const handleIgiciroChange = (e) => {
-    const value = e.target.value;
-    setIgiciroValue(value);
-    
-    if (imifukaValue && value) {
-      const calculatedFrwAsabwa = Math.floor(parseFloat(value) + parseFloat(imifukaValue)).toString();
-      setFrwAsabwaValue(calculatedFrwAsabwa);
-    }
-  };
-
-  return (
+  
+  const DetailedProductSection = ({ title, prefix }) => (
     <div className="bg-white rounded shadow-sm p-4">
-      <h3 className="font-medium mb-3">IS YA ENVELOPE</h3>
+      <h3 className="font-medium mb-3">{title}</h3>
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
         <span className="text-sm font-medium">Ibiro By'akozwe</span>
         <span className="text-sm font-medium">Stock Shya</span>
         <span className="text-sm font-medium">Stock Yari Ihari </span>
         <span className="text-sm font-medium">Stock Yose Hamwe </span>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <input
-          type="number"
-          placeholder="IS:5KG"
-          value={ibiruValue}
-          onChange={handleIbiruChange}
-          className="w-full px-3 py-2 text-sm border rounded"
-        />
-        <input
-          type="text"
-          value={imifukaValue}
-          readOnly
-          className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
-        />
-        <input
-          type="text"
-          value={igiciroValue}
-          onChange={handleIgiciroChange}
-          className="w-full px-3 py-2 text-sm border rounded"
-        />
-        <input
-          type="text"
-          value={frwAsabwaValue}
-          readOnly
-          className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
-        />
-      </div>
+      <ProductRowDetailed prefix={prefix} size="25" />
+      <ProductRowDetailed prefix={prefix} size="10" />
+      <ProductRowDetailed prefix={prefix} size="5" />
     </div>
   );
-};
+  
+  const DetailedEnvelopeSection = () => {
 
-const ProductFormStc = () => {
-  const [formData, setFormData] = useState({
-    date: '',
-    utanzeRaporo: '',
-    ugemuye: '',
-    comment: ''
-  });
+  
+    const seFdata = (e,size)=>{
+      const { name, value } = e.target;
+      let objName = (name == 'ibiro') ? 'imifuka' : 'total'
+      const updatedFormData = { ...formData };
+      updatedFormData['envelope'] = [...updatedFormData['envelope']];
+      updatedFormData['envelope'][0] = {
+        ...updatedFormData['envelope'][0],
+        [name]: Number(value),
+        [objName]: objName == 'imifuka' ? (Math.round(Number(value) / Number(size))) : Math.round(Number(value)) + Number(updatedFormData['envelope'][0].imifuka),
+      };
+      setFormData(updatedFormData);
+      
+    }
+  
+    return (
+      <div className="bg-white rounded shadow-sm p-4">
+        <h3 className="font-medium mb-3">IS YA ENVELOPE</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mb-2">
+          <span className="text-sm font-medium">Ibiro By'akozwe</span>
+          <span className="text-sm font-medium">Stock Shya</span>
+          <span className="text-sm font-medium">Stock Yari Ihari </span>
+          <span className="text-sm font-medium">Stock Yose Hamwe </span>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+          <input
+            type="number"
+            placeholder="IS:5KG"
+            defaultValue={formData['envelope'][0]?.ibiro || ''}
+            name='ibiro'
+            onBlur={e=>seFdata(e,5)}
+            className="w-full px-3 py-2 text-sm border rounded"
+          />
+          <input
+            type="text"
+           value={formData['envelope'][0]?.imifuka || ''}
+            readOnly
+            className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
+          />
+          <input
+            type="text"
+           defaultValue={formData['envelope'][0]?.current || ''}
+            onBlur={e=>seFdata(e,5)}
+            name='current'
+            className="w-full px-3 py-2 text-sm border rounded"
+          />
+          <input
+            type="text"
+            value={formData['envelope'][0]?.total || ''}
+            readOnly
+            className="w-full px-3 py-2 text-sm border rounded bg-gray-100"
+          />
+        </div>
+      </div>
+    );
+  };
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const handleInputChange = (e) => {
@@ -175,26 +163,54 @@ const ProductFormStc = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     console.log('Form submitted with data:', formData);
+    const transformSData = (data) => {
+      const proportions = [25, 10, 5];
+      const result = {
+          incoming: {},
+          current: {},
+          totals: {}
+      };
+      if(data.length){
+        data.forEach((item, index) => {
+            data.length == 1 ? index = 2 : index
+            const proportion = proportions[index].toString(); 
+            result.incoming[proportion] = item.imifuka;
+            result.current[proportion] = parseFloat(item.current) || 0;
+            result.totals[proportion] = parseFloat(item.total) || 0;
+        });
     
+        return result;
+  
+      }else{
+        return data
+      }
+    };
+    const emptyVar = Object.keys(formData).find((key)=> !formData[key] && key != 'date')
+    if (emptyVar) return
+    let nfd = structuredClone(formData)
+    nfd.NF = transformSData(nfd.NF)
+    nfd.IS = transformSData(nfd.IS)
+    nfd.IF = transformSData(nfd.IF)
+    nfd.MA = transformSData(nfd.MA)
+    nfd.envelope = transformSData(nfd.envelope)
+    const scheme = pS
+    scheme.body = JSON.stringify(nfd)
+    let res = await f('stockController',scheme)
     
     setShowSuccessMessage(true);
-    
-   
     setTimeout(() => {
       setShowSuccessMessage(false);
     }, 3000);
-
-    
-    e.target.reset();
-    setFormData({
-      date: '',
-      utanzeRaporo: '',
-      ugemuye: '',
-      comment: ''
-    });
+    // e.target.reset();
+    // setFormData({
+    //   date: '',
+    //   reporter: '',
+    //   sack_no: '',
+    //   comment: ''
+    // });
   };
 
   return (
@@ -225,24 +241,24 @@ const ProductFormStc = () => {
               />
             </div>
             <div>
-              <label htmlFor="utanzeRaporo" className="block text-sm font-medium mb-1 text-indigo-600">Utanze Raporo</label>
+              <label htmlFor="reporter" className="block text-sm font-medium mb-1 text-indigo-600">Utanze Raporo</label>
               <input
                 type="text"
-                id="utanzeRaporo"
-                name="utanzeRaporo"
-                value={formData.utanzeRaporo}
+                id="reporter"
+                name="reporter"
+                value={formData.reporter}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded"
                 required
               />
             </div>
             <div>
-              <label htmlFor="ugemuye" className="block text-sm font-medium mb-1 text-indigo-600">Numero Y'umukiliya</label>
+              <label htmlFor="sack_no" className="block text-sm font-medium mb-1 text-indigo-600">Numero Y'umufuka</label>
               <input
                 type="text"
-                id="ugemuye"
-                name="ugemuye"
-                value={formData.ugemuye}
+                id="sack_no"
+                name="sack_no"
+                value={formData.sack_no}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 border rounded"
                 required

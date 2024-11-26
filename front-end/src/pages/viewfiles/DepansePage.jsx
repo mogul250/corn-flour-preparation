@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { adcm, f, pS } from "../../../public/functions";
 
 const initialFormData = {
   firstTable: [
@@ -28,7 +29,20 @@ const initialFormData = {
 
 function DepansePage () {
   const [formData] = useState(initialFormData);
-
+  const [records,setRecords] = useState([]),
+  hasFetched = useRef(false)
+  useEffect(()=>{
+    if (!hasFetched.current) {
+      const fetchRecs = async ()=>{
+        let schema = pS
+        schema.body = JSON.stringify({date: {}})
+        let recs = await f('expensesReport',pS)
+        setRecords(recs.metadata.report)
+      }
+      fetchRecs()
+      hasFetched.current = true
+    }
+  },[])
   return (
     <div className="container mx-auto p-4 space-y-8">
       <div className="bg-white rounded-lg shadow-md p-6">
@@ -65,59 +79,62 @@ function DepansePage () {
                 
               </tr>
             </thead>
-            <tbody>
-              {formData.firstTable.map((item, index) => (
-                <tr key={index} className="hover:bg-gray-50">
-                  <td className="border bg-gray-400 p-3 text-sm text-gray-600">{item.date}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.utanzeRaporo}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.mazutu}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.abakarani}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.tandBoy}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.shoferi}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.shambre}</td>
-                </tr>
+            
+              {records.map((item, index) => (
+                <tbody key={index}>
+                  <tr className="hover:bg-gray-50">
+                    <td className="border bg-gray-400 p-3 text-sm text-gray-600">{item.date}</td>
+                    <td className="border p-3 text-sm text-gray-600">{item.reporter}</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.diesel)}</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.lifters)}</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.boys)}</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.driver)}</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.room)}</td>
+                  </tr>
+                  <tr>
+                    <td colSpan={8}>
+                      <table className="min-w-full bg-white border border-gray-300">
+                        <thead>
+                          <tr className="bg-gray-100">
+                            
+                            <th className="border p-3 text-left text-sm font-semibold text-gray-700">
+                              Kurya
+                            </th>
+                            <th className="border p-3 text-left text-sm font-semibold text-gray-700">
+                              Urugendo
+                            </th>
+                            <th className="border p-3 text-left text-sm font-semibold text-gray-700">
+                              Amafaranga Asabwa
+                            </th>
+                            <th className="border p-3 text-left text-sm font-semibold text-gray-700">
+                              Amafaranga Averishije
+                            </th>
+                            <th className="border p-3 text-left text-sm font-semibold text-gray-700">
+                              Amafaranga Yose
+                            </th>
+                            <th className="border p-3 text-left text-sm font-semibold text-gray-700">
+                              Icyongeweho
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr key={index} className="hover:bg-gray-50">
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.food)}</td>
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.journey)}</td>
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.r_amount)}</td>
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.inc_amount)}</td>
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.g_amount)}</td>
+                            <td className="border p-3 text-sm text-gray-600">{item.comment}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+
+                </tbody>
               ))}
-            </tbody>
           </table>
         
-          <table className="min-w-full bg-white border border-gray-300">
-            <thead>
-              <tr className="bg-gray-100">
-                
-                <th className="border p-3 text-left text-sm font-semibold text-gray-700">
-                  Kurya
-                </th>
-                <th className="border p-3 text-left text-sm font-semibold text-gray-700">
-                  Urugendo
-                </th>
-                <th className="border p-3 text-left text-sm font-semibold text-gray-700">
-                  Amafaranga Asabwa
-                </th>
-                <th className="border p-3 text-left text-sm font-semibold text-gray-700">
-                  Amafaranga Averishije
-                </th>
-                <th className="border p-3 text-left text-sm font-semibold text-gray-700">
-                  Amafaranga Yose
-                </th>
-                <th className="border p-3 text-left text-sm font-semibold text-gray-700">
-                  Icyongeweho
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {formData.secondTable.map((item, index) => (
-                <tr key={index} className="hover:bg-gray-50">
-                  <td className="border p-3 text-sm text-gray-600">{item.kurya}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.urugendo}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.amafarangaAsabwa}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.amafarangaAverishije}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.amafarangaYose}</td>
-                  <td className="border p-3 text-sm text-gray-600">{item.icyongeweho}</td>
-
-                </tr>
-              ))}
-            </tbody>
-          </table>
         </div>
       </div>
     </div>
