@@ -213,7 +213,7 @@ import { f, pS } from '../../public/functions';
              <h2 className="text-lg font-bold mb-4 text-center text-indigo-600">IBYAGARUTSE</h2>
              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 text-indigo-600">
                <SimpleProductSection title="NEW FOOD" prefix="NF" />
-               <SimpleProductSection title="IFUNGURO" prefix="IF" />
+               <SimpleProductSection title="IFUNGURO RYIZA" prefix="IF" />
                <SimpleProductSection title="ISEZERANO" prefix="IS" />
                <SimpleProductSection title="MAGAJU" prefix="MA" />
                <SimpleEnvelopeSection />

@@ -65,7 +65,7 @@ function ProductFormBranPre() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-indigo-600 mb-1">
-                  ITARIKI
+                  Itariki
                 </label>
                 <input
                   type="date"
@@ -78,7 +78,7 @@ function ProductFormBranPre() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-indigo-600 mb-1">
-                  UTANZE RAPORO
+                  Utanze raporo
                 </label>
                 <input
                   type="text"
@@ -91,7 +91,7 @@ function ProductFormBranPre() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-indigo-600 mb-1">
-                  BURANDA YARIHARI
+                  Buranda yarihari
                 </label>
                 <input
                   type="number"
@@ -104,7 +104,7 @@ function ProductFormBranPre() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-indigo-600 mb-1">
-                  BURANDA YINJIYE
+                  Buranda yinjiye
                 </label>
                 <input
                   type="number"
@@ -117,7 +117,7 @@ function ProductFormBranPre() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-indigo-600 mb-1">
-                  BURANDA IHARI YOSE
+                  Buranda yose hamwe
                 </label>
                 <input
                   type="number"
@@ -132,7 +132,7 @@ function ProductFormBranPre() {
             
             <div>
               <label className="block text-sm font-medium text-indigo-600 mb-1">
-                ICYONGERWAHO
+                Icyongerwaho
               </label>
               <textarea
                 name="comment"
