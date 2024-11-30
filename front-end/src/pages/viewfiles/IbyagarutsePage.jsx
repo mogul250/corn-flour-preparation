@@ -50,7 +50,7 @@ const IbyagarutsePage= () => {
                               <th colSpan="2" className="border border-indigo-200 p-2 text-left">NEW FOOD</th>
                               <th colSpan="2" className="border border-indigo-200 p-2 text-left">ISEZERANO</th>
                               <th colSpan="2" className="border border-indigo-200 p-2 text-left">IFUNGURO</th>
-                              <th colSpan="2" className="border border-indigo-200 p-2 text-left">MAGAJU</th>
+                              <th colSpan="2" className="border border-indigo-200 p-2 text-left">IFUNGURO RYIZA</th>
                               <th colSpan="2" className="border border-indigo-200 p-2 text-left">ENVELOPE</th>
                             </tr>
                             <tr className="bg-indigo-50">
@@ -69,17 +69,17 @@ const IbyagarutsePage= () => {
                           <tbody>
                           {['25', '10', '5'].map((weight) => (
                               <tr key={weight} className="hover:bg-indigo-50">
-                                <td className="border border-indigo-200 p-2">{weight}</td>
+                                <td className="border border-indigo-200 p-2">{weight}kg</td>
                                 <td className="border border-indigo-200 p-2">{item['new_food'][weight]}</td>
-                                <td className="border border-indigo-200 p-2">{weight}</td>
+                                <td className="border border-indigo-200 p-2">{weight}kg</td>
                                 <td className="border border-indigo-200 p-2">{item['isezerano'][weight]}</td>
-                                <td className="border border-indigo-200 p-2">{weight}</td>
+                                <td className="border border-indigo-200 p-2">{weight}kg</td>
                                 <td className="border border-indigo-200 p-2">{item['ifunguro'][weight]}</td>
-                                <td className="border border-indigo-200 p-2">{weight}</td>
+                                <td className="border border-indigo-200 p-2">{weight}kg</td>
                                 <td className="border border-indigo-200 p-2">{item['magaju'][weight]}</td>
                                 {weight === '25' && (
                                   <>
-                                    <td rowSpan="3" className="border border-indigo-200 p-2">{5}</td>
+                                    <td rowSpan="3" className="border border-indigo-200 p-2">{2}kg</td>
                                     <td rowSpan="3" className="border border-indigo-200 p-2">{item['envelope'][5]}</td>
                                   </>
                                 )}

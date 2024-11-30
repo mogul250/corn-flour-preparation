@@ -44,7 +44,7 @@ const ProductFormSel = () => {
         };
   
         if (field === 'ibiro') {
-          const proportion = fieldName === 'envelope' ? 5 : [25, 10, 5][rowIndex];
+          const proportion = fieldName === 'envelope' ? 2 : [25, 10, 5][rowIndex];
           newFlourData[rowIndex].imifuka = proportion ? Math.round(value / proportion) : '';
         }
         if (field === 'price' || field === 'ibiro') {
@@ -94,7 +94,7 @@ const ProductFormSel = () => {
               type="number"
               defaultValue={row.ibiro}
               onBlur={(e) =>{ handleGridInputChange(fieldName, index, 'ibiro', e.target.value);e.preventDefault()}}
-              placeholder={`${title.slice(0, 2)}:${isEnvelope ? 5 : [25, 10, 5][index]}`}
+              placeholder={`${title.slice(0, 2)}:${isEnvelope ? 2 : [25, 10, 5][index]}`}
               className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
             />
             <input
@@ -237,7 +237,7 @@ const ProductFormSel = () => {
             </div>
             <div>
               <label className="block text-xs sm:text-sm font-medium mb-2 text-indigo-600">
-                Ugemuye Kw'isoko
+                Umucuruzi
               </label>
               <input
                 type="text"
@@ -251,7 +251,7 @@ const ProductFormSel = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-8">
-            <div>
+           {/*  <div>
               <label className="block text-xs sm:text-sm font-medium mb-2 text-indigo-600">
                 umukiliya
               </label>
@@ -263,7 +263,8 @@ const ProductFormSel = () => {
                 className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
                 required
               />
-            </div>
+            </div> 
+             */}
             <div>
               <label className="block text-xs sm:text-sm font-medium mb-2 text-indigo-600">
                 Amafranga Araya Kw'isoko
@@ -277,6 +278,7 @@ const ProductFormSel = () => {
                 required
               />
             </div>
+            {/*
             <div>
               <label className="block text-xs sm:text-sm font-medium mb-2 text-indigo-600">
                 Amafranga Asigaye
@@ -290,9 +292,8 @@ const ProductFormSel = () => {
                 required
               />
             </div>
-          </div>
-
-          <div>
+            */}
+             <div>
             <label className="block text-xs sm:text-sm font-medium mb-2 text-indigo-600">
               Nimero Y'umufuka
             </label>
@@ -305,17 +306,20 @@ const ProductFormSel = () => {
               required
             />
           </div>
+          </div>
+
+         
 
           <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-4 gap-4 sm:gap-8">
             <ProductGrid title="NEW FOOD" fieldName="NF" rows={formData.NF} titleColor="text-indigo-600" />
             <ProductGrid title="IFUNGURO RYIZA" fieldName="IF" rows={formData.IF} titleColor="text-indigo-600" />
             <ProductGrid title="ISEZERANO" fieldName="IS" rows={formData.IS} titleColor="text-indigo-600" />
-            <ProductGrid title="MAGAJU" fieldName="MA" rows={formData.MA} titleColor="text-indigo-600" />
+            <ProductGrid title="ISEZERANO ENVELOPE" fieldName="MA" rows={formData.MA} titleColor="text-indigo-600" />
           </div>
 
           <div className="max-w-4xl text-indigo-600">
             <ProductGrid
-              title="ISEZERANO ENVELOPE/5KG"
+              title="ISEZERANO ENVELOPE/2KG"
               fieldName="envelope"
               rows={formData.envelope}
               titleColor="text-indigo-600"

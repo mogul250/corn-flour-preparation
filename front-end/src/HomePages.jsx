@@ -8,7 +8,7 @@ const HomePages = () => {
   const links = [
     { name: 'Ibigori bishyashya', path: '/Ibishyashya' },
     { name: 'Gutunganywa 1', path: '/Gutunganya'},
-    { name: 'Gutunganywa 2', path: '/ibisanzwe' },
+    { name: 'Ibigori byakobowe', path: '/ibisanzwe' },
     { name: 'Sitoke', path: '/Ibyinjiye' },
     { name: 'Buranda yakozwe', path: '/Buranda 1' },
     { name: 'Buranda yacurujwe', path: '/Buranda 2' },

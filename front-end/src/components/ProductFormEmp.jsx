@@ -4,6 +4,7 @@ import { f, pS } from "../../public/functions";
 const ProductFormEmp= () => {
   const [workers, setWorkers] = useState([
     { 
+      Date: "01/10/2025",
       name: "SEMINAGA Bartazar", 
       phone: "0781056204", 
       jobTitle: "CEO", 
@@ -30,7 +31,7 @@ const ProductFormEmp= () => {
   const addWorker = () => {
     setWorkers([
       ...workers,
-      { name: "", phone: "", jobTitle: "", salary: "", saving: "", social: "", salaryAdvance: "", remainSalary: "" },
+      { Date:"", name: "", phone: "", jobTitle: "", salary: "", saving: "", social: "", salaryAdvance: "", remainSalary: "" },
     ]);
   };
 
@@ -65,6 +66,7 @@ const ProductFormEmp= () => {
         <table className="w-full border-collapse border border-gray-300 text-xs sm:text-sm">
           <thead>
           <tr className="bg-indigo-500 text-white">
+<th className="border border-gray-300 p-1 sm:p-2 text-left w-[15%]">Date</th>
 <th className="border border-gray-300 p-1 sm:p-2 text-left w-[15%]">Names</th>
 <th className="border border-gray-300 p-1 sm:p-2 text-left w-[10%] hidden sm:table-cell">Phone</th>
 <th className="border border-gray-300 p-1 sm:p-2 text-left w-[14%] hidden md:table-cell">Job Title</th>
@@ -79,6 +81,19 @@ const ProductFormEmp= () => {
           <tbody>
             {workers.map((worker, index) => (
               <tr key={index} className="even:bg-gray-50">
+                <td className="border border-gray-300 p-1 sm:p-2">
+                  <input
+                    type="text"
+                    value={worker.Date}
+                    onChange={(e) => {
+                      const updatedWorkers = [...workers];
+                      updatedWorkers[index].Date = e.target.value;
+                      setWorkers(updatedWorkers);
+                    }}
+                    className="w-full p-1 sm:p-2 text-xs sm:text-sm rounded border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+                    placeholder="Full name"
+                  />
+                </td>
                 <td className="border border-gray-300 p-1 sm:p-2">
                   <input
                     type="text"

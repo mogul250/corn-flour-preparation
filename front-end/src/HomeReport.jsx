@@ -9,7 +9,7 @@ const HomePages = () => {
   const links = [
     { name: 'Raporo yibigori bishyashya', path: '/ProductForm' },
     { name: 'Raporo yo Gutunganywa 1', path: '/ProductFormPre'},
-    { name: 'Raporo yo Gutunganywa 2', path: '/ProductFormChe' },
+    { name: 'Raporo yibigori bigiye gukoborwa', path: '/ProductFormChe' },
     { name: 'Raporo ya Sitoke', path: '/ProductFormStc' },
     { name: 'Raporo ya Buranda yakozwe', path: '/ProductFormBranPre' },
     { name: 'Raporo ya Buranda Yagurishijwe', path: '/ProductFormBranSel' },

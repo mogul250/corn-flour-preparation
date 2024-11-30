@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { f, pS } from "../../public/functions";
 
 function ProductFormBranSel() {
+  const [paymentMethod, setPaymentMethod] = useState('');
   const [formData, setFormData] = useState({
     date: "",
     reporter: "",
@@ -122,7 +123,30 @@ function ProductFormBranSel() {
                 </div>
               ))}
             </div>
+            
+            <div className="mb-2">
+      <label className="block text-xs sm:text-sm font-medium text-indigo-600 mb-1 ">
+        Uburyo bishyuyemo:
+      </label>
+      <select
+        className="w-full px-2 py-1 sm:px-3 sm:py-2 border rounded border-indigo-300 
+                      focus:ring focus:ring-indigo-200 "
+        value={paymentMethod}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+      >
+        <option value="">Hitamo</option>
+        <option value="momo">Momo</option>
+        <option value="cheque">Cheque</option>
+        <option value="mobile_money">Mobile Money</option>
+        <option value="cash">Cash</option>
+      </select>
 
+      {paymentMethod && (
+        <p className="mt-1 text-xs text-indigo-600">
+          Uhisemo: <span className="font-semibold">{paymentMethod}</span>
+        </p>
+      )}
+    </div>
            
             <div>
               <label className="block text-xs sm:text-sm font-medium text-indigo-600 mb-1">

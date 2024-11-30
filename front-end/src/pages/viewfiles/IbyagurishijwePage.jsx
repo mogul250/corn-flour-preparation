@@ -33,10 +33,8 @@ const IbyagurishijwePage = () => {
               <tr>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Date</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Utanze Raporo</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Ugemuye Kw'isoko</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Umukiriya</th>
+                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Umucuruzi</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Amafaranga Arava Kw'isoko</th>
-                <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Amafaranga Asigaye</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Nimero Y'umufuka</th>
                 <th className="border bg-indigo-100 p-2 text-left text-indigo-500">Icyongerwaho</th>
               </tr>
@@ -47,9 +45,7 @@ const IbyagurishijwePage = () => {
                     <td className="border bg-gray-400 p-2">{item.date}</td>
                     <td className="border p-2">{item.reporter}</td>
                     <td className="border p-2">{item.distributor}</td>
-                    <td className="border p-2">{item.client}</td>
                     <td className="border p-2">{adcm(item.g_amount)}</td>
-                    <td className="border p-2">{adcm(item.r_amount)}</td>
                     <td className="border p-2">{item.no_sacks}</td>
                     <td className="border p-2">{item.comment}</td>
                   </tr>
@@ -62,8 +58,8 @@ const IbyagurishijwePage = () => {
                               <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">NEW FOOD</th>
                               <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IFUNGURO</th>
                               <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">ISEZERANO</th>
-                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">MAGAJU</th>
-                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IS ENVELOPE/5KG</th>
+                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">ISEZERANO ENVELOPE</th>
+                              <th colSpan="4" className="border bg-gray-100 p-2 text-left text-indigo-500">IS ENVELOPE/2KG</th>
                             </tr> 
                             <tr className="bg-gray-50">
                               {['NEW FOOD', 'IFUNGURO', 'ISEZERANO', 'MAGAJU'].map(product => (

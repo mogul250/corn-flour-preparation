@@ -105,9 +105,9 @@ import { f, pS } from '../../public/functions';
         <div className="grid grid-cols-2 gap-4">
           <input
             type="number"
-            placeholder="IS:5KG"
+            placeholder="IS:2KG"
             defaultValue={formData['envelope'][0]?.ibiro || ''}
-            onBlur={e=>seFdata(e,5)}
+            onBlur={e=>seFdata(e,2)}
             className="w-full px-3 py-2 text-sm border rounded"
           />
           <input
@@ -132,7 +132,7 @@ import { f, pS } from '../../public/functions';
             if (index == 0 && data.length > 1)  Object.assign(result,{'25': item.imifuka})
             if (index == 1 && data.length > 1)  Object.assign(result,{'10': item.imifuka})
             if (index == 2 && data.length > 1)  Object.assign(result,{'5': item.imifuka})
-            if (index == 0 && data.length == 1)  Object.assign(result,{'5': item.imifuka})
+            if (index == 0 && data.length == 1)  Object.assign(result,{'2': item.imifuka})
         });
     
         return result;
@@ -215,7 +215,7 @@ import { f, pS } from '../../public/functions';
                <SimpleProductSection title="NEW FOOD" prefix="NF" />
                <SimpleProductSection title="IFUNGURO RYIZA" prefix="IF" />
                <SimpleProductSection title="ISEZERANO" prefix="IS" />
-               <SimpleProductSection title="MAGAJU" prefix="MA" />
+               <SimpleProductSection title="ISEZERANO ENVELOPE" prefix="MA" />
                <SimpleEnvelopeSection />
              </div>
            </div>

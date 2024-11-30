@@ -19,7 +19,7 @@ const ProductFormChe = () => {
   });
 
   const [inganoYaEnvelope, setInganoYaEnvelope] = useState('');
-  const [isEnvelope5kg, setIsEnvelope5kg] = useState('');
+  const [isEnvelope5kg, setIsEnvelope2kg] = useState('');
   const [successMessage, setSuccessMessage] = useState(''); // Success message state
 
   const handleInganoChange = (e) => {
@@ -29,9 +29,9 @@ const ProductFormChe = () => {
     
     if (input && !isNaN(input)) {
       const inganoValue = parseInt(input, 10);
-      setIsEnvelope5kg(Math.floor(inganoValue / 5));
+      setIsEnvelope2kg(Math.floor(inganoValue / 2));
     } else {
-      setIsEnvelope5kg(''); // Reset IS envelope 5kg if input is cleared
+      setIsEnvelope2kg(''); // Reset IS envelope 2kg if input is cleared
     }
   };
 
@@ -118,7 +118,7 @@ const ProductFormChe = () => {
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto p-4">
         <h2 className="text-2xl font-bold text-indigo-700 mb-4 text-center">
-          AMAKURU YIBIGORI BIGIYE GUTUNGANYWA
+          IBIGORI BIGIYE GUKOBORWA
         </h2>
 
 
@@ -221,7 +221,7 @@ const ProductFormChe = () => {
                 onChange={(e) => setIsezerano(e.target.value)}
                 required
               />
-              <label className="block text-indigo-700 font-medium mb-2">Magaju</label>
+              <label className="block text-indigo-700 font-medium mb-2">Isezerano Envelope</label>
               <input 
                 type="text" 
                 placeholder="Ibiro" 
@@ -232,15 +232,15 @@ const ProductFormChe = () => {
                 required
               />
             </div>
-            {/*
+            
              <div>
               
             <label className="block text-indigo-700 font-medium mb-2">
-                Buranda iteganywa Kuvamo
+                Nimero y'umufuka
               </label>
               <input 
                 type="text" 
-                placeholder="Ibiro" 
+                placeholder="Nimero" 
                 className="w-full p-2 border rounded-md" 
                 value={buranda}
                 name='waste_e'
@@ -248,7 +248,7 @@ const ProductFormChe = () => {
                 required
               />
             </div>
-            */}
+            
           </div>
 
       
@@ -346,16 +346,16 @@ const ProductFormChe = () => {
 
           
             <div>
-              <h2 className="text-center text-white bg-indigo-500 py-2 font-semibold">MAGAJU</h2>
+              <h2 className="text-center text-white bg-indigo-500 py-2 font-semibold">Isezerano Envelope</h2>
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-center text-indigo-600 font-medium">Ibiro</p>
                 <p className="text-center text-indigo-600 font-medium">Imifuka</p>
-                {['25', '10', '5'].map((key, index) => (
+                {['25', '10', '5' ].map((key, index) => (
                   <React.Fragment key={key}>
                     <input
                       type="number"
                     name='mag'
-                      placeholder={`MG: ${[25, 10, 5][index]}KG`}
+                      placeholder={`MG: ${[25, 10, 5, 2][index]}KG`}
                       className="bg-gray-200 p-2 rounded"
                       onChange={(e) => handleMagajuChange(key, e.target.value)}
                     />
@@ -377,17 +377,17 @@ const ProductFormChe = () => {
       
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
             <div>
-              <label className="block text-indigo-600 font-semibold mb-2 ">ingano ya Envelope</label>
+              <label className="block text-indigo-600 font-semibold mb-2 ">Isezerano Envelope</label>
 
            <input 
              type="number"
              value={inganoYaEnvelope}
-             placeholder="IS:5KG"
+             placeholder="IS:2KG"
              name='envelope'
              className="bg-gray-200 p-2 rounded"
              onChange={handleInganoChange}
           />
-          <label className="block text-indigo-600 font-semibold mb-2">I.S Envelope 5KG</label>
+          <label className="block text-indigo-600 font-semibold mb-2">I.S Envelope 2KG</label>
          <input
              type="number"
              placeholder="0"

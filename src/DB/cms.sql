@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 23, 2024 at 09:17 PM
+-- Generation Time: Nov 26, 2024 at 11:42 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,110 @@ SET time_zone = "+00:00";
 --
 -- Database: `cms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employees`
+--
+
+CREATE TABLE `employees` (
+  `id` varchar(255) NOT NULL,
+  `names` varchar(255) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `phone` varchar(255) NOT NULL,
+  `salary` int(255) NOT NULL,
+  `saving` int(255) NOT NULL,
+  `social` int(122) NOT NULL,
+  `advance` int(122) NOT NULL,
+  `r_salary` int(122) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`id`, `names`, `title`, `phone`, `salary`, `saving`, `social`, `advance`, `r_salary`, `date`) VALUES
+('hgwyre', 'HESHIMA HERBERT', 'CFO', '0790861884', 1000, 3343, 345, 2345, 3456, '2024-11-26 19:48:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `expenses`
+--
+
+CREATE TABLE `expenses` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `diesel` float NOT NULL,
+  `lifters` float NOT NULL,
+  `boys` float NOT NULL,
+  `driver` float NOT NULL,
+  `room` float NOT NULL,
+  `food` float NOT NULL,
+  `travel` float NOT NULL,
+  `r_amount` float NOT NULL,
+  `inc_amount` float NOT NULL,
+  `g_amount` float NOT NULL,
+  `comment` varchar(255) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `expenses`
+--
+
+INSERT INTO `expenses` (`id`, `reporter`, `diesel`, `lifters`, `boys`, `driver`, `room`, `food`, `travel`, `r_amount`, `inc_amount`, `g_amount`, `comment`, `date`) VALUES
+('0', 'heshima', 232, 454, 5454, 5454, 45, 44454, 454, 5343, 2434350, 65768, 'byatunganye', '2024-11-26 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leftovers`
+--
+
+CREATE TABLE `leftovers` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `w_pre` float NOT NULL,
+  `w_incoming` float NOT NULL,
+  `w_tot` float NOT NULL,
+  `comment` varchar(255) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `leftovers`
+--
+
+INSERT INTO `leftovers` (`id`, `reporter`, `w_pre`, `w_incoming`, `w_tot`, `comment`, `date`) VALUES
+('tf0709', 'heshima', 100, 100, 200, 'dsds', '2024-11-25 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `leftover_out`
+--
+
+CREATE TABLE `leftover_out` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `client` varchar(255) NOT NULL,
+  `weight` float NOT NULL,
+  `price` float NOT NULL,
+  `g_amount` float NOT NULL,
+  `r_amount` float NOT NULL,
+  `comment` varchar(1000) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `leftover_out`
+--
+
+INSERT INTO `leftover_out` (`id`, `reporter`, `client`, `weight`, `price`, `g_amount`, `r_amount`, `comment`, `date`) VALUES
+('gx2z3h', 'dds', 'fds', 100, 100, 10000, 100, 'dededeede', '2024-11-25 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -135,6 +239,33 @@ INSERT INTO `preparation_track` (`id`, `act_type`, `weight`, `destination`, `r_w
 ('llwtyl', 'minus', -1100, 'packaging', 94700, '2024-11-15 10:11:08'),
 ('lue98w', 'minus', -1100, 'packaging', 91400, '2024-11-23 10:44:04'),
 ('y87i07', 'minus', -1100, 'packaging', 92500, '2024-11-23 10:38:32');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `returns`
+--
+
+CREATE TABLE `returns` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `ifunguro` varchar(1000) NOT NULL,
+  `isezerano` varchar(1000) NOT NULL,
+  `magaju` varchar(1000) NOT NULL,
+  `new_food` varchar(1000) NOT NULL,
+  `envelope` varchar(1000) NOT NULL,
+  `comment` varchar(1000) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `returns`
+--
+
+INSERT INTO `returns` (`id`, `reporter`, `ifunguro`, `isezerano`, `magaju`, `new_food`, `envelope`, `comment`, `date`) VALUES
+('0', '0', '{\"5\":181802,\"10\":901,\"25\":32}', '{\"5\":12121,\"10\":808,\"25\":31192}', '{\"5\":14141,\"10\":6061,\"25\":24279}', '{\"5\":1600,\"10\":10,\"25\":4}', '{\"5\":16162}', 'dsdss', '2024-11-12 00:00:00'),
+('0jdf8t', 'heshima', '{\"5\":22,\"10\":12,\"25\":23}', '{\"5\":20,\"10\":70,\"25\":28}', '{\"5\":14,\"10\":77,\"25\":4}', '{\"5\":20,\"10\":60,\"25\":4}', '{\"5\":160}', 'byari neza\n', '2024-11-26 00:00:00'),
+('724336', '0', '{\"5\":181802,\"10\":901,\"25\":32}', '{\"5\":12121,\"10\":808,\"25\":31192}', '{\"5\":14141,\"10\":6061,\"25\":24279}', '{\"5\":1600,\"10\":10,\"25\":4}', '{\"5\":16162}', '', '2024-11-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -273,6 +404,34 @@ INSERT INTO `stock1_track` (`id`, `act_type`, `weight`, `destination`, `r_weight
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stock_track`
+--
+
+CREATE TABLE `stock_track` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `sack_no` varchar(255) NOT NULL,
+  `ifunguro` varchar(1000) NOT NULL,
+  `isezerano` varchar(1000) NOT NULL,
+  `magaju` varchar(1000) NOT NULL,
+  `new_food` varchar(1000) NOT NULL,
+  `envelope` varchar(1000) NOT NULL,
+  `comment` varchar(1000) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `stock_track`
+--
+
+INSERT INTO `stock_track` (`id`, `reporter`, `sack_no`, `ifunguro`, `isezerano`, `magaju`, `new_food`, `envelope`, `comment`, `date`) VALUES
+('0', 'heshima', '100', '{\"incoming\":{\"5\":0,\"10\":0,\"25\":0},\"current\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"incoming\":{\"5\":0,\"10\":0,\"25\":0},\"current\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"incoming\":{\"5\":0,\"10\":0,\"25\":0},\"current\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"incoming\":{\"5\":16,\"10\":70,\"25\":4},\"current\":{\"5\":78,\"10\":10,\"25\":100},\"totals\":{\"5\":94,\"10\":80,\"25\":104}}', '{\"incoming\":{\"5\":20},\"current\":{\"5\":5},\"totals\":{\"5\":25}}', 'byaciyemo', '2024-11-26 00:00:00'),
+('27', 'heshima', '1001', '{\"incoming\":{\"5\":0,\"10\":0,\"25\":0},\"current\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"incoming\":{\"5\":0,\"10\":0,\"25\":0},\"current\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"incoming\":{\"5\":0,\"10\":0,\"25\":0},\"current\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"incoming\":{\"5\":0,\"10\":8,\"25\":4},\"current\":{\"5\":0,\"10\":90,\"25\":800},\"totals\":{\"5\":0,\"10\":98,\"25\":804}}', '{\"incoming\":{\"5\":16},\"current\":{\"5\":6},\"totals\":{\"5\":22}}', 'byari neza', '2024-11-25 00:00:00'),
+('77', '0', '1001', '{\"incoming\":{\"5\":0,\"10\":0,\"25\":0},\"current\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"incoming\":{\"5\":0,\"10\":0,\"25\":0},\"current\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"incoming\":{\"5\":0,\"10\":0,\"25\":0},\"current\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"incoming\":{\"5\":0,\"10\":8,\"25\":4},\"current\":{\"5\":0,\"10\":90,\"25\":800},\"totals\":{\"5\":0,\"10\":98,\"25\":804}}', '{\"incoming\":{\"5\":16},\"current\":{\"5\":6},\"totals\":{\"5\":22}}', 'byari neza', '2024-11-25 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -299,6 +458,30 @@ INSERT INTO `users` (`id`, `names`, `email`, `role`, `password`, `2FA`, `dateadd
 --
 
 --
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `expenses`
+--
+ALTER TABLE `expenses`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `leftovers`
+--
+ALTER TABLE `leftovers`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `leftover_out`
+--
+ALTER TABLE `leftover_out`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `packaging`
 --
 ALTER TABLE `packaging`
@@ -320,6 +503,12 @@ ALTER TABLE `preparation`
 -- Indexes for table `preparation_track`
 --
 ALTER TABLE `preparation_track`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `returns`
+--
+ALTER TABLE `returns`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -350,6 +539,12 @@ ALTER TABLE `stock1`
 -- Indexes for table `stock1_track`
 --
 ALTER TABLE `stock1_track`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `stock_track`
+--
+ALTER TABLE `stock_track`
   ADD PRIMARY KEY (`id`);
 
 --

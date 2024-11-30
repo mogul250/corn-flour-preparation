@@ -53,6 +53,9 @@ import { adcm, f, pS } from "../../../public/functions";
                   AMAFARANGA ASIGAJE KWISHYURA
                 </th>
                 <th className="border p-3 text-left text-sm font-semibold text-gray-700">
+                  UBURYO BIISHYUYEMO
+                </th>
+                <th className="border p-3 text-left text-sm font-semibold text-gray-700">
                   ICYONGEWEHO
                 </th>
               </tr>
@@ -77,6 +80,9 @@ import { adcm, f, pS } from "../../../public/functions";
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
                     {adcm(item.g_amount)}
+                  </td>
+                  <td className="border p-3 text-sm text-gray-600">
+                    {adcm(item.r_amount)}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
                     {adcm(item.r_amount)}

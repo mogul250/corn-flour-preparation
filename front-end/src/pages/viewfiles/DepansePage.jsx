@@ -85,11 +85,11 @@ function DepansePage () {
                   <tr className="hover:bg-gray-50">
                     <td className="border bg-gray-400 p-3 text-sm text-gray-600">{item.date}</td>
                     <td className="border p-3 text-sm text-gray-600">{item.reporter}</td>
-                    <td className="border p-3 text-sm text-gray-600">{adcm(item.diesel)}</td>
-                    <td className="border p-3 text-sm text-gray-600">{adcm(item.lifters)}</td>
-                    <td className="border p-3 text-sm text-gray-600">{adcm(item.boys)}</td>
-                    <td className="border p-3 text-sm text-gray-600">{adcm(item.driver)}</td>
-                    <td className="border p-3 text-sm text-gray-600">{adcm(item.room)}</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.diesel)} RWF</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.lifters)} RWF</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.boys)} RWF</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.driver)} RWF</td>
+                    <td className="border p-3 text-sm text-gray-600">{adcm(item.room)} RWF</td>
                   </tr>
                   <tr>
                     <td colSpan={8}>
@@ -119,11 +119,11 @@ function DepansePage () {
                         </thead>
                         <tbody>
                           <tr key={index} className="hover:bg-gray-50">
-                            <td className="border p-3 text-sm text-gray-600">{adcm(item.food)}</td>
-                            <td className="border p-3 text-sm text-gray-600">{adcm(item.journey)}</td>
-                            <td className="border p-3 text-sm text-gray-600">{adcm(item.r_amount)}</td>
-                            <td className="border p-3 text-sm text-gray-600">{adcm(item.inc_amount)}</td>
-                            <td className="border p-3 text-sm text-gray-600">{adcm(item.g_amount)}</td>
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.food)} RWF</td>
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.journey)} RWF</td>
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.r_amount)} RWF</td>
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.inc_amount)} RWF</td>
+                            <td className="border p-3 text-sm text-gray-600">{adcm(item.g_amount)} RWF</td>
                             <td className="border p-3 text-sm text-gray-600">{item.comment}</td>
                           </tr>
                         </tbody>

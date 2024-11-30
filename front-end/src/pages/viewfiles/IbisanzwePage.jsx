@@ -74,7 +74,7 @@ const  hasFetched = useRef(false),
     <div className="container mx-auto p-4 space-y-8">
       <div className="bg-white rounded-lg shadow-md p-4">
         <h2 className="text-2xl font-bold text-center text-indigo-800 mb-4">
-          RAPORO ZIBYATUNGANYIJWE
+          IBIGORI BYAKOBOWE
         </h2>
        
         
@@ -86,6 +86,7 @@ const  hasFetched = useRef(false),
                 <th className="border border-indigo-200 p-2 text-left">Utanze Raporo</th>
                 <th className="border border-indigo-200 p-2 text-left">Ingano (KG)</th>
                 <th className="border border-indigo-200 p-2 text-left">Ubwoko bwamafu</th>
+                <th className="border border-indigo-200 p-2 text-left">Nimero yumufuka</th>
                 <th className="border border-indigo-200 p-2 text-left">Buranda Yavuyemo</th>
                 <th className="border border-indigo-200 p-2 text-left">Icyongeweho</th>
               </tr>
@@ -105,11 +106,10 @@ const  hasFetched = useRef(false),
                    <tr className="hover:bg-indigo-50">
                       <td className="border bg-gray-400 border-indigo-200 p-2">{item.date}</td>
                       <td className="border border-indigo-200 p-2">{item.reporter}</td>
-                      <td className="border border-indigo-200 p-2">{item.incoming_c}</td>
-                      <td className="border border-indigo-200 p-2">
-                        {avai_f.toString()}
-                      </td>
-                      <td className="border border-indigo-200 p-2">{item.waste_f}</td>
+                      <td className="border border-indigo-200 p-2">{item.incoming_c}kg</td>
+                      <td className="border border-indigo-200 p-2">{avai_f.toString()}</td>
+                      <td className="border border-indigo-200 p-2">{avai_f.toString()}</td>
+                      <td className="border border-indigo-200 p-2">{item.waste_f}kg</td>
                       <td className="border border-indigo-200 p-2">{item.comment}</td>
                     </tr>
                     <tr>
@@ -122,7 +122,7 @@ const  hasFetched = useRef(false),
                                 <th colSpan="2" className="border border-indigo-200 p-2 text-left">NEW FOOD</th>
                                 <th colSpan="2" className="border border-indigo-200 p-2 text-left">ISEZERANO</th>
                                 <th colSpan="2" className="border border-indigo-200 p-2 text-left">IFUNGURO</th>
-                                <th colSpan="2" className="border border-indigo-200 p-2 text-left">MAGAJU</th>
+                                <th colSpan="2" className="border border-indigo-200 p-2 text-left">ISEZERANO ENVELOPE</th>
                                 <th colSpan="2" className="border border-indigo-200 p-2 text-left">ENVELOPE</th>
                               </tr>
                               <tr className="bg-indigo-50">
@@ -149,23 +149,23 @@ const  hasFetched = useRef(false),
                                           <tr key={weight} className="hover:bg-indigo-50">
                                             {weight === '25' && (
                                               <>
-                                                <td rowSpan="3" className="border border-indigo-200 p-2">{item.f_e['NF']}</td>
-                                                <td rowSpan="3" className="border border-indigo-200 p-2">{item.f_e['IF']}</td>
-                                                <td rowSpan="3" className="border border-indigo-200 p-2">{item.f_e['IS']}</td>
-                                                <td rowSpan="3" className="border border-indigo-200 p-2">{item.f_e['MA']}</td>
+                                                <td rowSpan="3" className="border border-indigo-200 p-2">{item.f_e['NF']}kg</td>
+                                                <td rowSpan="3" className="border border-indigo-200 p-2">{item.f_e['IF']}kg</td>
+                                                <td rowSpan="3" className="border border-indigo-200 p-2">{item.f_e['IS']}kg</td>
+                                                <td rowSpan="3" className="border border-indigo-200 p-2">{item.f_e['MA']}kg</td>
                                               </>
                                             )}
-                                            <td className="border border-indigo-200 p-2">{weight}</td>
+                                            <td className="border border-indigo-200 p-2">{weight}kg</td>
                                             <td className="border border-indigo-200 p-2">{item.new_food[weight]}</td>
-                                            <td className="border border-indigo-200 p-2">{weight}</td>
+                                            <td className="border border-indigo-200 p-2">{weight}kg</td>
                                             <td className="border border-indigo-200 p-2">{item.isezerano[weight]}</td>
-                                            <td className="border border-indigo-200 p-2">{weight}</td>
+                                            <td className="border border-indigo-200 p-2">{weight}kg</td>
                                             <td className="border border-indigo-200 p-2">{item.ifunguro[weight]}</td>
-                                            <td className="border border-indigo-200 p-2">{weight}</td>
+                                            <td className="border border-indigo-200 p-2">{weight}kg</td>
                                             <td className="border border-indigo-200 p-2">{item.magaju[weight]}</td>
                                             {weight === '25' && (
                                               <>
-                                                <td rowSpan="3" className="border border-indigo-200 p-2">{5}</td>
+                                                <td rowSpan="3" className="border border-indigo-200 p-2">{2}kg</td>
                                                 <td rowSpan="3" className="border border-indigo-200 p-2">{item.envelopes}</td>
                                               </>
                                             )}

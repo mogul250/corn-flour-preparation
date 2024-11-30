@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { f, pS } from '../../public/functions';
 
 const ProductFormOut = () => {
+  const [paymentMethod, setPaymentMethod] = useState('');
   
   const [formData,setFormData] = useState({
     date: '',
@@ -195,7 +196,7 @@ const ProductFormOut = () => {
             type="number"
             placeholder="IS:5KG"
             defaultValue={formData.p_taken['envelope'][0]?.ibiro || ''}
-            onBlur={e=>seFdata(e,5)}
+            onBlur={e=>seFdata(e,2)}
             className="w-full px-3 py-2 text-sm border rounded"
           />
           <input
@@ -236,10 +237,10 @@ const ProductFormOut = () => {
         <div className="grid grid-cols-4 gap-4">
           <input
             type="number"
-            placeholder="IS:5KG"
+            placeholder="IS:2KG"
             name='ibiro'
             defaultValue={formData.p_sold['envelope'][0]?.ibiro || ''}
-            onBlur={e=>seFdata(e,5)}
+            onBlur={e=>seFdata(e,2)}
             className="w-full px-3 py-2 text-sm border rounded"
           />
           <input
@@ -263,6 +264,7 @@ const ProductFormOut = () => {
           />
         </div>
       </div>
+      
     );
   },
   handleInputChange = (e)=>{
@@ -333,6 +335,7 @@ const ProductFormOut = () => {
   nfd = formData
  };
 
+
  return (
    <div className="min-h-screen bg-gray-50 p-6">
      <div className="max-w-7xl mx-auto">
@@ -367,7 +370,7 @@ const ProductFormOut = () => {
              />
            </div>
            <div>
-             <label htmlFor="ugemuye" className="block text-sm font-medium mb-1 text-indigo-600">Ugemuye</label>
+             <label htmlFor="ugemuye" className="block text-sm font-medium mb-1 text-indigo-600">Umucuruzi</label>
              <input
                type="text"
                id="ugemuye"
@@ -379,7 +382,7 @@ const ProductFormOut = () => {
              />
            </div>
            <div>
-             <label htmlFor="umucuruzi" className="block text-sm font-medium mb-1 text-indigo-600">Umukiliya</label>
+             <label htmlFor="umucuruzi" className="block text-sm font-medium mb-1 text-indigo-600">Aho yakoreye</label>
              <input
                type="text"
                id="umucuruzi"
@@ -392,7 +395,7 @@ const ProductFormOut = () => {
            </div>
          </div>
 
-         
+          {/*
          <div>
            <h2 className="text-lg font-bold mb-4 text-center text-indigo-600">IBYO YATWAYE</h2>
            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 text-indigo-600">
@@ -403,8 +406,7 @@ const ProductFormOut = () => {
              <SimpleEnvelopeSection object={'MA'} prefix="MA"/>
            </div>
          </div>
-
-         
+         */}
          <div>
            <h2 className="text-lg font-bold mb-4 text-indigo-600 text-center">IBYACURUJWE</h2>
            <div className="flex flex-col gap-6">
@@ -417,7 +419,7 @@ const ProductFormOut = () => {
              
              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-indigo-600">
                <DetailedProductSection title="ISEZERANO" object={'IS'} prefix="IS" />
-               <DetailedProductSection title="MAGAJU" object={'MA'} prefix="MA" />
+               <DetailedProductSection title="ISEZERANO ENVELOPE" object={'MA'} prefix="MA" />
              </div>
              
              
@@ -427,7 +429,29 @@ const ProductFormOut = () => {
            </div>
          </div>
 
-        
+         <div className="mb-2">
+      <label className="block text-xs sm:text-sm font-medium text-indigo-600 mb-1 ">
+        Uburyo bishyuyemo:
+      </label>
+      <select
+        className="w-full px-2 py-1 sm:px-3 sm:py-2 border rounded border-indigo-300 
+                      focus:ring focus:ring-indigo-200 "
+        value={paymentMethod}
+        onChange={(e) => setPaymentMethod(e.target.value)}
+      >
+        <option value="">Hitamo</option>
+        <option value="momo">Momo</option>
+        <option value="cheque">Cheque</option>
+        <option value="mobile_money">Mobile Money</option>
+        <option value="cash">Cash</option>
+      </select>
+
+      {paymentMethod && (
+        <p className="mt-1 text-xs text-indigo-600">
+          Uhisemo: <span className="font-semibold">{paymentMethod}</span>
+        </p>
+      )}
+    </div>
          <div className="flex justify-start">
            <div className="flex flex-col w-full">
              <label htmlFor="comment" className="mb-1 text-indigo-600">

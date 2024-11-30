@@ -33,8 +33,9 @@ const IbyasohotsePage = () => {
               <tr className="bg-indigo-50">
                 <th className="border border-indigo-200 p-2 text-left">Date</th>
                 <th className="border border-indigo-200 p-2 text-left">Utanze Raporo</th>
-                <th className="border border-indigo-200 p-2 text-left">Uwagemuye</th>
-                <th className="border border-indigo-200 p-2 text-left">Umukiliya</th>
+                <th className="border border-indigo-200 p-2 text-left">Umucuruzi</th>
+                <th className="border border-indigo-200 p-2 text-left">Aho yakoreye</th>
+                <th className="border border-indigo-200 p-2 text-left">Uburyo bishyuyemo</th>
                 <th className="border border-indigo-200 p-2 text-left">Icyongeweho</th>
                 
               </tr>
@@ -47,10 +48,12 @@ const IbyasohotsePage = () => {
                       <td className="border border-indigo-200 p-2">{item.reporter}</td>
                       <td className="border border-indigo-200 p-2">{item.distributor}</td>
                       <td className="border border-indigo-200 p-2">{item.client}</td>
+                      <td className="border border-indigo-200 p-2">{item.client}</td>
                       <td className="border border-indigo-200 p-2">{item.comment}</td>
                     </tr>
                     <tr>
                       <td colSpan={5}>
+                        {/*
                           <div className="overflow-x-auto">
                             <h2 className="text-2xl font-bold text-center text-indigo-800 mb-4">
                               IBYO YATWAYE
@@ -58,7 +61,7 @@ const IbyasohotsePage = () => {
                               <table className="min-w-full bg-white border border-indigo-200">
                                 <thead>
                                   <tr className="bg-indigo-50">
-                                    <th colSpan="2" className="border border-indigo-200 p-2 text-left">NEW FOOD</th>
+                                    <th colSpan="2" className="border border-indigo-200 p-2 text-left">NEW FOO</th>
                                     <th colSpan="2" className="border border-indigo-200 p-2 text-left">ISEZERANO</th>
                                     <th colSpan="2" className="border border-indigo-200 p-2 text-left">IFUNGURO</th>
                                     <th colSpan="2" className="border border-indigo-200 p-2 text-left">MAGAJU</th>
@@ -111,6 +114,7 @@ const IbyasohotsePage = () => {
                                 </tbody>
                               </table>
                           </div>
+                          */}
                           <div className="overflow-x-auto">
                             <h2 className="text-2xl font-bold text-center text-indigo-800 mb-4">
                               IBYO YACURUJE
@@ -122,7 +126,7 @@ const IbyasohotsePage = () => {
                                 <th colSpan="4" className="border border-indigo-200 p-2 text-center">NEW FOOD</th>
                                 <th colSpan="4" className="border border-indigo-200 p-2 text-center">ISEZERANO</th>
                                 <th colSpan="4" className="border border-indigo-200 p-2 text-center">IFUNGURO</th>
-                                <th colSpan="4" className="border border-indigo-200 p-2 text-center">MAGAJU</th>
+                                <th colSpan="4" className="border border-indigo-200 p-2 text-center">ISEZERANO ENVELOPE</th>
                                 <th colSpan="4" className="border border-indigo-200 p-2 text-center">ENVELOPE</th>
                               </tr>
                               <tr className="bg-indigo-50">
@@ -139,32 +143,32 @@ const IbyasohotsePage = () => {
                             <tbody>
                               {['25', '10', '5'].map((weight) => (
                                 <tr key={weight} className="hover:bg-indigo-50">
-                                  <td className="border border-indigo-200 p-2">{weight}</td>
+                                  <td className="border border-indigo-200 p-2">{weight}kg</td>
                                   <td className="border border-indigo-200 p-2">{item.p_sold.NF.weights[weight]}</td>
-                                  <td className="border border-indigo-200 p-2">{adcm(item.p_sold.NF.pricings[weight])}</td>
+                                  <td className="border border-indigo-200 p-2">{adcm(item.p_sold.NF.pricings[weight])} RWF</td>
                                   <td className="border border-indigo-200 p-2">{adcm(item.p_sold.NF.totals[weight])} FRW</td>
 
 
-                                  <td className="border border-indigo-200 p-2">{weight}</td>
+                                  <td className="border border-indigo-200 p-2">{weight}kg</td>
                                   <td className="border border-indigo-200 p-2">{item.p_sold.IS.weights[weight]}</td>
-                                  <td className="border border-indigo-200 p-2">{adcm(item.p_sold.IS.pricings[weight])}</td>
+                                  <td className="border border-indigo-200 p-2">{adcm(item.p_sold.IS.pricings[weight])} RWF</td>
                                   <td className="border border-indigo-200 p-2">{adcm(item.p_sold.IS.totals[weight])} FRW</td>
 
 
-                                  <td className="border border-indigo-200 p-2">{weight}</td>
+                                  <td className="border border-indigo-200 p-2">{weight}kg</td>
                                   <td className="border border-indigo-200 p-2">{item.p_sold.IS.weights[weight]}</td>
-                                  <td className="border border-indigo-200 p-2">{adcm(item.p_sold.IS.pricings[weight])}</td>
+                                  <td className="border border-indigo-200 p-2">{adcm(item.p_sold.IS.pricings[weight])}RWF</td>
                                   <td className="border border-indigo-200 p-2">{adcm(item.p_sold.IS.totals[weight])} FRW</td>
 
-                                  <td className="border border-indigo-200 p-2">{weight}</td>
+                                  <td className="border border-indigo-200 p-2">{weight}kg</td>
                                   <td className="border border-indigo-200 p-2">{item.p_sold.MA.weights[weight]}</td>
-                                  <td className="border border-indigo-200 p-2">{adcm(item.p_sold.MA.pricings[weight])}</td>
+                                  <td className="border border-indigo-200 p-2">{adcm(item.p_sold.MA.pricings[weight])}RWF</td>
                                   <td className="border border-indigo-200 p-2">{adcm(item.p_sold.MA.totals[weight])} FRW</td>
                                   {weight === '25' && (
                                     <>
-                                      <td rowSpan="3" className="border border-indigo-200 p-2">{5}</td>
+                                      <td rowSpan="3" className="border border-indigo-200 p-2">{2}kg</td>
                                       <td rowSpan="3" className="border border-indigo-200 p-2">{item.p_sold.envelope.weights[5]}</td>
-                                      <td rowSpan="3" className="border border-indigo-200 p-2">{item.p_sold.envelope.pricings[5]}</td>
+                                      <td rowSpan="3" className="border border-indigo-200 p-2">{item.p_sold.envelope.pricings[5]} RWF</td>
                                       <td rowSpan="3" className="border border-indigo-200 p-2">{adcm(item.p_sold.envelope.totals[5])} FRW</td>
                                     </>
                                   )}
