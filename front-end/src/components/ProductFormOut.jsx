@@ -11,6 +11,7 @@ const ProductFormOut = () => {
     distributor: '',
     client: '',
     comment: '',
+    pm: '',
     p_taken:{
       NF: [
         { ibiro: '', imifuka: 0},
@@ -307,7 +308,7 @@ const ProductFormOut = () => {
           if (index == 0 && data.length > 1)  Object.assign(result,{'25': item.imifuka})
           if (index == 1 && data.length > 1)  Object.assign(result,{'10': item.imifuka})
           if (index == 2 && data.length > 1)  Object.assign(result,{'5': item.imifuka})
-          if (index == 0 && data.length == 1)  Object.assign(result,{'5': item.imifuka})
+          if (index == 0 && data.length == 1)  Object.assign(result,{'2': item.imifuka})
       });
   
       return result;
@@ -436,8 +437,9 @@ const ProductFormOut = () => {
       <select
         className="w-full px-2 py-1 sm:px-3 sm:py-2 border rounded border-indigo-300 
                       focus:ring focus:ring-indigo-200 "
-        value={paymentMethod}
-        onChange={(e) => setPaymentMethod(e.target.value)}
+        value={formData.pm}
+        onChange={handleInputChange}
+        name='pm'
       >
         <option value="">Hitamo</option>
         <option value="momo">Momo</option>
@@ -448,7 +450,7 @@ const ProductFormOut = () => {
 
       {paymentMethod && (
         <p className="mt-1 text-xs text-indigo-600">
-          Uhisemo: <span className="font-semibold">{paymentMethod}</span>
+          Uhisemo: <span className="font-semibold">{formData.pm}</span>
         </p>
       )}
     </div>

@@ -9,7 +9,7 @@ export const expensesController = async  (req,res)=>{
         let {expenses,reporter,comment,date} = req.body,
         id = rsg(6,true,true,!1,!1)
         !date ? date = now() : null;
-        const insert = await query(`INSERT INTO expenses VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,expenses.diesel,expenses.lifters,expenses.boys,expenses.driver,expenses.room,expenses.food,expenses.travel,expenses.r_amount,expenses.inc_amount,expenses.g_amount,comment,date])
+        const insert = await query(`INSERT INTO expenses VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,expenses.diesel,expenses.lifters,expenses.boys,expenses.driver,expenses.room,expenses.food,expenses.travel,expenses.r_amount,expenses.inc_amount,expenses.g_amount,expenses.g_amount,expenses.o_m,comment,date])
         if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
     } catch (error) {
@@ -27,7 +27,7 @@ export const expensesReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT * from expenses where date >= ? AND date <= ?',[date.start,date.stop]),mtotal,added,initamount
+        let report = await query('SELECT * from expenses where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop]),mtotal,added,initamount
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         // if(report.length){
         //     let lastRec = await getLDayStockTrackRec('stock1_track'),

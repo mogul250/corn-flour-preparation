@@ -108,12 +108,12 @@ const  hasFetched = useRef(false),
                       <td className="border border-indigo-200 p-2">{item.reporter}</td>
                       <td className="border border-indigo-200 p-2">{item.incoming_c}kg</td>
                       <td className="border border-indigo-200 p-2">{avai_f.toString()}</td>
-                      <td className="border border-indigo-200 p-2">{avai_f.toString()}</td>
+                      <td className="border border-indigo-200 p-2">{item.sack_no}</td>
                       <td className="border border-indigo-200 p-2">{item.waste_f}kg</td>
                       <td className="border border-indigo-200 p-2">{item.comment}</td>
                     </tr>
                     <tr>
-                      <td colSpan={6}>
+                      <td colSpan={7}>
                         <div className="overflow-x-auto">
                           <table className="min-w-full bg-white border border-indigo-200">
                             <thead>
@@ -183,7 +183,7 @@ const  hasFetched = useRef(false),
                                   <td className="border border-indigo-200 p-2">total</td>
                                   <td className="border border-indigo-200 p-2">{Object.entries(item.magaju).reduce((acc, [key,value]) => acc + (Number(key)*value), 0)}</td>
                                   <td className="border border-indigo-200 p-2">total</td>
-                                  <td className="border border-indigo-200 p-2">{item.envelopes * 5}</td>
+                                  <td className="border border-indigo-200 p-2">{item.envelopes * 2}</td>
                                 </tr>
                               </tbody>
                             </table>

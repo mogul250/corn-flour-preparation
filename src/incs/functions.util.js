@@ -70,6 +70,7 @@ export async function getLDayStockTrackRec(table) {
         let lastd = DateTime.fromFormat(now(), 'yyyy-MM-dd HH:mm:ss')
             lastd = lastd.minus({days: 1})
             lastd = lastd.toFormat('yyyy-MM-dd')
+            console.log(lastd)
         let resp = await query(`SELECT * FROM ${table} where DATE(date) = ? ORDER BY date ASC limit 1`,[lastd])
         if (resp.length) {
             return resp[0]

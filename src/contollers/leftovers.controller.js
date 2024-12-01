@@ -20,10 +20,10 @@ export const leftoversController = async  (req,res)=>{
 
 export const leftoversOutController = async  (req,res)=>{
     try {
-         let {r_amount,g_amount,client,price,weight,comment,date,reporter} = req.body,
+         let {r_amount,g_amount,client,price,weight,comment,date,reporter,pm} = req.body,
          id = rsg(6,true,true,!1,!1)
          !date ? date = now() : null;
-         const insert = await query(`INSERT INTO leftover_out VALUES(?,?,?,?,?,?,?,?,?)`,[id,reporter,client,weight,price,g_amount,r_amount,comment,date])
+         const insert = await query(`INSERT INTO leftover_out VALUES(?,?,?,?,?,?,?,?,?,?)`,[id,reporter,client,weight,price,pm,g_amount,r_amount,comment,date])
          if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
          res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
      } catch (error) {

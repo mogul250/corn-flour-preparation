@@ -35,7 +35,7 @@ export const preparationReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT * from preparation where date >= ? AND date <= ?',[date.start,date.stop]),mtotal,added,initamount
+        let report = await query('SELECT * from preparation where date >= ? AND date <= ? sort by date desc',[date.start,date.stop]),mtotal,added,initamount
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
             let lastRec = await getLDayStockTrackRec('preparation_track'),

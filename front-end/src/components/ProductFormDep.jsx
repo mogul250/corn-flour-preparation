@@ -62,7 +62,7 @@ const ProductFormDep= () => {
       travel: nfd.expenses['Urugendo'],
       r_amount: nfd.expenses['Amafaranga asabwa kubyacurujwe'],
       inc_amount: nfd.expenses['Amafaranga averishijwe'],
-      g_amount: nfd.expenses['Andi mafaranga']
+      g_amount: nfd.expenses['Andi mafaranga'],
     }
     const scheme = pS
     scheme.body = JSON.stringify(nfd)

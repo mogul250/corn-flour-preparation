@@ -95,7 +95,7 @@ export const salesReport = async (req,res)=>{
 export const flourSalesNR = async  (req,res)=>{
     try {
         const calculateTotal = (ibiro) => Object.entries(ibiro.weights).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
-        let {distributor,reporter,p_taken,p_sold,comment,date,client} = req.body,
+        let {distributor,reporter,p_taken,p_sold,comment,date,client,pm} = req.body,
         id = rsg(6,true,true,!1,!1)
         // lastStW = await getLRec('packaging_track','r_weight'),
         // l_nf = await getLRec('packaging_track','nf_t'),
@@ -127,7 +127,7 @@ export const flourSalesNR = async  (req,res)=>{
         // IF = Object.fromEntries(Object.entries(IF).map(([key,value])=> [key,value.weights]))
         // return IF
         !date ? date = now() : null;
-        const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?,?)`,[id,reporter,distributor,client,JSON.stringify(p_taken),JSON.stringify(p_sold),comment,date])
+        const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,client,pm,JSON.stringify(p_taken),JSON.stringify(p_sold),comment,date])
         // const insert3 = await query('INSERT INTO sales_track VALUES (?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','sales',JSON.stringify(totals),g_amount,r_amount,now()])
         // const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'minus','sales',l_if,l_is,l_ma,l_nf,l_env,now()])
         if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})

@@ -85,7 +85,7 @@ import { adcm, f, pS } from "../../../public/functions";
                     {adcm(item.r_amount)}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
-                    {adcm(item.r_amount)}
+                    {adcm(item.pm)}
                   </td>
                   <td className="border p-3 text-sm text-gray-600">
                     {item.comment}

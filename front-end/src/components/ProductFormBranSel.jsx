@@ -13,6 +13,7 @@ function ProductFormBranSel() {
     g_amount: "",
     r_amount: "",
     comment: "",
+    pm:''
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -62,6 +63,7 @@ function ProductFormBranSel() {
       weight: "",
       price: "",
       g_amount: "",
+      pm:"",
       r_amount: "",
       comment: "",
     };
@@ -131,8 +133,9 @@ function ProductFormBranSel() {
       <select
         className="w-full px-2 py-1 sm:px-3 sm:py-2 border rounded border-indigo-300 
                       focus:ring focus:ring-indigo-200 "
-        value={paymentMethod}
-        onChange={(e) => setPaymentMethod(e.target.value)}
+        value={FormData.pm}
+        onChange={handleChange}
+        name="pm"
       >
         <option value="">Hitamo</option>
         <option value="momo">Momo</option>

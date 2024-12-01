@@ -7,7 +7,7 @@ import { rM } from "./response.message.controller.js";
 export const flourPackaging = async  (req,res)=>{
     try {
         const calculateTotal = (ibiro) => Object.entries(ibiro).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
-        let {incoming_c,reporter,waste_e,new_food,ifunguro,IF,IS,MA,NF,isezerano,magaju,envelope,waste_f,comment,date} = req.body,
+        let {incoming_c,reporter,waste_e,new_food,ifunguro,IF,IS,MA,NF,isezerano,magaju,envelope,waste_f,comment,date,sack_no} = req.body,
         id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('preparation_track','r_weight'),
         lastTDW = await getLRec('packaging_track','r_weights'),
@@ -20,12 +20,12 @@ export const flourPackaging = async  (req,res)=>{
                 IS:{"5":0,"10":0,"25":0},
                 IF:{"5":0,"10":0,"25":0},
                 MA:{"5":0,"10":0,"25":0},
-                envelope:{"5":0}
+                envelope:{"2":0}
             }
         }else{
             lastTDW = JSON.parse(lastTDW)
         }
-        const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,JSON.stringify(f_e),calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date]),
+        const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,JSON.stringify(f_e),calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),sack_no,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date]),
         insert3 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'minus',incoming_c-(incoming_c*2),'packaging',nw,now()])
         let total_nf = await getLRec('packaging_track','nf_t'),
         total_is = await getLRec('packaging_track','is_t'),
@@ -108,7 +108,7 @@ export const packagingTrackReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query(`SELECT r_weights,reporter,comment,JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) as ls, packaging.date from packaging_track inner join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ?`,[date.start,date.stop])
+        let report = await query(`SELECT r_weights,reporter,sack_no,comment,JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) as ls, packaging.date from packaging_track inner join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? date desc`,[date.start,date.stop])
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
            
@@ -121,7 +121,7 @@ export const packagingTrackReport = async (req,res)=>{
             rep.ls.IS = JSON.parse(rep.ls.IS)
             rep.ls.IF = JSON.parse(rep.ls.IF)
             rep.ls.MA = JSON.parse(rep.ls.MA)
-            rep.ls.envelope = {'5': rep.ls.envelope}
+            rep.ls.envelope = {'2': rep.ls.envelope}
             return rep
         })
         

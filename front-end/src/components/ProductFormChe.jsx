@@ -42,6 +42,7 @@ const ProductFormChe = () => {
   const [envelope, setEnvelope] = useState({ ingano: 0, isEnvelope: 0, buranda: 0 });
   const [waste_f, setwaste_f] = useState('');
   const [comments, setComments] = useState('');
+  const [sack_no, setSack_no] = useState('');
 
   const handleCheckboxChange = (item) => {
     setSelectedAmafu((prev) => ({
@@ -80,6 +81,7 @@ const ProductFormChe = () => {
         envelope:  Number(isEnvelope5kg),
         comment: comments,
         waste_f: Number(waste_f),
+        sack_no
     };
 
     
@@ -242,9 +244,9 @@ const ProductFormChe = () => {
                 type="text" 
                 placeholder="Nimero" 
                 className="w-full p-2 border rounded-md" 
-                value={buranda}
-                name='waste_e'
-                onChange={(e) => setBuranda(e.target.value)}
+                value={sack_no}
+                name='sack_no'
+                onChange={(e) => setSack_no(e.target.value)}
                 required
               />
             </div>
