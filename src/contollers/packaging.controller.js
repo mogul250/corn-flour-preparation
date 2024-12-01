@@ -36,12 +36,12 @@ export const flourPackaging = async  (req,res)=>{
         total_is+= calculateTotal(isezerano)
         total_ma+= calculateTotal(magaju)
         total_if+=calculateTotal(ifunguro)
-        total_env+=(envelope*5)
+        total_env+=(envelope*2)
         let weights = {
-            NF:calculateTotal(new_food),IS:calculateTotal(isezerano),MA:calculateTotal(magaju),IF:calculateTotal(ifunguro),envelope:envelope *5
+            NF:calculateTotal(new_food),IS:calculateTotal(isezerano),MA:calculateTotal(magaju),IF:calculateTotal(ifunguro),envelope:envelope *2
         },
         ls = {
-            NF:new_food,IS:isezerano,MA:magaju,IF:ifunguro,envelope:{ '5':envelope}
+            NF:new_food,IS:isezerano,MA:magaju,IF:ifunguro,envelope:{ '2':envelope}
         }
         Object.keys(lastTDW).map(key=>{
             Object.keys(lastTDW[key]).map(key2=>{

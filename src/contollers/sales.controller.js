@@ -6,33 +6,33 @@ import { rM } from "./response.message.controller.js";
 
 export const flourSales = async  (req,res)=>{
     try {
-        const calculateTotal = (ibiro) => Object.entries(ibiro.weights).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
+        // const calculateTotal = (ibiro) => Object.entries(ibiro.weights).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
         let {distributor,reporter,g_amount,NF,IF,r_amount,no_sacks,IS,MA,envelope,comment,date,client} = req.body,
         id = rsg(6,true,true,!1,!1)
         !date ? date = now() : null;
         // lastStW = await getLRec('packaging_track','r_weight'),
-       let l_nf = await getLRec('packaging_track','nf_t'),
-        l_is = await getLRec('packaging_track','is_t'),
-        l_ma = await getLRec('packaging_track','ma_t'),
-        l_if = await getLRec('packaging_track','if_t'),
-        l_env = await getLRec('packaging_track','env_t')
-        l_nf -= calculateTotal(NF)
-        l_is-= calculateTotal(IS)
-        l_ma-= calculateTotal(MA)
-        l_if-= calculateTotal(IF)
-        l_env-= calculateTotal(envelope)
-        let totals = await getLRec('sales_track','totals')
+    //    let l_nf = await getLRec('packaging_track','nf_t'),
+    //     l_is = await getLRec('packaging_track','is_t'),
+    //     l_ma = await getLRec('packaging_track','ma_t'),
+    //     l_if = await getLRec('packaging_track','if_t'),
+    //     l_env = await getLRec('packaging_track','env_t')
+    //     l_nf -= calculateTotal(NF)
+    //     l_is-= calculateTotal(IS)
+    //     l_ma-= calculateTotal(MA)
+    //     l_if-= calculateTotal(IF)
+    //     l_env-= calculateTotal(envelope)
+    //     let totals = await getLRec('sales_track','totals')
 
-        !totals ? totals = {nf: 0,is:0,ma:0,if:0,envelope:0} : totals = JSON.parse(totals)
+    //     !totals ? totals = {nf: 0,is:0,ma:0,if:0,envelope:0} : totals = JSON.parse(totals)
 
-        totals.nf += calculateTotal(NF)
-        totals.is+= calculateTotal(IS)
-        totals.ma+= calculateTotal(MA)
-        totals.if+=calculateTotal(IF)
-        totals.envelope +=calculateTotal(envelope)
-        let weights = {
-            NF:calculateTotal(NF),IS:calculateTotal(IS),MA:calculateTotal(MA),IF:calculateTotal(IF),envelope:calculateTotal(envelope)
-        }
+    //     totals.nf += calculateTotal(NF)
+    //     totals.is+= calculateTotal(IS)
+    //     totals.ma+= calculateTotal(MA)
+    //     totals.if+=calculateTotal(IF)
+    //     totals.envelope +=calculateTotal(envelope)
+    //     let weights = {
+    //         NF:calculateTotal(NF),IS:calculateTotal(IS),MA:calculateTotal(MA),IF:calculateTotal(IF),envelope:calculateTotal(envelope)
+    //     }
         // NF = Object.fromEntries(Object.entries(NF).map(([key,value])=> [key,value.weights]))
         // IS = Object.fromEntries(Object.entries(IS).map(([key,value])=> [key,value.weights]))
         // MA = Object.fromEntries(Object.entries(MA).map(([key,value])=> [key,value.weights]))
@@ -40,10 +40,10 @@ export const flourSales = async  (req,res)=>{
         // IF = Object.fromEntries(Object.entries(IF).map(([key,value])=> [key,value.weights]))
         // return IF
         !date ? date = now() : null;
-        const insert = await query(`INSERT INTO sales VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,client,g_amount,r_amount,no_sacks,JSON.stringify(IF),JSON.stringify(IS),JSON.stringify(MA),JSON.stringify(NF),JSON.stringify(envelope),comment,date])
-        const insert3 = await query('INSERT INTO sales_track VALUES (?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','sales',JSON.stringify(totals),g_amount,r_amount,now()])
-        const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'minus','sales',l_if,l_is,l_ma,l_nf,l_env,now()])
-        if(!insert ||!insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        const insert = await query(`INSERT INTO sales VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,g_amount,no_sacks,JSON.stringify(IF),JSON.stringify(IS),JSON.stringify(MA),JSON.stringify(NF),JSON.stringify(envelope),comment,date])
+        // const insert3 = await query('INSERT INTO sales_track VALUES (?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','sales',JSON.stringify(totals),g_amount,r_amount,now()])
+        // const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'minus','sales',l_if,l_is,l_ma,l_nf,l_env,now()])
+        if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
 
         
@@ -95,42 +95,55 @@ export const salesReport = async (req,res)=>{
 export const flourSalesNR = async  (req,res)=>{
     try {
         const calculateTotal = (ibiro) => Object.entries(ibiro.weights).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
-        let {distributor,reporter,p_taken,p_sold,comment,date,client,pm} = req.body,
-        id = rsg(6,true,true,!1,!1)
-        // lastStW = await getLRec('packaging_track','r_weight'),
-        // l_nf = await getLRec('packaging_track','nf_t'),
-        // l_is = await getLRec('packaging_track','is_t'),
-        // l_ma = await getLRec('packaging_track','ma_t'),
-        // l_if = await getLRec('packaging_track','if_t'),
-        // l_env = await getLRec('packaging_track','env_t')
-        // l_nf -= calculateTotal(NF)
-        // l_is-= calculateTotal(IS)
-        // l_ma-= calculateTotal(MA)
-        // l_if-=calculateTotal(IF)
-        // l_env-= calculateTotal(envelope)
-        // let totals = await getLRec('sales_track','totals')
+        let {distributor,reporter,p_sold,comment,date,pm} = req.body,
+        id = rsg(6,true,true,!1,!1),
+        l_nf = await getLRec('packaging_track','nf_t'),
+        l_is = await getLRec('packaging_track','is_t'),
+        l_ma = await getLRec('packaging_track','ma_t'),
+        l_if = await getLRec('packaging_track','if_t'),
+        lastTDW = await getLRec('packaging_track','r_weights'),
+        l_env = await getLRec('packaging_track','env_t')
+        l_nf -= calculateTotal(p_sold.NF)
+        l_is-= calculateTotal(p_sold.IS)
+        l_ma-= calculateTotal(p_sold.MA)
+        l_if-=calculateTotal(p_sold.IF)
+        l_env-= calculateTotal(p_sold.envelope)
+        let totals = await getLRec('sales_track','totals')
 
-        // !totals ? totals = {nf: 0,is:0,ma:0,if:0,envelope:0} : totals = JSON.parse(totals)
+        !totals ? totals = {nf: 0,is:0,ma:0,if:0,envelope:0} : totals = JSON.parse(totals)
 
-        // totals.nf += calculateTotal(NF)
-        // totals.is+= calculateTotal(IS)
-        // totals.ma+= calculateTotal(MA)
-        // totals.if+=calculateTotal(IF)
-        // totals.envelope +=calculateTotal(envelope)
-        // let weights = {
-        //     NF:calculateTotal(NF),IS:calculateTotal(IS),MA:calculateTotal(MA),IF:calculateTotal(IF),envelope:calculateTotal(envelope)
-        // }
-        // NF = Object.fromEntries(Object.entries(NF).map(([key,value])=> [key,value.weights]))
-        // IS = Object.fromEntries(Object.entries(IS).map(([key,value])=> [key,value.weights]))
-        // MA = Object.fromEntries(Object.entries(MA).map(([key,value])=> [key,value.weights]))
-        // envelope = Object.fromEntries(Object.entries(envelope).map(([key,value])=> [key,value.weights]))
-        // IF = Object.fromEntries(Object.entries(IF).map(([key,value])=> [key,value.weights]))
-        // return IF
+        totals.nf += calculateTotal(p_sold.NF)
+        totals.is+= calculateTotal(p_sold.IS)
+        totals.ma+= calculateTotal(p_sold.MA)
+        totals.if+=calculateTotal(p_sold.IF)
+        totals.envelope +=calculateTotal(p_sold.envelope)
+        let weights = {
+            NF:calculateTotal(p_sold.NF),IS:calculateTotal(p_sold.IS),MA:calculateTotal(p_sold.MA),IF:calculateTotal(p_sold.IF),envelope:calculateTotal(p_sold.envelope)
+        },
+        ls = {
+            NF:p_sold.NF.weights,IS:p_sold.IS.weights,MA:p_sold.MA.weights,IF:p_sold.IF.weights,envelope:p_sold.envelope.weights
+        }
+        if (!lastTDW) {
+            lastTDW = {
+                NF:{"5":0,"10":0,"25":0},
+                IS:{"5":0,"10":0,"25":0},
+                IF:{"5":0,"10":0,"25":0},
+                MA:{"5":0,"10":0,"25":0},
+                envelope:{"2":0}
+            }
+        }else{
+            lastTDW = JSON.parse(lastTDW)
+        }
+        Object.keys(lastTDW).map(key=>{
+            Object.keys(lastTDW[key]).map(key2=>{
+                lastTDW[key][key2]+= ls[key][key2]
+            })
+        })
         !date ? date = now() : null;
-        const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,client,pm,JSON.stringify(p_taken),JSON.stringify(p_sold),comment,date])
-        // const insert3 = await query('INSERT INTO sales_track VALUES (?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','sales',JSON.stringify(totals),g_amount,r_amount,now()])
-        // const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'minus','sales',l_if,l_is,l_ma,l_nf,l_env,now()])
-        if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?)`,[id,reporter,distributor,pm,JSON.stringify(p_sold),comment,date])
+        const insert3 = await query('INSERT INTO sales_track VALUES (?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','sales',JSON.stringify(totals),now()])
+        const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),JSON.stringify(lastTDW),'minus','sales',l_if,l_is,l_ma,l_nf,l_env,now()])
+        if(!insert || !insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
 
         
@@ -165,7 +178,6 @@ export const salesNRReport = async (req,res)=>{
         // }
         report = report.map(rep=>{
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
-            rep.p_delivered = JSON.parse(rep.p_delivered)
             rep.p_sold = JSON.parse(rep.p_sold)
             return rep
         })

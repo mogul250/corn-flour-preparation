@@ -47,12 +47,12 @@ const IbyasohotsePage = () => {
                       <td className="border bg-gray-400 border-indigo-200 p-2">{item.date}</td>
                       <td className="border border-indigo-200 p-2">{item.reporter}</td>
                       <td className="border border-indigo-200 p-2">{item.distributor}</td>
-                      <td className="border border-indigo-200 p-2">{item.client}</td>
-                      <td className="border border-indigo-200 p-2">{item.client}</td>
+                      <td className="border border-indigo-200 p-2">{item.location}</td>
+                      <td className="border border-indigo-200 p-2">{item.pm}</td>
                       <td className="border border-indigo-200 p-2">{item.comment}</td>
                     </tr>
                     <tr>
-                      <td colSpan={5}>
+                      <td colSpan={6}>
                         {/*
                           <div className="overflow-x-auto">
                             <h2 className="text-2xl font-bold text-center text-indigo-800 mb-4">
@@ -167,9 +167,9 @@ const IbyasohotsePage = () => {
                                   {weight === '25' && (
                                     <>
                                       <td rowSpan="3" className="border border-indigo-200 p-2">{2}kg</td>
-                                      <td rowSpan="3" className="border border-indigo-200 p-2">{item.p_sold.envelope.weights[5]}</td>
-                                      <td rowSpan="3" className="border border-indigo-200 p-2">{item.p_sold.envelope.pricings[5]} RWF</td>
-                                      <td rowSpan="3" className="border border-indigo-200 p-2">{adcm(item.p_sold.envelope.totals[5])} FRW</td>
+                                      <td rowSpan="3" className="border border-indigo-200 p-2">{item.p_sold.envelope.weights[2]}</td>
+                                      <td rowSpan="3" className="border border-indigo-200 p-2">{item.p_sold.envelope.pricings[2]} RWF</td>
+                                      <td rowSpan="3" className="border border-indigo-200 p-2">{adcm(item.p_sold.envelope.totals[2])} FRW</td>
                                     </>
                                   )}
                                 </tr>

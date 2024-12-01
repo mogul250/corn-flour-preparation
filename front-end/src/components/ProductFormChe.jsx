@@ -396,7 +396,7 @@ const ProductFormChe = () => {
              className="bg-gray-200 p-2 rounded"
              value={isEnvelope5kg}
              onChange={handleEnvelopeChange}
-             readonly
+             readOnly
 
           />
       </div>

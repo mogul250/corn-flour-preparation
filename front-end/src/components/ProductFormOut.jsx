@@ -12,29 +12,6 @@ const ProductFormOut = () => {
     client: '',
     comment: '',
     pm: '',
-    p_taken:{
-      NF: [
-        { ibiro: '', imifuka: 0},
-        { ibiro: '', imifuka: 0},
-        { ibiro: '', imifuka: 0}
-      ],
-      IS: [
-        { ibiro: '', imifuka: 0},
-        { ibiro: '', imifuka: 0},
-        { ibiro: '', imifuka: 0}
-      ],
-      IF: [
-        { ibiro: '', imifuka: 0},
-        { ibiro: '', imifuka: 0},
-        { ibiro: '', imifuka: 0}
-      ],
-      MA: [
-        { ibiro: '', imifuka: 0},
-        { ibiro: '', imifuka: 0},
-        { ibiro: '', imifuka: 0}
-      ],
-      envelope: [{ ibiro: '', imifuka: 0}],
-    },
     p_sold:{
       NF: [
         { ibiro: '', imifuka: 0, price: '', total: 0 },
@@ -288,7 +265,7 @@ const ProductFormOut = () => {
     if(data.length){
       data.forEach((item, index) => {
           data.length == 1 ? index = 2 : index
-          const proportion = proportions[index].toString(); 
+          const proportion = (data.length == 1) ? '2': proportions[index].toString() ; 
           result.weights[proportion] = item.imifuka;
           result.pricings[proportion] = parseFloat(item.price) || 0;
           result.totals[proportion] = parseFloat(item.total) || 0;
@@ -300,23 +277,23 @@ const ProductFormOut = () => {
       return data
     }
   }; 
-  const transformData = (data) => {
-    const result = {
-    };
-    if(data.length){
-      data.forEach((item, index) => {
-          if (index == 0 && data.length > 1)  Object.assign(result,{'25': item.imifuka})
-          if (index == 1 && data.length > 1)  Object.assign(result,{'10': item.imifuka})
-          if (index == 2 && data.length > 1)  Object.assign(result,{'5': item.imifuka})
-          if (index == 0 && data.length == 1)  Object.assign(result,{'2': item.imifuka})
-      });
+  // const transformData = (data) => {
+  //   const result = {
+  //   };
+  //   if(data.length){
+  //     data.forEach((item, index) => {
+  //         if (index == 0 && data.length > 1)  Object.assign(result,{'25': item.imifuka})
+  //         if (index == 1 && data.length > 1)  Object.assign(result,{'10': item.imifuka})
+  //         if (index == 2 && data.length > 1)  Object.assign(result,{'5': item.imifuka})
+  //         if (index == 0 && data.length == 1)  Object.assign(result,{'2': item.imifuka})
+  //     });
   
-      return result;
+  //     return result;
 
-    }else{
-      return data
-    }
-  }; 
+  //   }else{
+  //     return data
+  //   }
+  // }; 
   const emptyVar = Object.keys(formData).find((key)=> !formData[key] && key != 'date')
   if (emptyVar) return
   let nfd = structuredClone(formData)
@@ -325,11 +302,6 @@ const ProductFormOut = () => {
   nfd.p_sold.IF = transformSData(nfd.p_sold.IF)
   nfd.p_sold.MA = transformSData(nfd.p_sold.MA)
   nfd.p_sold.envelope = transformSData(nfd.p_sold.envelope)
-  nfd.p_taken.NF = transformData(nfd.p_taken.NF)
-  nfd.p_taken.IS = transformData(nfd.p_taken.IS)
-  nfd.p_taken.IF = transformData(nfd.p_taken.IF)
-  nfd.p_taken.MA = transformData(nfd.p_taken.MA)
-  nfd.p_taken.envelope = transformData(nfd.p_taken.envelope)
   const scheme = pS
   scheme.body = JSON.stringify(nfd)
   let res = await f('sales-nr',scheme)

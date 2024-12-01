@@ -7,7 +7,6 @@ const ProductFormSel = () => {
     date: '',
     reporter: '',
     distributor: '',
-    client: '',
     g_amount: '',
     NF: [
       { ibiro: '', imifuka: 0, price: '', total: 0 },
@@ -30,7 +29,6 @@ const ProductFormSel = () => {
       { ibiro: '', imifuka: 0, price: '', total: 0 }
     ],
     envelope: [{ ibiro: '', imifuka: 0, price: '', total: 0 }],
-    r_amount: '',
     no_sacks: '',
     comment: '',
   });
@@ -156,7 +154,7 @@ const ProductFormSel = () => {
       }
     }; 
     const emptyVar = Object.keys(formData).find((key)=> !formData[key] && key != 'date')
-    if (emptyVar) return
+    if (emptyVar) return console.log(emptyVar)
     let nfd = formData
     nfd.NF = transformData(formData.NF)
     nfd.IS = transformData(formData.IS)
@@ -219,7 +217,6 @@ const ProductFormSel = () => {
                 value={formData.date}
                 onChange={handleInputChange}
                 className="w-full px-2 sm:px-4 py-1 sm:py-2 text-sm sm:text-base border rounded focus:outline-none focus:ring-1"
-                required
               />
             </div>
             <div>
