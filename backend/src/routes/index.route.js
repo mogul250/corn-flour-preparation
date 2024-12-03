@@ -10,6 +10,7 @@ import { returnsController, returnsReport } from "../contollers/returns.controll
 import { leftoverOutReport, leftoversController, leftoversOutController, leftoversReport } from "../contollers/leftovers.controller.js"
 import { expensesController, expensesReport } from "../contollers/expenses.controller.js"
 import { employeesController, employeesReport } from "../contollers/employee.controller.js"
+import { debtsController, pdebtsController } from "../contollers/debts.controller.js"
 export const router = express.Router({strict:false})
 router.post('/login',login)
 router.post('/add-user',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),addUser)
@@ -37,5 +38,7 @@ router.post('/expensesReport',(req,res,next)=>authBulkUsers(req,res,next,['SYSTE
 router.post('/employeesReport',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),employeesReport)
 router.post('/expensesController',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),expensesController)
 router.post('/employeesController',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),employeesController)
+router.post('/debtsController',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),debtsController)
+router.post('/pdebtsController',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),pdebtsController)
 router.post('/',(req,res)=>{res.send("received")})
 
