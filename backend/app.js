@@ -14,7 +14,7 @@ export const connection = mysql.createPool({
     database: process.env.DB
 })
 app.use(cors({
-    origin:  process.env.FRONT_END_LINK,
+    origin:  '*',
     methods: ['POST','GET'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
