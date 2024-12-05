@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2024 at 02:14 PM
+-- Generation Time: Dec 05, 2024 at 09:27 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -398,6 +398,7 @@ CREATE TABLE `sales_n_returns` (
   `id` varchar(255) NOT NULL,
   `reporter` varchar(1000) NOT NULL,
   `distributor` varchar(255) NOT NULL,
+  `loc` varchar(255) NOT NULL,
   `pm` varchar(255) NOT NULL,
   `p_sold` varchar(1000) NOT NULL,
   `comment` varchar(1000) NOT NULL,
@@ -408,8 +409,8 @@ CREATE TABLE `sales_n_returns` (
 -- Dumping data for table `sales_n_returns`
 --
 
-INSERT INTO `sales_n_returns` (`id`, `reporter`, `distributor`, `pm`, `p_sold`, `comment`, `date`) VALUES
-('ykr67y', 'heshima', 'kapooo', 'mobile_money', '{\"NF\":{\"weights\":{\"5\":20,\"10\":10,\"25\":4},\"pricings\":{\"5\":100,\"10\":100,\"25\":100},\"totals\":{\"5\":2000,\"10\":1000,\"25\":400}},\"IS\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"IF\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"MA\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"envelope\":{\"weights\":{\"2\":50},\"pricings\":{\"2\":100},\"totals\":{\"2\":5000}}}', 'byakunze', '2024-12-01 17:16:15');
+INSERT INTO `sales_n_returns` (`id`, `reporter`, `distributor`, `loc`, `pm`, `p_sold`, `comment`, `date`) VALUES
+('ykr67y', 'heshima', 'kapooo', 'nyamirambo', 'mobile_money', '{\"NF\":{\"weights\":{\"5\":20,\"10\":10,\"25\":4},\"pricings\":{\"5\":100,\"10\":100,\"25\":100},\"totals\":{\"5\":2000,\"10\":1000,\"25\":400}},\"IS\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"IF\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"MA\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"envelope\":{\"weights\":{\"2\":50},\"pricings\":{\"2\":100},\"totals\":{\"2\":5000}}}', 'byakunze', '2024-12-01 17:16:15');
 
 -- --------------------------------------------------------
 
