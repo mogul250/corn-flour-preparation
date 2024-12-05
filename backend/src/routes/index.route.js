@@ -12,6 +12,7 @@ import { expensesController, expensesReport } from "../contollers/expenses.contr
 import { employeesController, employeesReport } from "../contollers/employee.controller.js"
 import { debtsController, debtsReport, pdebtsController, pdebtsReport } from "../contollers/debts.controller.js"
 import { mrController, mrReport } from "../contollers/mr.controller..js"
+import { requestResetPassword } from "../contollers/reset.password.controller.js"
 export const router = express.Router({strict:false})
 router.post('/login',login)
 router.post('/add-user',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),addUser)
@@ -45,5 +46,6 @@ router.post('/pdebtsController',(req,res,next)=>authBulkUsers(req,res,next,['SYS
 router.post('/pdebtsReport',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),pdebtsReport)
 router.post('/mrController',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),mrController)
 router.post('/mrReport',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),mrReport)
+router.post('/gntrrstlnk',requestResetPassword);
 router.post('/',(req,res)=>{res.send("received")})
 
