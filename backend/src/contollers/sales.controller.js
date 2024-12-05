@@ -62,7 +62,7 @@ export const salesReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT * from sales where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop]),mtotal,added,initamount,lastRec
+        let report = await query('SELECT * from sales where DATE(date) >= ? AND DATE(date) <= ? ORDER BY date DESC',[date.start,date.stop]),mtotal,added,initamount,lastRec
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
             lastRec = await getLStockTrackRec('packaging_track')
@@ -95,7 +95,7 @@ export const salesReport = async (req,res)=>{
 export const flourSalesNR = async  (req,res)=>{
     try {
         const calculateTotal = (ibiro) => Object.entries(ibiro.weights).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
-        let {distributor,reporter,p_sold,comment,date,pm} = req.body,
+        let {distributor,reporter,p_sold,comment,date,pm,loc} = req.body,
         id = rsg(6,true,true,!1,!1),
         l_nf = await getLRec('packaging_track','nf_t'),
         l_is = await getLRec('packaging_track','is_t'),
@@ -140,7 +140,7 @@ export const flourSalesNR = async  (req,res)=>{
             })
         })
         !date ? date = now() : null;
-        const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?)`,[id,reporter,distributor,pm,JSON.stringify(p_sold),comment,date])
+        const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?,?)`,[id,reporter,distributor,loc,pm,JSON.stringify(p_sold),comment,date])
         const insert3 = await query('INSERT INTO sales_track VALUES (?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','sales',JSON.stringify(totals),now()])
         const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),JSON.stringify(lastTDW),'minus','sales',l_if,l_is,l_ma,l_nf,l_env,now()])
         if(!insert || !insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
@@ -162,7 +162,7 @@ export const salesNRReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT * from sales_n_returns where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop]),mtotal,added,initamount,lastRec
+        let report = await query('SELECT * from sales_n_returns where DATE(date) >= ? AND DATE(date) <= ? ORDER BY date DESC',[date.start,date.stop]),mtotal,added,initamount,lastRec
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         // if(report.length){
         //     lastRec = await getLStockTrackRec('packaging_track')
@@ -198,7 +198,7 @@ export const salesNRTrackReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT * from sales_n_returns where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop])
+        let report = await query('SELECT * from sales_n_returns where DATE(date) >= ? AND DATE(date) <= ? ORDER BY date DESC',[date.start,date.stop])
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         // if(report.length){
         //     lastRec = await getLStockTrackRec('packaging_track')

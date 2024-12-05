@@ -25,6 +25,6 @@ app.listen(process.env.PORT, (err)=>{
     if (err) console.log(err)
     console.log('the app is running on port:',process.env.PORT)
 })
-// console.log(await encPass('123'))
+console.log(process.env.FRONT_END_LINK)
 
 

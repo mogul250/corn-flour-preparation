@@ -1,0 +1,79 @@
+import { DateTime } from "luxon";
+import { getLDayStockTrackRec, getLRec, now } from "../incs/functions.util.js";
+import { query } from "./query.controller.js";
+import { rsg } from "./random.string.generator.js";
+import { rM } from "./response.message.controller.js";
+
+export const debtsController = async  (req,res)=>{
+   try {
+        let {reporter,client,weight,g_amount,p_amount,r_amount,comment,date} = req.body,
+        id = rsg(6,true,true,!1,!1)
+        !date ? date = now() : null;
+        const insert = await query(`INSERT INTO debts VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,client,weight,g_amount,p_amount,r_amount,comment,date
+        ])
+        if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
+    } catch (error) {
+        console.log(error)
+        res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+    }
+}
+export const pdebtsController = async  (req,res)=>{
+    try {
+         let {reporter,client,debt,p_debt,pm,r_debt,comment,date} = req.body,
+         id = rsg(6,true,true,!1,!1)
+         !date ? date = now() : null;
+         const insert = await query(`INSERT INTO p_debts VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,client,debt,p_debt,pm,r_debt,comment,date])
+         if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
+     } catch (error) {
+         console.log(error)
+         res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+     }
+ }
+export const debtsReport = async (req,res)=>{
+    try {
+        const {date} = req.body
+        if (!date.start || !date.stop) {
+            let lastm = DateTime.fromFormat(now(), 'yyyy-MM-dd HH:mm:ss')
+            lastm = lastm.minus({months: 1})
+            lastm = lastm.toFormat('yyyy-MM-dd')
+            date.start = lastm
+            date.stop = now()
+        }
+        let report = await query('SELECT * from debts where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop]),mtotal,added,initamount
+        if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        report = report.map(rep=>{
+            rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
+            return rep
+        })
+        
+        res.status(rM.sM.entRemessage.rC).send({success: rM.sM.entRemessage.s,message: rM.sM.entRemessage.c,metadata: {report,mainTotals:{added,mtotal,initamount}}})
+    } catch (error) {
+        console.log(error)
+        res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+    }
+}
+export const pdebtsReport = async (req,res)=>{
+    try {
+        const {date} = req.body
+        if (!date.start || !date.stop) {
+            let lastm = DateTime.fromFormat(now(), 'yyyy-MM-dd HH:mm:ss')
+            lastm = lastm.minus({months: 1})
+            lastm = lastm.toFormat('yyyy-MM-dd')
+            date.start = lastm
+            date.stop = now()
+        }
+        let report = await query('SELECT * from p_debts where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop]),mtotal,added,initamount
+        if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        report = report.map(rep=>{
+            rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
+            return rep
+        })
+        
+        res.status(rM.sM.entRemessage.rC).send({success: rM.sM.entRemessage.s,message: rM.sM.entRemessage.c,metadata: {report,mainTotals:{added,mtotal,initamount}}})
+    } catch (error) {
+        console.log(error)
+        res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+    }
+}
