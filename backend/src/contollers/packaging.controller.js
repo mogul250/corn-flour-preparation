@@ -68,7 +68,7 @@ export const packagingReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT * from packaging where DATE(date) >= ? AND DATE(date) <= ?',[date.start,date.stop]),mtotal,added,initamount,lastRec
+        let report = await query('SELECT * from packaging where DATE(date) >= ? AND DATE(date) <= ? ORDER BY date DESC',[date.start,date.stop]),mtotal,added,initamount,lastRec
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
             lastRec = await getLStockTrackRec('packaging_track')
