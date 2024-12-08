@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 05, 2024 at 09:27 AM
+-- Generation Time: Dec 08, 2024 at 01:21 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -44,7 +44,7 @@ CREATE TABLE `debts` (
 --
 
 INSERT INTO `debts` (`id`, `reporter`, `client`, `weight`, `g_amount`, `p_amount`, `r_amount`, `comment`, `date`) VALUES
-('ofbh11', 'heshima', 'nyamanswa', '1000', 100000, 21212, 100000, 'rtyu', '2024-12-04 00:00:00');
+('oyuv35', 'nyamanswa', 'heshima', '800', 1000000, 200000, 800000, 'nayamuhaye', '2024-12-08 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -70,8 +70,7 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `names`, `title`, `phone`, `salary`, `saving`, `social`, `advance`, `r_salary`, `date`) VALUES
-('6ns6c2', 'umuhungu', 'kaboy', '0780899844', 1000, 3343, 345, 2345, 3456, '2024-12-03 21:09:09'),
-('hgwyre', 'HESHIMA HERBERT', 'CFO', '0790861884', 1000, 3343, 345, 2345, 3456, '2024-11-26 19:48:05');
+('t6c0rk', 'HESHIMA HERBERT', 'CFO', '0790861884', 100000, 100000, 10000, 2345, 3456, '2024-12-05 21:43:43');
 
 -- --------------------------------------------------------
 
@@ -329,7 +328,8 @@ CREATE TABLE `p_debts` (
 --
 
 INSERT INTO `p_debts` (`id`, `reporter`, `client`, `debt`, `p_debt`, `pm`, `r_debt`, `comment`, `date`) VALUES
-('605rrd', 'heshima', 'nyamanswa', 10000, 7000, 'Mobile Money', 3000, 'saawa', '2024-12-04 00:00:00');
+('01tybd', 'kapoo', 'oyuv35', 900000, 100000, 'Mobile Money', 800000, 'byakunze', '2024-12-08 00:00:00'),
+('o90w25', 'kapoo', 'oyuv35', 1000000, 100000, 'Cash', 900000, 'yayampaye', '2024-12-08 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -541,7 +541,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `names`, `email`, `role`, `password`, `2FA`, `dateadded`) VALUES
 ('1', 'SYSTEM', 'info@system.com', 'SYSTEM', '$2b$10$gPipJR4kqPUt/lKmhn8/lOwWQSvexGhayV.QnWnj7TLwOt0vR/wY2', NULL, '2024-11-06 16:43:38'),
-('E15JV9y', 'TYCOON', 'hesh.teo@gmail.com', 'SYSTEM', '$2b$10$yXQomeba7Ehp7Dbp/YAA/.HOUIKxYfTJTlbjFaek8F97wxjD.1teO', NULL, '2024-11-06 19:34:42');
+('E15JV9y', 'TYCOON', 'hesh.teo@gmail.com', 'SYSTEM', '$2b$10$n4utGso5ubssqUKd6S3rcOXuoYz2AyhKdr1aBWWDgk20MIRmQ3Wb2', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRTE1SlY5eSIsInJvbGUiOiJTWVNURU0iLCJpYXQiOjE3MzM2NTMxMzAsImV4cCI6MTczMzY1MzczMH0.IAGjrJnXnmD8s-DlwBWvDKlu_gNwze9yp-RdNwe_naQ', '2024-11-06 19:34:42');
 
 --
 -- Indexes for dumped tables
