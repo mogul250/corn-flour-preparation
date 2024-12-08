@@ -108,20 +108,21 @@ export const packagingTrackReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query(`SELECT r_weights,reporter,sack_no,comment,JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) as ls, packaging.date from packaging_track left join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? order by date desc`,[date.start,date.stop])
+        let report = await query(`SELECT r_weights,reporter,sack_no,comment,CASE WHEN reporter IS NOT NULL THEN JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) ELSE packaging_track.r_weights END  as ls, CASE WHEN packaging.date IS NOT NULL THEN packaging.date ELSE packaging_track.date END as date from packaging_track left join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? order by packaging_track.date desc`,[date.start,date.stop])
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
-        if(report.length){
-           
-        }
         report = report.map(rep=>{
+            console.log(rep.date)
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
             rep.r_weights = JSON.parse(rep.r_weights)
             rep.ls = JSON.parse(rep.ls)
-            rep.ls.NF = JSON.parse(rep.ls.NF)
-            rep.ls.IS = JSON.parse(rep.ls.IS)
-            rep.ls.IF = JSON.parse(rep.ls.IF)
-            rep.ls.MA = JSON.parse(rep.ls.MA)
-            rep.ls.envelope = {'2': rep.ls.envelope}
+            if (typeof rep.ls.NF == 'string') {
+                rep.ls.NF = JSON.parse(rep.ls.NF)
+                rep.ls.IS = JSON.parse(rep.ls.IS)
+                rep.ls.IF = JSON.parse(rep.ls.IF)
+                rep.ls.MA = JSON.parse(rep.ls.MA)
+                rep.ls.envelope = {'2': rep.ls.envelope}
+                
+            }
             return rep
         })
         
