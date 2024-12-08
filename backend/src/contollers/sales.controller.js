@@ -136,7 +136,7 @@ export const flourSalesNR = async  (req,res)=>{
         }
         Object.keys(lastTDW).map(key=>{
             Object.keys(lastTDW[key]).map(key2=>{
-                lastTDW[key][key2]+= ls[key][key2]
+                lastTDW[key][key2]-= ls[key][key2]
             })
         })
         !date ? date = now() : null;

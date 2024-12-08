@@ -108,7 +108,7 @@ export const packagingTrackReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query(`SELECT r_weights,reporter,sack_no,comment,JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) as ls, packaging.date from packaging_track inner join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? order by date desc`,[date.start,date.stop])
+        let report = await query(`SELECT r_weights,reporter,sack_no,comment,JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) as ls, packaging.date from packaging_track left join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? order by date desc`,[date.start,date.stop])
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
            
