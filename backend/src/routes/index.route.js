@@ -10,7 +10,7 @@ import { returnsController, returnsReport } from "../contollers/returns.controll
 import { leftoverOutReport, leftoversController, leftoversOutController, leftoversReport } from "../contollers/leftovers.controller.js"
 import { expensesController, expensesReport } from "../contollers/expenses.controller.js"
 import { employeesController, employeesReport } from "../contollers/employee.controller.js"
-import { debtsController, debtsReport, pdebtsController, pdebtsReport } from "../contollers/debts.controller.js"
+import { debtsController, debtsnAmReport, debtsReport, pdebtsController, pdebtsReport } from "../contollers/debts.controller.js"
 import { sendResetLink,resetPassword, checkLink } from "../contollers/reset.password.controller.js"
 import { mrController, mrReport } from "../contollers/mr.controller..js"
 export const router = express.Router({strict:false})
@@ -49,5 +49,6 @@ router.post('/mrReport',(req,res,next)=>authBulkUsers(req,res,next,['SYSTEM']),m
 router.get('/send-flink/:user',sendResetLink)
 router.post('/reset-password/:token',resetPassword)
 router.get('/checkLink/:token',checkLink)
+router.post('/gDebts',debtsnAmReport)
 router.post('/',(req,res)=>{res.send("received")})
 
