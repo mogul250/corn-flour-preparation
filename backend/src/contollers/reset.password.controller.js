@@ -1,6 +1,7 @@
 import { rM } from "./response.message.controller.js"
 import {query} from "./query.controller.js"
 import { addToken, encPass, verifyToken } from "../incs/functions.util.js"
+import { mailSender } from "./mail.sender.controller.js"
 
 export const sendResetLink = async (req,res)=>{
     try {
@@ -8,7 +9,9 @@ export const sendResetLink = async (req,res)=>{
         uinfo = await query('select id,email,names,role from users where email = ?',[user])
         if (uinfo && uinfo.length) {
            let token = addToken({user: uinfo[0].id, role: uinfo[0].role},true,'10m')
-           let q = await query(`UPDATE users SET 2FA = ? WHERE id = ?`,[token,uinfo[0].id])
+           let q = await query(`UPDATE users SET 2FA = ? WHERE id = ?`,[token,uinfo[0].id]),
+           sendMail = await mailSender({email: uinfo[0].email,names: uinfo[0].names,token})
+           
         }else{
             return res.status(rM.eM.loginErrorMessage.rC).send({success: rM.eM.loginErrorMessage.s,message: rM.eM.loginErrorMessage.c,metadata: {}})
         }
@@ -71,6 +74,8 @@ export const checkLink = async (req,res)=>{
     } catch (error) {
         console.log(error)
         if (error.toString().indexOf('TokenExpiredError: jwt expired') != -1 || error.toString().indexOf('JsonWebTokenError: jwt malformed') != -1) {
+            res.status(rM.eM.invLink.rC).send({success: rM.eM.invLink.s,message: rM.eM.invLink.c,metadata: {}})
+        }else if (error.toString().indexOf('JsonWebTokenError: invalid signature') != -1 || error.toString().indexOf('JsonWebTokenError: invalid signature') != -1) {
             res.status(rM.eM.invLink.rC).send({success: rM.eM.invLink.s,message: rM.eM.invLink.c,metadata: {}})
         }else{
             res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
