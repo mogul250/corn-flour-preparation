@@ -108,10 +108,9 @@ export const packagingTrackReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query(`SELECT r_weights,reporter,sack_no,comment,CASE WHEN reporter IS NOT NULL THEN JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) ELSE packaging_track.r_weights END  as ls, CASE WHEN packaging.date IS NOT NULL THEN packaging.date ELSE packaging_track.date END as date from packaging_track left join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? order by packaging_track.date desc`,[date.start,date.stop])
+        let report = await query(`SELECT r_weights,reporter,sack_no,comment,CASE WHEN reporter IS NOT NULL THEN JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) ELSE (SELECT p_sold from sales_n_returns where sales_n_returns.id = packaging_track.id) END  as ls, CASE WHEN packaging.date IS NOT NULL THEN packaging.date ELSE packaging_track.date END as date from packaging_track left join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? order by packaging_track.date desc`,[date.start,date.stop])
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         report = report.map(rep=>{
-            console.log(rep.date)
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
             rep.r_weights = JSON.parse(rep.r_weights)
             rep.ls = JSON.parse(rep.ls)
@@ -122,7 +121,15 @@ export const packagingTrackReport = async (req,res)=>{
                 rep.ls.MA = JSON.parse(rep.ls.MA)
                 rep.ls.envelope = {'2': rep.ls.envelope}
                 
+            }else{
+                rep.ls.NF = (rep.ls.NF.weights)
+                rep.ls.IS = (rep.ls.IS.weights)
+                rep.ls.IF = (rep.ls.IF.weights)
+                rep.ls.MA = (rep.ls.MA.weights)
+                rep.ls.envelope = rep.ls.envelope.weights
+
             }
+                // console.log(rep.ls)
             return rep
         })
         
