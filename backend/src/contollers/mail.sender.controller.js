@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { createTransport } from "nodemailer";
 dotenv.config()
 export const mailSender = async (data)=>{
-    let link = `${process.env.FRONT_END_LINK}/${data.token}`
+    let link = `${process.env.FRONT_END_LINK}/changePassword/${data.token}`
 	const emailContent = `
 	    <!DOCTYPE html>
 	    <html lang="en">
@@ -45,7 +45,7 @@ export const mailSender = async (data)=>{
 	    </head>
 	    <body>
 	    <div class="container">
-	    <p style="text-align: center"> <img src="https://new-good-food-industry.rw/assets/MASAK88-BNxGTLrw.png" style="width: 300px;height: 152px,display:flex;justify-content:center;align-items:center;overflow-wrap:break-word"></p>
+	    <p style="text-align: center"> <img src="https://new-good-food-industry.rw/assets/MASAK88-BNxGTLrw.png" style="width: 300px;height: 152px,display:flex;justify-content:center;align-items:center;overflow-wrap:break-word;position: relative"></p>
 	    	<h1>Hi, ${data.names} </h1>
 	    	<p style="font-size:16px; text-transform: capitalize;">you requested for a password reset on NGF</p>
 	    	<p style="font-size: 18px; font-weight: bold;">click <a href="${link}">here</a> to reset your password, this link will be valid only for 10 minutes</p>
