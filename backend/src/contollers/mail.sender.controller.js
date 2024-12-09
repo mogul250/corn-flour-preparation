@@ -70,12 +70,12 @@ export async function sendCustmail(email,message) {
       port: 465,
       secure: true,
       auth: {
-        user: "info@itspace.rw",
-        pass: "AnUSqRY4FhPR"
+        user: "info@new-good-food-industry.rw",
+        pass: "eSu48sWekRQQ"
       }
     });
     const mailOptions = {
-      from: "NGF <info@itspace.rw>",
+      from: "New Good Food LTD <info@new-good-food-industry.rw>",
       to: email,
       subject: message.subject,
       html: message.mailContent
