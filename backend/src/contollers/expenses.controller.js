@@ -7,9 +7,10 @@ import { rM } from "./response.message.controller.js";
 export const expensesController = async  (req,res)=>{
    try {
         let {expenses,reporter,comment,date} = req.body,
-        id = rsg(6,true,true,!1,!1)
+        id = rsg(6,true,true,!1,!1),
+        sum = Object.values(expenses).reduce((su, el) => su + Number(el), 0);
         !date ? date = now() : null;
-        const insert = await query(`INSERT INTO expenses VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,expenses.diesel,expenses.lifters,expenses.boys,expenses.driver,expenses.room,expenses.food,expenses.travel,expenses.r_amount,expenses.inc_amount,expenses.g_amount,comment,date])
+        const insert = await query(`INSERT INTO expenses VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,expenses.diesel,expenses.lifters,expenses.boys,expenses.driver,expenses.room,expenses.food,expenses.travel,expenses.r_amount,expenses.inc_amount,expenses.g_amount,comment,sum,date])
         if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
     } catch (error) {
