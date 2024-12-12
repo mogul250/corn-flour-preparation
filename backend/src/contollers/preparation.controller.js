@@ -10,12 +10,22 @@ export const prepareCorn = async  (req,res)=>{
         id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('preparation_track','r_weight'),
         lastSt1W = await getLRec('stock1_track','r_weight'),
+        lastStDate = await getLRec('stock1_track','date'),
         nw = Number(lastStW)+Number(prepared_c),
-        nw2 = Number(lastSt1W)-Number(prepared_c)
-        !date ? date = now() : date;
+        nw2 = Number(lastSt1W)-Number(incoming_c)
+        !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
+        if (lastStDate) {
+            lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
+        }
+        if (date < lastStDate && lastStDate != 0) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        }
+        if (nw2 < 0) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        }
         const insert = await query(`INSERT INTO preparation VALUES (?,?,?,?,?,?,?)`,[id,incoming_c,prepared_c,waste_f,reporter,comment,date]),
-        insert2 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'add',prepared_c,'preparation',nw,now()]),
-        insert3 = await query('INSERT INTO stock1_track VALUES (?,?,?,?,?,?)',[id,'minus',prepared_c-(prepared_c*2),'preparation',nw2,now()])
+        insert2 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'add',prepared_c,'preparation',nw,date]),
+        insert3 = await query('INSERT INTO stock1_track VALUES (?,?,?,?,?,?)',[id,'minus',incoming_c-(incoming_c*2),'preparation',nw2,date])
         if(!insert || !insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
 

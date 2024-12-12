@@ -20,10 +20,10 @@ export const debtsController = async  (req,res)=>{
 }
 export const pdebtsController = async  (req,res)=>{
     try {
-         let {reporter,client,debt,p_debt,pm,r_debt,comment,date} = req.body,
+         let {reporter,client,debt,p_debt,pm,r_debt,comment,date,p_name} = req.body,
          id = rsg(6,true,true,!1,!1)
          !date ? date = now() : null;
-         const insert = await query(`INSERT INTO p_debts VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,client,debt,p_debt,pm,r_debt,comment,date]),
+         const insert = await query(`INSERT INTO p_debts VALUES (?,?,?,?,?,?,?,?,?,?)`,[id,reporter,client,debt,p_debt,pm,p_name,r_debt,comment,date]),
          debtinfo = await query('select * from debts where id = ?',[client]),
          pudate = await query('update debts set p_amount = ?,r_amount = ? where id = ?',[Number(debtinfo[0].p_amount)+Number(p_debt),r_debt,client])
          if(!insert || !pudate) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
@@ -66,7 +66,7 @@ export const pdebtsReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT pd.id,pd.reporter,pd.date,pd.debt,pd.p_debt,pd.pm,pd.r_debt,pd.comment,debts.client from p_debts as pd inner join debts on debts.id = pd.client where DATE(pd.date) >= ? AND DATE(pd.date) <= ?',[date.start,date.stop]),mtotal,added,initamount
+        let report = await query('SELECT pd.id,pd.reporter,pd.p_name,pd.date,pd.debt,pd.p_debt,pd.pm,pd.r_debt,pd.comment,debts.client from p_debts as pd inner join debts on debts.id = pd.client where DATE(pd.date) >= ? AND DATE(pd.date) <= ?',[date.start,date.stop]),mtotal,added,initamount
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         report = report.map(rep=>{
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')

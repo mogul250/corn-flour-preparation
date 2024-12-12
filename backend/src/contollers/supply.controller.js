@@ -9,8 +9,15 @@ export const recordCornPhase1 = async  (req,res)=>{
         let {dist_names,dist_plate_no,weight,dryness,moldness,net_price,gross_price,amount_paid,reporter,comment,r_amount,date} = req.body,
         id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('stock1_track','r_weight'),
+        lastStDate = await getLRec('stock1_track','date'),
         nw = Number(lastStW)+Number(weight)
-        !date ? date = now() : null;
+        !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
+        if (lastStDate) {
+            lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
+        }
+        if (date < lastStDate && lastStDate != 0) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        }
         const insert = await query(`INSERT INTO stock1 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,dist_names,dist_plate_no,weight,dryness,moldness,net_price,gross_price,amount_paid,r_amount,reporter,comment,date]),
         insert2 = await query('INSERT INTO stock1_track VALUES (?,?,?,?,?,?)',[id,'add',weight,'stock1',nw,date])
         if(!insert || !insert2) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
@@ -32,14 +39,13 @@ export const generateReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT * from stock1 where date >= ? AND date <= ? order by date desc',[date.start,date.stop]),mtotal,added,initamount
+        let report = await query('SELECT s1.id,s1.dist_names,s1.dist_plate_no,CASE WHEN s1.weight IS NOT NULL THEN s1.weight ELSE s1t.weight END as weight,s1.dryness,s1.moldness,s1.net_price,s1.gross_price,s1.amount_paid,s1.r_amount,s1.reporter,s1.comment,CASE WHEN s1.date IS NOT NULL THEN s1.date ELSE s1t.date END as date from stock1_track as s1t LEFT JOIN stock1 as s1 ON s1.id = s1t.id where s1t.date >= ? AND s1t.date <= ? order by s1t.date desc',[date.start,date.stop]),mtotal,added,initamount
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
             let lastRec = await getLDayStockTrackRec('stock1_track'),
             lastStW = await getLRec('stock1_track','r_weight')
-            console.log(lastRec,lastStW)
             if(lastRec != []){
-                added = lastStW-Number(lastRec.r_weight)
+                added = (lastStW-Number(lastRec.r_weight) < 0 ? 0 : lastStW-Number(lastRec.r_weight))
                 mtotal = Number(lastStW)
                 initamount = lastRec.r_weight
                 

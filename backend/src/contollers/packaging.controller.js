@@ -7,7 +7,7 @@ import { rM } from "./response.message.controller.js";
 export const flourPackaging = async  (req,res)=>{
     try {
         const calculateTotal = (ibiro) => Object.entries(ibiro).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
-        let {incoming_c,reporter,waste_e,new_food,ifunguro,IF,IS,MA,NF,isezerano,magaju,envelope,waste_f,comment,date,sack_no} = req.body,
+        let {incoming_c,reporter,waste_e,new_food,ifunguro,IF,IS,MA,NF,isezerano,magaju,envelope,waste_f,comment,date,sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF} = req.body,
         id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('preparation_track','r_weight'),
         lastTDW = await getLRec('packaging_track','r_weights'),
@@ -25,7 +25,7 @@ export const flourPackaging = async  (req,res)=>{
         }else{
             lastTDW = JSON.parse(lastTDW)
         }
-        const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,JSON.stringify(f_e),calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),sack_no,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date]),
+        const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,JSON.stringify(f_e),calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date]),
         insert3 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'minus',incoming_c-(incoming_c*2),'packaging',nw,now()])
         let total_nf = await getLRec('packaging_track','nf_t'),
         total_is = await getLRec('packaging_track','is_t'),
@@ -108,7 +108,7 @@ export const packagingTrackReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query(`SELECT r_weights,reporter,sack_no,comment,CASE WHEN reporter IS NOT NULL THEN JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) ELSE (SELECT p_sold from sales_n_returns where sales_n_returns.id = packaging_track.id) END  as ls, CASE WHEN packaging.date IS NOT NULL THEN packaging.date ELSE packaging_track.date END as date from packaging_track left join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? order by packaging_track.date desc`,[date.start,date.stop])
+        let report = await query(`SELECT r_weights,reporter,sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF,comment,CASE WHEN reporter IS NOT NULL THEN JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) ELSE (SELECT p_sold from sales_n_returns where sales_n_returns.id = packaging_track.id) END  as ls, CASE WHEN packaging.date IS NOT NULL THEN packaging.date ELSE packaging_track.date END as date from packaging_track left join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? order by packaging_track.date desc`,[date.start,date.stop])
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         report = report.map(rep=>{
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')

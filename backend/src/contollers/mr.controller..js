@@ -6,10 +6,10 @@ import { rM } from "./response.message.controller.js";
 
 export const mrController = async  (req,res)=>{
    try {
-        let {reporter,commande,returned,expenses,debts,p_debts,pm,comment,date} = req.body,
+        let {reporter,commande,returned,expenses,debts,p_debts,cash,phone,bank,comment,date} = req.body,
         id = rsg(6,true,true,!1,!1)
         !date ? date = now() : null;
-        const insert = await query(`INSERT INTO mr VALUES (?,?,?,?,?,?,?,?,?,?)`,[id,reporter,commande,returned,expenses,debts,p_debts,pm,comment,date])
+        const insert = await query(`INSERT INTO mr VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,commande,returned,expenses,debts,p_debts,cash,phone,bank,comment,date])
         if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
     } catch (error) {
