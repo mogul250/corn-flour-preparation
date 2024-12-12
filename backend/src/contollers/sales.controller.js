@@ -95,13 +95,14 @@ export const salesReport = async (req,res)=>{
 export const flourSalesNR = async  (req,res)=>{
     try {
         const calculateTotal = (ibiro) => Object.entries(ibiro.weights).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
-        let {distributor,reporter,p_sold,comment,date,pm,loc} = req.body,
+        let {distributor,reporter,p_sold,comment,date,pm,loc,p_name} = req.body,
         id = rsg(6,true,true,!1,!1),
         l_nf = await getLRec('packaging_track','nf_t'),
         l_is = await getLRec('packaging_track','is_t'),
         l_ma = await getLRec('packaging_track','ma_t'),
         l_if = await getLRec('packaging_track','if_t'),
         lastTDW = await getLRec('packaging_track','r_weights'),
+        lastStDate = await getLRec('packaging_track','date'),
         l_env = await getLRec('packaging_track','env_t')
         l_nf -= calculateTotal(p_sold.NF)
         l_is-= calculateTotal(p_sold.IS)
@@ -134,13 +135,24 @@ export const flourSalesNR = async  (req,res)=>{
         }else{
             lastTDW = JSON.parse(lastTDW)
         }
+        let isNeg = false
         Object.keys(lastTDW).map(key=>{
             Object.keys(lastTDW[key]).map(key2=>{
                 lastTDW[key][key2]-= ls[key][key2]
+                if (lastTDW[key][key2] < 0) isNeg = true
             })
         })
-        !date ? date = now() : null;
-        const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?,?)`,[id,reporter,distributor,loc,pm,JSON.stringify(p_sold),comment,date])
+        if (isNeg) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        }
+        !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
+        if (lastStDate) {
+            lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
+        }
+        if (date < lastStDate && lastStDate != 0) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        }
+        const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,loc,pm,p_name,JSON.stringify(p_sold),comment,date])
         const insert3 = await query('INSERT INTO sales_track VALUES (?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','sales',JSON.stringify(totals),date])
         const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),JSON.stringify(lastTDW),'minus','sales',l_if,l_is,l_ma,l_nf,l_env,date])
         if(!insert || !insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})

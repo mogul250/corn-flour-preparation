@@ -11,9 +11,19 @@ export const flourPackaging = async  (req,res)=>{
         id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('preparation_track','r_weight'),
         lastTDW = await getLRec('packaging_track','r_weights'),
+        lastStDate = await getLRec('packaging_track','date'),
         nw = Number(lastStW)-Number(incoming_c),
         f_e = {IF,IS,MA,NF}
-        !date ? date = now() : date;
+        !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
+        if (lastStDate) {
+            lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
+        }
+        if (date < lastStDate && lastStDate != 0) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        }
+        if (nw < 0) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        }
         if (!lastTDW) {
             lastTDW = {
                 NF:{"5":0,"10":0,"25":0},
@@ -26,7 +36,7 @@ export const flourPackaging = async  (req,res)=>{
             lastTDW = JSON.parse(lastTDW)
         }
         const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,JSON.stringify(f_e),calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date]),
-        insert3 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'minus',incoming_c-(incoming_c*2),'packaging',nw,now()])
+        insert3 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'minus',incoming_c-(incoming_c*2),'packaging',nw,date])
         let total_nf = await getLRec('packaging_track','nf_t'),
         total_is = await getLRec('packaging_track','is_t'),
         total_ma = await getLRec('packaging_track','ma_t'),
@@ -48,7 +58,7 @@ export const flourPackaging = async  (req,res)=>{
                 lastTDW[key][key2]+= ls[key][key2]
             })
         })
-        const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),JSON.stringify(lastTDW),'add','packaging',total_if,total_is,total_ma,total_nf,total_env,now()])
+        const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),JSON.stringify(lastTDW),'add','packaging',total_if,total_is,total_ma,total_nf,total_env,date])
         if(!insert ||!insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
 

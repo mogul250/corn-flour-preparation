@@ -10,7 +10,7 @@ export const prepareCorn = async  (req,res)=>{
         id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('preparation_track','r_weight'),
         lastSt1W = await getLRec('stock1_track','r_weight'),
-        lastStDate = await getLRec('stock1_track','date'),
+        lastStDate = await getLRec('preparation_track','date'),
         nw = Number(lastStW)+Number(prepared_c),
         nw2 = Number(lastSt1W)-Number(incoming_c)
         !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
