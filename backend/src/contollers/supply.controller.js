@@ -44,11 +44,15 @@ export const generateReport = async (req,res)=>{
         if(report.length){
             let lastRec = await getLDayStockTrackRec('stock1_track'),
             lastStW = await getLRec('stock1_track','r_weight')
-            if(lastRec != []){
+            if(lastRec.r_weight){
                 added = (lastStW-Number(lastRec.r_weight) < 0 ? 0 : lastStW-Number(lastRec.r_weight))
                 mtotal = Number(lastStW)
                 initamount = lastRec.r_weight
                 
+            }else{
+                added = (lastStW-Number(lastRec))
+                mtotal = Number(lastStW)
+                initamount = lastRec
             }
         }
         report = report.map(rep=>{
