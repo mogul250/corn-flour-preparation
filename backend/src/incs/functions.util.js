@@ -65,6 +65,18 @@ export async function getLRec(table,column) {
         throw error
     }
 }
+export async function getLLRec(table,column) {
+    try {
+        let resp = await query(`SELECT ${column} FROM ${table} ORDER BY date DESC LIMIT 1,2`,[])
+        if (resp.length) {
+            return resp[0][column]
+        }else{
+            return 0
+        }
+    } catch (error) {
+        throw error
+    }
+}
 export async function getLDayStockTrackRec(table) {
     try {
         let lastd = DateTime.fromFormat(now(), 'yyyy-MM-dd HH:mm:ss')
@@ -80,6 +92,7 @@ export async function getLDayStockTrackRec(table) {
         throw error
     }
 }
+
 export async function getLStockTrackRec(table) {
     try {
         let resp = await query(`SELECT * FROM ${table} ORDER BY date DESC LIMIT 1`)

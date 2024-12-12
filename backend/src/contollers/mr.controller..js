@@ -10,6 +10,7 @@ export const mrController = async  (req,res)=>{
         id = rsg(6,true,true,!1,!1)
         !date ? date = now() : null;
         total = (Number(p_debts)+Number(cash)+Number(phone)+Number(bank)+Number(commande))-(Number(returned)+Number(debts)+Number(expenses))
+        if(total == NaN) total = 0
         const insert = await query(`INSERT INTO mr VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,commande,returned,expenses,debts,p_debts,cash,phone,bank,total,comment,date])
         if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})

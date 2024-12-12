@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { getLDayStockTrackRec, getLRec, now } from "../incs/functions.util.js";
+import { getLDayStockTrackRec, getLLRec, getLRec, now } from "../incs/functions.util.js";
 import { query } from "./query.controller.js";
 import { rsg } from "./random.string.generator.js";
 import { rM } from "./response.message.controller.js";
@@ -42,12 +42,12 @@ export const generateReport = async (req,res)=>{
         let report = await query('SELECT s1.id,s1.dist_names,s1.dist_plate_no,CASE WHEN s1.weight IS NOT NULL THEN s1.weight ELSE s1t.weight END as weight,s1.dryness,s1.moldness,s1.net_price,s1.gross_price,s1.amount_paid,s1.r_amount,s1.reporter,s1.comment,CASE WHEN s1.date IS NOT NULL THEN s1.date ELSE s1t.date END as date from stock1_track as s1t LEFT JOIN stock1 as s1 ON s1.id = s1t.id where s1t.date >= ? AND s1t.date <= ? order by s1t.date desc',[date.start,date.stop]),mtotal,added,initamount
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
-            let lastRec = await getLDayStockTrackRec('stock1_track'),
+            let lastRec = await getLLRec('stock1_track','r_weight'),
             lastStW = await getLRec('stock1_track','r_weight')
-            if(lastRec.r_weight){
-                added = (lastStW-Number(lastRec.r_weight) < 0 ? 0 : lastStW-Number(lastRec.r_weight))
+            if(lastRec){
+                added = (lastStW-Number(lastRec) < 0 ? 0 : lastStW-Number(lastRec))
                 mtotal = Number(lastStW)
-                initamount = lastRec.r_weight
+                initamount = lastRec
                 
             }else{
                 added = (lastStW-Number(lastRec))
