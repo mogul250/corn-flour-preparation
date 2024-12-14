@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 14, 2024 at 08:23 AM
+-- Generation Time: Dec 14, 2024 at 11:35 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -75,6 +75,22 @@ CREATE TABLE `debts` (
 
 INSERT INTO `debts` (`id`, `reporter`, `client`, `weight`, `g_amount`, `p_amount`, `r_amount`, `comment`, `date`) VALUES
 ('0p8ip2', 'Thierry', 'Denis', '100', 10000, 10000, 0, 'OK', '2024-12-12 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `eb`
+--
+
+CREATE TABLE `eb` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `item` varchar(255) NOT NULL,
+  `amount` varchar(255) NOT NULL,
+  `price` int(11) NOT NULL,
+  `comment` varchar(1000) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -184,6 +200,28 @@ CREATE TABLE `leftover_out` (
 
 INSERT INTO `leftover_out` (`id`, `reporter`, `client`, `weight`, `price`, `pm`, `g_amount`, `r_amount`, `p_name`, `comment`, `date`) VALUES
 ('q663s5', 'Bosco', 'Denis', 100, 200, 'momo', 20000, 0, 'Denis', 'ok', '2024-12-12 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mo`
+--
+
+CREATE TABLE `mo` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `reason` varchar(255) NOT NULL,
+  `comment` varchar(255) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mo`
+--
+
+INSERT INTO `mo` (`id`, `reporter`, `amount`, `reason`, `comment`, `date`) VALUES
+('72if3x', 'ssas', 10000, 'eewew', 'wedwdw', '2024-12-14 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -627,6 +665,12 @@ ALTER TABLE `debts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `eb`
+--
+ALTER TABLE `eb`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `employees`
 --
 ALTER TABLE `employees`
@@ -648,6 +692,12 @@ ALTER TABLE `leftovers`
 -- Indexes for table `leftover_out`
 --
 ALTER TABLE `leftover_out`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `mo`
+--
+ALTER TABLE `mo`
   ADD PRIMARY KEY (`id`);
 
 --
