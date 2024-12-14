@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2024 at 09:35 AM
+-- Generation Time: Dec 14, 2024 at 08:23 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -20,6 +20,36 @@ SET time_zone = "+00:00";
 --
 -- Database: `cms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cars`
+--
+
+CREATE TABLE `cars` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `driver` varchar(255) NOT NULL,
+  `plate_no` varchar(255) NOT NULL,
+  `diesel` int(11) NOT NULL,
+  `pieces` int(11) NOT NULL,
+  `oil` int(11) NOT NULL,
+  `wash` int(11) NOT NULL,
+  `mechanic` int(11) NOT NULL,
+  `o_m` int(11) NOT NULL,
+  `inc_money` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `comment` varchar(1000) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cars`
+--
+
+INSERT INTO `cars` (`id`, `reporter`, `driver`, `plate_no`, `diesel`, `pieces`, `oil`, `wash`, `mechanic`, `o_m`, `inc_money`, `total`, `comment`, `date`) VALUES
+('8o71j9', 'heshima', 'capoo', 'RAD001C', 1000, 1000, 1000, 1000, 1000, 1000, 10000, 4000, 'yegooooo', '2024-12-13 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -44,7 +74,7 @@ CREATE TABLE `debts` (
 --
 
 INSERT INTO `debts` (`id`, `reporter`, `client`, `weight`, `g_amount`, `p_amount`, `r_amount`, `comment`, `date`) VALUES
-('60586s', 'heshima', 'nyamanswa', '1000', 1000, 100, 900, 'yego', '2024-12-12 00:00:00');
+('0p8ip2', 'Thierry', 'Denis', '100', 10000, 10000, 0, 'OK', '2024-12-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -64,6 +94,13 @@ CREATE TABLE `employees` (
   `r_salary` int(11) NOT NULL,
   `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`id`, `names`, `title`, `phone`, `salary`, `saving`, `social`, `advance`, `r_salary`, `date`) VALUES
+('jk1k1d', 'Bosco', 'Store keeper', '0781650876', 150000, 20000, 1000, 0, 129000, '2024-12-12 15:42:28');
 
 -- --------------------------------------------------------
 
@@ -94,12 +131,9 @@ CREATE TABLE `expenses` (
 --
 
 INSERT INTO `expenses` (`id`, `reporter`, `diesel`, `lifters`, `boys`, `driver`, `room`, `food`, `travel`, `r_amount`, `inc_amount`, `g_amount`, `comment`, `o_m`, `date`) VALUES
-('07k386', 'heshima', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, '1000', 0, '0000-00-00 00:00:00'),
-('39y599', 'heshima', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, '1000', 0, '0000-00-00 00:00:00'),
-('70hjb4', 'heshima', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, '1000', 0, '0000-00-00 00:00:00'),
-('97421x', 'heshima', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 'heshhs', 0, '2024-12-09 00:00:00'),
-('k4b52o', 'heshima', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, '1000', 0, '0000-00-00 00:00:00'),
-('m1c4z5', 'heshima', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 'heshhs', 10000, '2024-12-09 00:00:00');
+('4puc72', 'hehs', 100, 100, 100, 100, 100, 100, 100, 0, 0, 100, 'e', 800, '2024-12-13 00:00:00'),
+('6qh83q', 'Thierry', 20000, 5000, 2000, 5000, 0, 5000, 1000, 1647500, 1609500, 0, 'ok', 3295000, '2024-12-12 00:00:00'),
+('qk5jsz', 'heshima', 1000, 1000, 1000, 1000, 1000, 1000, 1000, 0, 0, 1000, 'done', 8000, '2024-12-13 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -122,10 +156,7 @@ CREATE TABLE `leftovers` (
 --
 
 INSERT INTO `leftovers` (`id`, `reporter`, `w_pre`, `w_incoming`, `w_tot`, `comment`, `date`) VALUES
-('2gd43w', '876', 9876, 876, 10752, 'kjhg', '2024-12-08 00:00:00'),
-('axrork', 'jhgfds', 987, 876, 1863, 'kjhg', '2024-12-07 00:00:00'),
-('jv00t2', 'uytgf', 876, 765, 1641, '8765', '2024-12-08 00:00:00'),
-('nh6h7k', 'SDRTYU', 7765, 8765, 16530, 'iuytr', '2024-12-06 00:00:00');
+('w79c0c', 'Bosco', 0, 400, 400, 'ok', '2024-12-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -152,12 +183,7 @@ CREATE TABLE `leftover_out` (
 --
 
 INSERT INTO `leftover_out` (`id`, `reporter`, `client`, `weight`, `price`, `pm`, `g_amount`, `r_amount`, `p_name`, `comment`, `date`) VALUES
-('8e8825', 'jhg', 'uyt', 765, 765, '', 585225, 0, '', 'kjh', '2024-12-08 00:00:00'),
-('8upl3l', 'jhgfds', 'nb', 500, 500, 'momo', 250000, 6, '', 'hg', '2024-12-08 00:00:00'),
-('c0fflw', 'heshima', 'nyamanswa', 1000, 10, 'cheque', 10000, 1000, 'kamanayo', 'done', '2024-12-12 00:00:00'),
-('ec813u', 'SDRTYU', 'kju', 600, 500, '', 300000, 500, '', 'uytr', '2024-12-07 00:00:00'),
-('l5g4si', 'heshima', 'nyamanswa', 1000, 10, '', 10000, 1000, 'kamanayo', 'hesh', '2024-12-12 00:00:00'),
-('m9v84l', 'SDRTYU', 'SDFGHJ', 500, 500, 'mobile_money', 250000, 500, '', 'uytr', '2024-12-06 00:00:00');
+('q663s5', 'Bosco', 'Denis', 100, 200, 'momo', 20000, 0, 'Denis', 'ok', '2024-12-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -186,8 +212,7 @@ CREATE TABLE `mr` (
 --
 
 INSERT INTO `mr` (`id`, `reporter`, `commande`, `returned`, `expenses`, `debts`, `p_debts`, `cash`, `phone`, `bank`, `total`, `comment`, `date`) VALUES
-('0h27qf', 'heshima', '1000', '1000', '1000', '1000', '1000', 1000, 1000, 1000, 0, 'yego', '2024-12-12 00:00:00'),
-('i34dgi', 'heshima', '1000', '1000', '1000', '1000', '1000', 1000, 1000, 5000, 4000, 'dome', '2024-12-12 00:00:00');
+('qu8nlb', 'heshima', '1000', '1000', '1000', '1000', '2000', 3000, 34000, 44000, 81000, 'ok', '2024-12-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -224,7 +249,7 @@ CREATE TABLE `packaging` (
 --
 
 INSERT INTO `packaging` (`id`, `incoming_c`, `reporter`, `waste_e`, `f_e`, `if_t`, `is_t`, `ma_t`, `nf_t`, `sack_no_IF`, `sack_no_IS`, `sack_no_MA`, `sack_no_NF`, `new_food`, `ifunguro`, `isezerano`, `magaju`, `envelopes`, `waste_f`, `comment`, `date`) VALUES
-('v803j6', 27500, 'heshima', 0, '{\"IF\":3434,\"IS\":77887,\"MA\":787,\"NF\":10000}', 2200, 300, 300, 1200, 100, 50, 0, 200, '{\"5\":20,\"10\":100,\"25\":4}', '{\"5\":220,\"10\":100,\"25\":4}', '{\"5\":20,\"10\":10,\"25\":4}', '{\"5\":20,\"10\":10,\"25\":4}', 50, 100, 'comment', '2024-12-12 09:06:57');
+('7r87z1', 100, 'kapoo', 0, '{\"IF\":3434,\"IS\":77887,\"MA\":787,\"NF\":10000}', 400, 400, 400, 175, 100, 100, 100, 200, '{\"5\":10,\"10\":10,\"25\":1}', '{\"5\":10,\"10\":10,\"25\":10}', '{\"5\":10,\"10\":10,\"25\":10}', '{\"5\":10,\"10\":10,\"25\":10}', 100, 200, '1000', '2024-12-14 02:30:18');
 
 -- --------------------------------------------------------
 
@@ -251,8 +276,7 @@ CREATE TABLE `packaging_track` (
 --
 
 INSERT INTO `packaging_track` (`id`, `weights`, `r_weights`, `act_type`, `destination`, `if_t`, `is_t`, `ma_t`, `nf_t`, `env_t`, `date`) VALUES
-('1y4tev', '{\"NF\":150,\"IS\":0,\"MA\":0,\"IF\":0,\"envelope\":100}', '{\"NF\":{\"5\":18,\"10\":96,\"25\":0},\"IS\":{\"5\":20,\"10\":10,\"25\":4},\"IF\":{\"5\":220,\"10\":100,\"25\":4},\"MA\":{\"5\":20,\"10\":10,\"25\":4},\"envelope\":{\"2\":0}}', 'minus', 'sales', 2200, 300, 300, 1050, 0, '2024-12-12 09:48:10'),
-('v803j6', '{\"NF\":1200,\"IS\":300,\"MA\":300,\"IF\":2200,\"envelope\":100}', '{\"NF\":{\"5\":20,\"10\":100,\"25\":4},\"IS\":{\"5\":20,\"10\":10,\"25\":4},\"IF\":{\"5\":220,\"10\":100,\"25\":4},\"MA\":{\"5\":20,\"10\":10,\"25\":4},\"envelope\":{\"2\":50}}', 'add', 'packaging', 2200, 300, 300, 1200, 100, '2024-12-12 09:06:57');
+('7r87z1', '{\"NF\":175,\"IS\":400,\"MA\":400,\"IF\":400,\"envelope\":200}', '{\"NF\":{\"5\":10,\"10\":10,\"25\":1},\"IS\":{\"5\":10,\"10\":10,\"25\":10},\"IF\":{\"5\":10,\"10\":10,\"25\":10},\"MA\":{\"5\":10,\"10\":10,\"25\":10},\"envelope\":{\"2\":100}}', 'add', 'packaging', 400, 400, 400, 175, 200, '2024-12-14 02:30:18');
 
 -- --------------------------------------------------------
 
@@ -275,13 +299,7 @@ CREATE TABLE `preparation` (
 --
 
 INSERT INTO `preparation` (`id`, `incoming_c`, `prepared_c`, `waste_f`, `reporter`, `comment`, `date`) VALUES
-('1625wp', 2000, 6800, '200', 'heshima', 'wert', '2024-12-11 23:38:14'),
-('91d641', 1000, 1800, '200', 'heshima', 'byaciyemo', '2024-12-11 23:51:17'),
-('9zw0yn', 3000, 1800, '200', 'heshima', 'qpzm', '2024-12-12 00:18:09'),
-('kd67za', 7000, 6800, '200', 'heshima', 'byakunze', '2024-12-11 23:09:25'),
-('qfbuhu', 3000, 1800, '200', 'heshima', 'yego', '2024-12-11 23:55:46'),
-('su01df', 3000, 1800, '200', 'heshima', 'done', '2024-12-12 00:01:17'),
-('tb50nd', 2000, 6800, '200', 'heshima', 'byaciyemo', '2024-12-11 23:45:15');
+('e16988', 10000, 9000, '1000', 'Bosco', 'ok', '2024-12-12 15:05:56');
 
 -- --------------------------------------------------------
 
@@ -303,15 +321,15 @@ CREATE TABLE `preparation_track` (
 --
 
 INSERT INTO `preparation_track` (`id`, `act_type`, `weight`, `destination`, `r_weight`, `date`) VALUES
-('1625wp', 'add', 6800, 'preparation', 13600, '2024-12-11 23:38:14'),
-('20643m', 'minus', -100, 'packaging', 27500, '2024-12-12 01:03:27'),
-('91d641', 'add', 1800, 'preparation', 22200, '2024-12-11 23:51:17'),
-('9zw0yn', 'add', 1800, 'preparation', 27600, '2024-12-12 00:18:09'),
-('kd67za', 'add', 6800, 'preparation', 6800, '2024-12-11 23:09:25'),
-('qfbuhu', 'add', 1800, 'preparation', 24000, '2024-12-11 23:55:46'),
-('su01df', 'add', 1800, 'preparation', 25800, '2024-12-12 00:01:17'),
-('tb50nd', 'add', 6800, 'preparation', 20400, '2024-12-11 23:45:15'),
-('v803j6', 'minus', -27500, 'packaging', 0, '2024-12-12 09:06:57');
+('0t5es4', 'minus', -100, 'packaging', 8600, '2024-12-14 02:17:21'),
+('14t325', 'minus', -100, 'packaging', 8300, '2024-12-14 02:25:44'),
+('2p89qc', 'minus', -100, 'packaging', 8500, '2024-12-14 02:17:45'),
+('46h268', 'minus', -100, 'packaging', 8800, '2024-12-14 02:15:45'),
+('7r87z1', 'minus', -100, 'packaging', 8200, '2024-12-14 02:30:18'),
+('84o4s3', 'minus', -100, 'packaging', 8700, '2024-12-14 02:16:44'),
+('e16988', 'add', 9000, 'preparation', 9000, '2024-12-12 15:05:56'),
+('hh9t07', 'minus', -100, 'packaging', 8900, '2024-12-14 02:13:37'),
+('k207dm', 'minus', -100, 'packaging', 8400, '2024-12-14 02:23:30');
 
 -- --------------------------------------------------------
 
@@ -328,7 +346,7 @@ CREATE TABLE `p_debts` (
   `pm` varchar(255) NOT NULL,
   `p_name` varchar(255) NOT NULL,
   `r_debt` float NOT NULL,
-  `comment` varchar(255) NOT NULL,
+  `comment` varchar(1000) NOT NULL,
   `date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -337,7 +355,8 @@ CREATE TABLE `p_debts` (
 --
 
 INSERT INTO `p_debts` (`id`, `reporter`, `client`, `debt`, `p_debt`, `pm`, `p_name`, `r_debt`, `comment`, `date`) VALUES
-('o9sa0u', 'igikeri', '60586s', 1000, 100, 'Cash', 'daaata', 900, 'byari sawa', '2024-12-12 00:00:00');
+('39l081', 'Thierry', '0p8ip2', 5000, 1000, 'Cash', 'Denis', 4000, 'OK', '2024-12-12 00:00:00'),
+('bujl3g', 'Thierry', '0p8ip2', 4000, 4000, 'Cash', 'Denis', 0, 'OK', '2024-12-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -362,7 +381,55 @@ CREATE TABLE `returns` (
 --
 
 INSERT INTO `returns` (`id`, `reporter`, `ifunguro`, `isezerano`, `magaju`, `new_food`, `envelope`, `comment`, `date`) VALUES
-('82u60c', 'SDRTYU', '{\"5\":200,\"10\":100,\"25\":40}', '{\"5\":200,\"10\":100,\"25\":40}', '{\"5\":200,\"10\":100,\"25\":40}', '{\"5\":200,\"10\":100,\"25\":40}', '{\"2\":500}', 'JMHGF', '2024-12-08 00:00:00');
+('23wp8s', 'Thierry', '{\"5\":40,\"10\":25,\"25\":20}', '{\"5\":0,\"10\":0,\"25\":0}', '{\"5\":0,\"10\":0,\"25\":0}', '{\"5\":40,\"10\":50,\"25\":20}', '{\"2\":0}', 'ok', '2024-12-12 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sacks`
+--
+
+CREATE TABLE `sacks` (
+  `id` varchar(255) NOT NULL,
+  `reporter` varchar(255) NOT NULL,
+  `new_food` varchar(255) NOT NULL,
+  `ifunguro` varchar(255) NOT NULL,
+  `isezerano` varchar(255) NOT NULL,
+  `magaju` varchar(255) NOT NULL,
+  `envelope` varchar(255) NOT NULL,
+  `comment` varchar(1000) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sacks`
+--
+
+INSERT INTO `sacks` (`id`, `reporter`, `new_food`, `ifunguro`, `isezerano`, `magaju`, `envelope`, `comment`, `date`) VALUES
+('9ns3wp', '100', '{\"5\":10,\"10\":10,\"25\":10}', '{\"5\":10,\"10\":10,\"25\":10}', '{\"5\":10,\"10\":10,\"25\":10}', '{\"5\":10,\"10\":10,\"25\":10}', '{\"2\":100}', 'hehs', '2024-12-14 02:29:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sacks_track`
+--
+
+CREATE TABLE `sacks_track` (
+  `id` varchar(255) NOT NULL,
+  `sacks` varchar(700) NOT NULL,
+  `r_sacks` varchar(1000) NOT NULL,
+  `act_type` varchar(255) NOT NULL,
+  `destination` varchar(255) NOT NULL,
+  `date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sacks_track`
+--
+
+INSERT INTO `sacks_track` (`id`, `sacks`, `r_sacks`, `act_type`, `destination`, `date`) VALUES
+('7r87z1', '{\"NF\":175,\"IS\":400,\"MA\":400,\"IF\":400,\"envelope\":200}', '{\"NF\":{\"5\":0,\"10\":0,\"25\":9},\"IS\":{\"5\":0,\"10\":0,\"25\":0},\"IF\":{\"5\":0,\"10\":0,\"25\":0},\"MA\":{\"5\":0,\"10\":0,\"25\":0},\"envelope\":{\"2\":0}}', 'minus', 'packaging', '2024-12-14 02:30:18'),
+('9ns3wp', '{\"NF\":30,\"IS\":30,\"MA\":30,\"IF\":30,\"envelope\":200}', '{\"NF\":{\"5\":10,\"10\":10,\"25\":10},\"IS\":{\"5\":10,\"10\":10,\"25\":10},\"IF\":{\"5\":10,\"10\":10,\"25\":10},\"MA\":{\"5\":10,\"10\":10,\"25\":10},\"envelope\":{\"2\":100}}', 'add', 'sacks', '2024-12-14 02:29:33');
 
 -- --------------------------------------------------------
 
@@ -393,7 +460,7 @@ CREATE TABLE `sales` (
 --
 
 INSERT INTO `sales` (`id`, `reporter`, `distributor`, `g_amount`, `sack_no_NF`, `sack_no_IF`, `sack_no_IS`, `sack_no_MA`, `ifunguro`, `isezerano`, `magaju`, `new_food`, `envelope`, `comment`, `date`) VALUES
-('m1f1j7', 'heshima', 'kapooo', 1000, 200, 50, 100, 0, '{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":null,\"10\":null,\"25\":null},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":null,\"10\":null,\"25\":null},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":null,\"10\":null,\"25\":null},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"weights\":{\"5\":20,\"10\":10,\"25\":8},\"pricings\":{\"5\":98,\"10\":1000,\"25\":100},\"totals\":{\"5\":1960,\"10\":10000,\"25\":800}}', '{\"weights\":{\"2\":50},\"pricings\":{\"2\":70},\"totals\":{\"2\":3500}}', 'byaciyemo', '2024-12-12 00:00:00');
+('svo7up', 'Bosco', 'Thierry', 3295000, 12, 13, 0, 0, '{\"weights\":{\"5\":80,\"10\":50,\"25\":40},\"pricings\":{\"5\":3500,\"10\":7500,\"25\":18000},\"totals\":{\"5\":280000,\"10\":375000,\"25\":720000}}', '{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":null,\"10\":null,\"25\":null},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":null,\"10\":null,\"25\":null},\"totals\":{\"5\":0,\"10\":0,\"25\":0}}', '{\"weights\":{\"5\":80,\"10\":100,\"25\":40},\"pricings\":{\"5\":4000,\"10\":8000,\"25\":20000},\"totals\":{\"5\":320000,\"10\":800000,\"25\":800000}}', '{\"weights\":{\"2\":0},\"pricings\":{\"2\":0},\"totals\":{\"2\":0}}', 'Agiye Kanombe', '2024-12-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -418,8 +485,7 @@ CREATE TABLE `sales_n_returns` (
 --
 
 INSERT INTO `sales_n_returns` (`id`, `reporter`, `distributor`, `loc`, `pm`, `p_name`, `p_sold`, `comment`, `date`) VALUES
-('059uof', 'SDRTYU', 'SDFGHJ', 'iuyt', 'mobile_money', '', '{\"NF\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"IS\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"IF\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"MA\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"envelope\":{\"weights\":{\"2\":250},\"pricings\":{\"2\":500},\"totals\":{\"2\":125000}}}', 'LKJ', '2024-12-08 00:00:00'),
-('1y4tev', ' kamanayo', 'jeremie', 'bishehe', 'cheque', 'hirwa', '{\"NF\":{\"weights\":{\"5\":2,\"10\":4,\"25\":4},\"pricings\":{\"5\":2000,\"10\":5000,\"25\":10000},\"totals\":{\"5\":200000,\"10\":500000,\"25\":4000000}},\"IS\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"IF\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"MA\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"envelope\":{\"weights\":{\"2\":50},\"pricings\":{\"2\":1000},\"totals\":{\"2\":500000}}}', 'byakunze', '2024-12-12 09:48:10');
+('463e80', 'Thierry', 'Thierry', 'Kanombe', 'cash', 'Denis', '{\"NF\":{\"weights\":{\"5\":40,\"10\":50,\"25\":20},\"pricings\":{\"5\":4000,\"10\":8000,\"25\":20000},\"totals\":{\"5\":160000,\"10\":400000,\"25\":400000}},\"IS\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"IF\":{\"weights\":{\"5\":40,\"10\":25,\"25\":20},\"pricings\":{\"5\":3500,\"10\":7500,\"25\":18000},\"totals\":{\"5\":140000,\"10\":187500,\"25\":360000}},\"MA\":{\"weights\":{\"5\":0,\"10\":0,\"25\":0},\"pricings\":{\"5\":0,\"10\":0,\"25\":0},\"totals\":{\"5\":0,\"10\":0,\"25\":0}},\"envelope\":{\"weights\":{\"2\":0},\"pricings\":{\"2\":0},\"totals\":{\"2\":0}}}', 'ok', '2024-12-12 15:29:00');
 
 -- --------------------------------------------------------
 
@@ -441,11 +507,7 @@ CREATE TABLE `sales_track` (
 --
 
 INSERT INTO `sales_track` (`id`, `weights`, `act_type`, `destination`, `totals`, `date`) VALUES
-('059uof', '{\"NF\":0,\"IS\":0,\"MA\":0,\"IF\":0,\"envelope\":500}', 'add', 'sales', '{\"nf\":6500,\"is\":7000,\"ma\":6500,\"if\":6800,\"envelope\":1700}', '2024-12-09 00:34:17'),
-('1y4tev', '{\"NF\":150,\"IS\":0,\"MA\":0,\"IF\":0,\"envelope\":100}', 'add', 'sales', '{\"nf\":6650,\"is\":7000,\"ma\":6500,\"if\":6800,\"envelope\":1800}', '2024-12-12 09:48:10'),
-('26k658', '{\"NF\":1500,\"IS\":1500,\"MA\":1000,\"IF\":1300,\"envelope\":200}', 'add', 'sales', '{\"nf\":1500,\"is\":1500,\"ma\":1000,\"if\":1300,\"envelope\":200}', '2024-12-08 22:32:23'),
-('2v7x02', '{\"NF\":2500,\"IS\":2500,\"MA\":2500,\"IF\":2500,\"envelope\":500}', 'add', 'sales', '{\"nf\":6500,\"is\":7000,\"ma\":6500,\"if\":6800,\"envelope\":1200}', '2024-12-09 00:22:00'),
-('w2l73k', '{\"NF\":2500,\"IS\":3000,\"MA\":3000,\"IF\":3000,\"envelope\":500}', 'add', 'sales', '{\"nf\":4000,\"is\":4500,\"ma\":4000,\"if\":4300,\"envelope\":700}', '2024-12-09 00:10:44');
+('463e80', '{\"NF\":1200,\"IS\":0,\"MA\":0,\"IF\":950,\"envelope\":0}', 'add', 'sales', '{\"nf\":1200,\"is\":0,\"ma\":0,\"if\":950,\"envelope\":0}', '2024-12-12 15:29:00');
 
 -- --------------------------------------------------------
 
@@ -474,12 +536,10 @@ CREATE TABLE `stock1` (
 --
 
 INSERT INTO `stock1` (`id`, `dist_names`, `dist_plate_no`, `weight`, `dryness`, `moldness`, `net_price`, `gross_price`, `amount_paid`, `r_amount`, `reporter`, `comment`, `date`) VALUES
-('5irol3', 'nyamanswa', 'rah008d', 3000, '199', '192', 100000, 120000, 1200000, 3000, 'heshima', 'byakunze', '2024-12-11 23:52:36'),
-('7co41d', 'nyamanswa', 'rah008d', 1000, '199', '192', 100000, 120000, 1200000, 1000, 'heshima', 'byaciyemo', '2024-12-11 23:43:58'),
-('d39739', 'heshima', 'rah108d', 9000, '3000', '192', 20000, 8000, 7000, 1000, 'nyamanswa', 'byarejo', '2024-12-11 22:57:32'),
-('k98548', 'nyamanswa', 'rah008d', 1000, '199', '192', 100000, 120000, 1200000, 1000, 'heshima', 'ffffdfdf', '2024-12-10 22:42:59'),
-('m6co1a', 'nyamanswa', 'rah008d', 3000, '199', '192', 100000, 120000, 1200000, 3000, 'df', 'done', '2024-12-11 23:57:02'),
-('u00x0v', 'nyamanswa', 'rah008d', 1000, '199', '192', 100000, 120000, 1200000, 3000, 'heshima', 'byakunze', '2024-12-11 23:50:28');
+('64305z', 'Denis', 'RAC200C', 15000, '12', 'ok', 400, 600000, 500000, 100000, 'Bosco', 'ok', '2024-12-12 14:58:19'),
+('img1bt', 'Denis', 'RAC200C', 10000, '12', 'ok', 400, 4000000, 3000000, 1000000, 'Bosco', 'ok', '2024-12-12 15:04:01'),
+('kx485i', 'nyamanswa', 'rah008d', 1000, '199', '192', 100000, 120000, 1200000, 1000, 'ert', 'ertyre', '2024-12-12 17:46:59'),
+('o40a92', 'nyamanswa', 'rah008d', 1000, '199', '192', 20, 20000, 1200000, 3000, '200', '660', '2024-12-12 18:59:50');
 
 -- --------------------------------------------------------
 
@@ -501,18 +561,11 @@ CREATE TABLE `stock1_track` (
 --
 
 INSERT INTO `stock1_track` (`id`, `act_type`, `weight`, `destination`, `r_weight`, `date`) VALUES
-('1625wp', 'minus', -2000, 'preparation', 1000, '2024-12-11 23:38:14'),
-('5irol3', 'add', 3000, 'stock1', 3000, '2024-12-11 23:52:36'),
-('7co41d', 'add', 1000, 'stock1', 2000, '2024-12-11 23:43:58'),
-('91d641', 'minus', -1000, 'preparation', 0, '2024-12-11 23:51:17'),
-('9zw0yn', 'minus', -3000, 'preparation', 0, '2024-12-12 00:18:09'),
-('d39739', 'add', 9000, 'stock1', 10000, '2024-12-11 22:57:32'),
-('k98548', 'add', 1000, 'stock1', 1000, '2024-12-10 22:42:59'),
-('kd67za', 'minus', -7000, 'preparation', 3000, '2024-12-11 23:09:25'),
-('m6co1a', 'add', 3000, 'stock1', 3000, '2024-12-11 23:57:02'),
-('qfbuhu', 'minus', -3000, 'preparation', 0, '2024-12-11 23:55:46'),
-('tb50nd', 'minus', -2000, 'preparation', 0, '2024-12-11 23:45:15'),
-('u00x0v', 'add', 1000, 'stock1', 1000, '2024-12-11 23:50:28');
+('64305z', 'add', 15000, 'stock1', 15000, '2024-12-12 14:58:19'),
+('e16988', 'minus', -10000, 'preparation', 15000, '2024-12-12 15:05:56'),
+('img1bt', 'add', 10000, 'stock1', 25000, '2024-12-12 15:04:01'),
+('kx485i', 'add', 1000, 'stock1', 16000, '2024-12-12 17:46:59'),
+('o40a92', 'add', 1000, 'stock1', 17000, '2024-12-12 18:59:50');
 
 -- --------------------------------------------------------
 
@@ -555,11 +608,17 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `names`, `email`, `role`, `password`, `2FA`, `dateadded`) VALUES
 ('1', 'WORKER', 'hirwajeermie@gmail.com', 'WORKER', '$2b$10$URq4tLusp2/i60KOa8Xk6ei7.6idy8Trg3F/1zadSe4RcFr17xzqq', NULL, '2024-11-06 16:43:38'),
-('E15JV9y', 'TYCOON', 'hesh.teo@gmail.com', 'BOSS', '$2b$10$XAS88zWGLdyk9RUfIzaXUurBp70vaD4QADy1c8g6o.isR8nk.kpzG', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRTE1SlY5eSIsInJvbGUiOiJCT1NTIiwiaWF0IjoxNzMzNzYxOTAzLCJleHAiOjE3MzM3NjI1MDN9.ILK0tQOZtufPvhsXTGbZM3MQsiipFWQlNP9yRH67XuQ', '2024-11-06 19:34:42');
+('E15JV9y', 'TYCOON', 'newgoodltd12@gmail.com', 'BOSS', '$2b$10$XAS88zWGLdyk9RUfIzaXUurBp70vaD4QADy1c8g6o.isR8nk.kpzG', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiRTE1SlY5eSIsInJvbGUiOiJCT1NTIiwiaWF0IjoxNzMzNzYxOTAzLCJleHAiOjE3MzM3NjI1MDN9.ILK0tQOZtufPvhsXTGbZM3MQsiipFWQlNP9yRH67XuQ', '2024-11-06 19:34:42');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cars`
+--
+ALTER TABLE `cars`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `debts`
@@ -631,6 +690,18 @@ ALTER TABLE `p_debts`
 -- Indexes for table `returns`
 --
 ALTER TABLE `returns`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sacks`
+--
+ALTER TABLE `sacks`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `sacks_track`
+--
+ALTER TABLE `sacks_track`
   ADD PRIMARY KEY (`id`);
 
 --
