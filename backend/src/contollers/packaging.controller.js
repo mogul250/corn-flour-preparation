@@ -11,6 +11,7 @@ export const flourPackaging = async  (req,res)=>{
         id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('preparation_track','r_weight'),
         lastTDW = await getLRec('packaging_track','r_weights'),
+        lastTDS = await getLRec('sacks_track','r_sacks'),
         lastStDate = await getLRec('packaging_track','date'),
         nw = Number(lastStW)-Number(incoming_c),
         f_e = {IF,IS,MA,NF}
@@ -19,9 +20,12 @@ export const flourPackaging = async  (req,res)=>{
             lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
         }
         if (date < lastStDate && lastStDate != 0) {
+            console.log('date problem')
+
             return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         }
         if (nw < 0) {
+            console.log('weight problem')
             return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         }
         if (!lastTDW) {
@@ -34,6 +38,32 @@ export const flourPackaging = async  (req,res)=>{
             }
         }else{
             lastTDW = JSON.parse(lastTDW)
+        }
+        let ls = {
+            NF:new_food,IS:isezerano,MA:magaju,IF:ifunguro,envelope:{ '2':envelope}
+        }
+       
+        if (!lastTDS) {
+            lastTDS = {
+                NF:{"5":0,"10":0,"25":0},
+                IS:{"5":0,"10":0,"25":0},
+                IF:{"5":0,"10":0,"25":0},
+                MA:{"5":0,"10":0,"25":0},
+                envelope:{"2":0}
+            }
+        }else{
+            lastTDS = JSON.parse(lastTDS)
+        }
+        let isNeg = false
+        Object.keys(lastTDS).map(key=>{
+            Object.keys(lastTDS[key]).map(key2=>{
+                lastTDS[key][key2]-= ls[key][key2]
+                if (lastTDS[key][key2] < 0) isNeg = true
+            })
+        })
+        if (isNeg) {
+            console.log('sacks problem')
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         }
         const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,JSON.stringify(f_e),calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date]),
         insert3 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'minus',incoming_c-(incoming_c*2),'packaging',nw,date])
@@ -49,9 +79,6 @@ export const flourPackaging = async  (req,res)=>{
         total_env+=(envelope*2)
         let weights = {
             NF:calculateTotal(new_food),IS:calculateTotal(isezerano),MA:calculateTotal(magaju),IF:calculateTotal(ifunguro),envelope:envelope *2
-        },
-        ls = {
-            NF:new_food,IS:isezerano,MA:magaju,IF:ifunguro,envelope:{ '2':envelope}
         }
         Object.keys(lastTDW).map(key=>{
             Object.keys(lastTDW[key]).map(key2=>{
@@ -59,7 +86,8 @@ export const flourPackaging = async  (req,res)=>{
             })
         })
         const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),JSON.stringify(lastTDW),'add','packaging',total_if,total_is,total_ma,total_nf,total_env,date])
-        if(!insert ||!insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        const insert4 = await query('INSERT INTO sacks_track VALUES (?,?,?,?,?,?)',[id,JSON.stringify(weights),JSON.stringify(lastTDS),'minus','packaging',date])
+        if(!insert ||!insert2 || !insert3 || !insert4) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
 
         

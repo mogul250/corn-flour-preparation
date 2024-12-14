@@ -13,6 +13,8 @@ import { employeesController, employeesReport } from "../contollers/employee.con
 import { debtsController, debtsnAmReport, debtsReport, pdebtsController, pdebtsReport } from "../contollers/debts.controller.js"
 import { sendResetLink,resetPassword, checkLink } from "../contollers/reset.password.controller.js"
 import { mrController, mrReport } from "../contollers/mr.controller..js"
+import { carsController, carsReport } from "../contollers/cars.controller.js"
+import { sacksController, sacksTrackReport } from "../contollers/sacks.controller.js"
 export const router = express.Router({strict:false})
 router.post('/login',login)
 router.post('/add-user',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),addUser)
@@ -46,6 +48,10 @@ router.post('/pdebtsController',(req,res,next)=>authBulkUsers(req,res,next,['WOR
 router.post('/pdebtsReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),pdebtsReport)
 router.post('/mrController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),mrController)
 router.post('/mrReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),mrReport)
+router.post('/carsController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),carsController)
+router.post('/carsReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),carsReport)
+router.post('/sacksController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),sacksController)
+router.post('/sacksReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),sacksTrackReport)
 router.get('/send-flink/:user',sendResetLink)
 router.post('/reset-password/:token',resetPassword)
 router.get('/checkLink/:token',checkLink)
