@@ -20,13 +20,10 @@ export const flourPackaging = async  (req,res)=>{
             lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
         }
         if (date < lastStDate && lastStDate != 0) {
-            console.log('date problem')
-
-            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
         }
         if (nw < 0) {
-            console.log('weight problem')
-            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "no equivalent weight in inventory (preparation)",metadata: {}})
         }
         if (!lastTDW) {
             lastTDW = {
@@ -62,8 +59,7 @@ export const flourPackaging = async  (req,res)=>{
             })
         })
         if (isNeg) {
-            console.log('sacks problem')
-            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: 'no equvalent sacks in inventory',metadata: {}})
         }
         const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,JSON.stringify(f_e),calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date]),
         insert3 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'minus',incoming_c-(incoming_c*2),'packaging',nw,date])

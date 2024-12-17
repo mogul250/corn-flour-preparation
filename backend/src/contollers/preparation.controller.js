@@ -18,10 +18,10 @@ export const prepareCorn = async  (req,res)=>{
             lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
         }
         if (date < lastStDate && lastStDate != 0) {
-            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date".c,metadata: {}})
         }
         if (nw2 < 0) {
-            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: 'no equvalent weight in inventory (supply)',metadata: {}})
         }
         const insert = await query(`INSERT INTO preparation VALUES (?,?,?,?,?,?,?)`,[id,incoming_c,prepared_c,waste_f,reporter,comment,date]),
         insert2 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'add',prepared_c,'preparation',nw,date]),

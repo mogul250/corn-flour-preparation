@@ -143,7 +143,7 @@ export const flourSalesNR = async  (req,res)=>{
             })
         })
         if (isNeg) {
-            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: 'no equvalent weights in inventory (packaging)',metadata: {}})
         }
         !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
         if (lastStDate) {
