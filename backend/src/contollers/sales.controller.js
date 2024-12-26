@@ -9,7 +9,7 @@ export const flourSales = async  (req,res)=>{
         // const calculateTotal = (ibiro) => Object.entries(ibiro.weights).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
         let {distributor,reporter,g_amount,NF,IF,r_amount,no_sacks,IS,MA,envelope,comment,date,client,sack_no_NF,sack_no_IF,sack_no_IS,sack_no_MA} = req.body,
         id = rsg(6,true,true,!1,!1)
-        !date ? date = now() : null;
+        !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
         // lastStW = await getLRec('packaging_track','r_weight'),
     //    let l_nf = await getLRec('packaging_track','nf_t'),
     //     l_is = await getLRec('packaging_track','is_t'),
@@ -153,9 +153,11 @@ export const flourSalesNR = async  (req,res)=>{
             return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         }
         const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,loc,pm,p_name,JSON.stringify(p_sold),comment,date])
+        if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         const insert3 = await query('INSERT INTO sales_track VALUES (?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','sales',JSON.stringify(totals),date])
+        if(!insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),JSON.stringify(lastTDW),'minus','sales',l_if,l_is,l_ma,l_nf,l_env,date])
-        if(!insert || !insert2 || !insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+        if(!insert2) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         res.status(rM.sM.entRecmessage.rC).send({success: rM.sM.entRecmessage.s,message: rM.sM.entRecmessage.c,metadata: {}})
 
         
