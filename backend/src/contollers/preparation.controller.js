@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { getLDayStockTrackRec, getLRec, now } from "../incs/functions.util.js";
+import { getLDayStockTrackRec, getLLRec, getLRec, now } from "../incs/functions.util.js";
 import { query } from "./query.controller.js";
 import { rsg } from "./random.string.generator.js";
 import { rM } from "./response.message.controller.js";
@@ -50,7 +50,7 @@ export const preparationReport = async (req,res)=>{
         let report = await query('SELECT * from preparation where date >= ? AND date <= ? ORDER by date desc',[date.start,date.stop]),mtotal,added,initamount
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         if(report.length){
-            let lastRec = await getLDayStockTrackRec('preparation_track'),
+            let lastRec = await getLLRec('preparation_track','r_weight'),
             lastStW = await getLRec('preparation_track','r_weight')
             if(lastRec != []){
                 added = lastStW-Number(lastRec.weight)
