@@ -17,6 +17,7 @@ import { carsController, carsReport } from "../contollers/cars.controller.js"
 import { sacksController, sacksTrackReport } from "../contollers/sacks.controller.js"
 import { ebController, ebReport } from "../contollers/external.buys.controller.js"
 import { moController, moReport } from "../contollers/external.money.out.controller.js"
+import { invoiceController, invoiceReport } from "../contollers/invoices.controller.js"
 export const router = express.Router({strict:false})
 router.post('/login',login)
 router.post('/add-user',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),addUser)
@@ -56,6 +57,8 @@ router.post('/sacksController',(req,res,next)=>authBulkUsers(req,res,next,['WORK
 router.post('/sacksReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),sacksTrackReport)
 router.post('/ebController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),ebController)
 router.post('/ebReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),ebReport)
+router.post('/invoiceController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),invoiceController)
+router.post('/invoiceReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),invoiceReport)
 router.post('/moController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),moController)
 router.post('/moReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),moReport)
 router.get('/send-flink/:user',sendResetLink)

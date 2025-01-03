@@ -9,9 +9,6 @@ export const rM = {
         TCKT404: {s: !1, rC: 404, c: "ticket not found"},
         ENTR404: {s: !1, rC: 404, c: "entry not found"},
         ENTRAVAI: {s: !1, rC: 500, c: "some entries has identical credentials"},
-
-
-
     },
     sM: {
         loginMessage: {s: !0, rC: 200, c: "login completed successfully"},
