@@ -22,6 +22,9 @@ export const flourPackaging = async  (req,res)=>{
         if (date < lastStDate && lastStDate != 0) {
             return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
         }
+        if (date > now()) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
+        }
         if (nw < 0) {
             return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "no equivalent weight in inventory (preparation)",metadata: {}})
         }

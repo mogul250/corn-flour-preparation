@@ -18,6 +18,9 @@ export const sacksController = async  (req,res)=>{
         if (date < lastStDate && lastStDate != 0) {
             return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         }
+        if (date > now()) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
+        }
         if (!lastTDW) {
             lastTDW = {
                 NF:{"5":0,"10":0,"25":0},

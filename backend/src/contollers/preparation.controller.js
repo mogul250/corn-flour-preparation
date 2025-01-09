@@ -18,7 +18,10 @@ export const prepareCorn = async  (req,res)=>{
             lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
         }
         if (date < lastStDate && lastStDate != 0) {
-            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date".c,metadata: {}})
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
+        }
+        if (date > now()) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
         }
         if (nw2 < 0) {
             return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: 'no equvalent weight in inventory (supply)',metadata: {}})

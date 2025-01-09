@@ -16,7 +16,10 @@ export const recordCornPhase1 = async  (req,res)=>{
             lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
         }
         if (date < lastStDate && lastStDate != 0) {
-            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
+        }
+        if (date > now()) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
         }
         const insert = await query(`INSERT INTO stock1 VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,dist_names,dist_plate_no,weight,dryness,moldness,net_price,gross_price,amount_paid,r_amount,reporter,comment,date]),
         insert2 = await query('INSERT INTO stock1_track VALUES (?,?,?,?,?,?)',[id,'add',weight,'stock1',nw,date])
