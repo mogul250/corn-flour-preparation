@@ -150,7 +150,10 @@ export const flourSalesNR = async  (req,res)=>{
             lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
         }
         if (date < lastStDate && lastStDate != 0) {
-            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
+        }
+        if (date > now()) {
+            return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: "invalid date",metadata: {}})
         }
         const insert = await query(`INSERT INTO sales_n_returns VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,loc,pm,p_name,JSON.stringify(p_sold),comment,date])
         if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
