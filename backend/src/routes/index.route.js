@@ -10,14 +10,14 @@ import { returnsController, returnsReport } from "../contollers/returns.controll
 import { leftoverOutReport, leftoversController, leftoversOutController, leftoversReport } from "../contollers/leftovers.controller.js"
 import { expensesController, expensesReport } from "../contollers/expenses.controller.js"
 import { employeesController, employeesReport } from "../contollers/employee.controller.js"
-import { debtsController, debtsnAmReport, debtsReport, pdebtsController, pdebtsReport } from "../contollers/debts.controller.js"
+import { debtsController, debtsnAmReport, debtsReport, EmpdebtsController, EmpdebtsReport, pdebtsController, pdebtsReport } from "../contollers/debts.controller.js"
 import { sendResetLink,resetPassword, checkLink } from "../contollers/reset.password.controller.js"
 import { mrController, mrReport } from "../contollers/mr.controller..js"
 import { carsController, carsReport } from "../contollers/cars.controller.js"
 import { sacksController, sacksTrackReport } from "../contollers/sacks.controller.js"
 import { ebController, ebReport } from "../contollers/external.buys.controller.js"
 import { moController, moReport } from "../contollers/external.money.out.controller.js"
-import { invoiceController, invoiceReport } from "../contollers/invoices.controller.js"
+import { invoiceController, invoiceReport, invoiceSellController, invoiceSellReport } from "../contollers/invoices.controller.js"
 export const router = express.Router({strict:false})
 router.post('/login',login)
 router.post('/add-user',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),addUser)
@@ -47,6 +47,8 @@ router.post('/expensesController',(req,res,next)=>authBulkUsers(req,res,next,['W
 router.post('/employeesController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),employeesController)
 router.post('/debtsController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),debtsController)
 router.post('/debtsReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),debtsReport)
+router.post('/EmpdebtsController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),EmpdebtsController)
+router.post('/EmpdebtsReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),EmpdebtsReport)
 router.post('/pdebtsController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),pdebtsController)
 router.post('/pdebtsReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),pdebtsReport)
 router.post('/mrController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),mrController)
@@ -59,6 +61,8 @@ router.post('/ebController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER'
 router.post('/ebReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),ebReport)
 router.post('/invoiceController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),invoiceController)
 router.post('/invoiceReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),invoiceReport)
+router.post('/invoiceSellController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),invoiceSellController)
+router.post('/invoiceSellReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),invoiceSellReport)
 router.post('/moController',(req,res,next)=>authBulkUsers(req,res,next,['WORKER']),moController)
 router.post('/moReport',(req,res,next)=>authBulkUsers(req,res,next,['BOSS']),moReport)
 router.get('/send-flink/:user',sendResetLink)
