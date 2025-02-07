@@ -36,7 +36,8 @@ export const pdebtsController = async  (req,res)=>{
          let {reporter,client,debt,p_debt,pm,r_debt,comment,date,p_name} = req.body,
          id = rsg(6,true,true,!1,!1)
          !date ? date = now() : null;
-         const insert = await query(`INSERT INTO p_debts VALUES (?,?,?,?,?,?,?,?,?,?)`,[id,reporter,client,debt,p_debt,pm,p_name,r_debt,comment,date]),
+         r_debt = Number(debt)-Number(p_debt)
+         const insert = await query(`INSERT INTO p_debts VALUES (?,?,?,?,?,?,?,?,?,?)`,[id,reporter,client,debt,p_debt,pm,p_name,Number(debt)-Number(p_debt),comment,date]),
          debtinfo = await query('select * from debts where id = ?',[client]),
          pudate = await query('update debts set p_amount = ?,r_amount = ? where id = ?',[Number(debtinfo[0].p_amount)+Number(p_debt),r_debt,client])
          if(!insert || !pudate) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
@@ -102,14 +103,18 @@ export const pdebtsReport = async (req,res)=>{
             date.start = lastm
             date.stop = now()
         }
-        let report = await query('SELECT pd.id,pd.reporter,pd.p_name,pd.date,pd.debt,pd.p_debt,pd.pm,pd.r_debt,pd.comment,debts.client from p_debts as pd inner join debts on debts.id = pd.client where DATE(pd.date) >= ? AND DATE(pd.date) <= ?',[date.start,date.stop]),mtotal,added,initamount
+        let report = await query('SELECT pd.id,pd.reporter,pd.p_name,pd.date,pd.debt,pd.p_debt,pd.pm,pd.r_debt,pd.comment,debts.client from p_debts as pd inner join debts on debts.id = pd.client where DATE(pd.date) >= ? AND DATE(pd.date) <= ? order by date',[date.start,date.stop]),mtotal,added,initamount,
+        totalRdebts = await query('SELECT debts.r_amount as r_debts, pd.client from p_debts as pd inner join debts on debts.id = pd.client where DATE(pd.date) >= ? AND DATE(pd.date) <= ? group by debts.id order by pd.date',[date.start,date.stop])
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         report = report.map(rep=>{
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
             return rep
         })
-        
-        res.status(rM.sM.entRemessage.rC).send({success: rM.sM.entRemessage.s,message: rM.sM.entRemessage.c,metadata: {report,mainTotals:{added,mtotal,initamount}}})
+        let map = new Map()
+        totalRdebts.forEach(obj => map.set(obj.client, obj));
+        totalRdebts = Array.from(map.values())
+        let total = (totalRdebts.reduce((sum,el)=> sum+ el.r_debts, 0 ))
+        res.status(rM.sM.entRemessage.rC).send({success: rM.sM.entRemessage.s,message: rM.sM.entRemessage.c,metadata: {report,mainTotals:{added,mtotal,initamount,r_debts :total}}})
     } catch (error) {
         console.log(error)
         res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
@@ -118,7 +123,7 @@ export const pdebtsReport = async (req,res)=>{
 export const debtsnAmReport = async (req,res)=>{
     try {
         
-        let report = await query('SELECT client as names,r_amount as debt,id from debts where r_amount > 0',[]),mtotal,added,initamount
+        let report = await query('SELECT client as names,r_amount as debt,id from debts where r_amount > 0 order by names asc',[]),mtotal,added,initamount
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         // report = report.map(rep=>{
         //     rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
