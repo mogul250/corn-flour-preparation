@@ -13,7 +13,7 @@ export const flourPackaging = async  (req,res)=>{
         lastTDW = await getLRec('packaging_track','r_weights'),
         lastTDS = await getLRec('sacks_track','r_sacks'),
         lastStDate = await getLRec('packaging_track','date'),
-        nw = Number(lastStW)-Number(incoming_c),
+        nw = Number(lastStW)- Math.abs(Number(incoming_c)),
         f_e = {IF,IS,MA,NF}
         !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
         if (lastStDate) {

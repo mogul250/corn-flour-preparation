@@ -11,8 +11,8 @@ export const prepareCorn = async  (req,res)=>{
         lastStW = await getLRec('preparation_track','r_weight'),
         lastSt1W = await getLRec('stock1_track','r_weight'),
         lastStDate = await getLRec('preparation_track','date'),
-        nw = Number(lastStW)+Number(prepared_c),
-        nw2 = Number(lastSt1W)-Number(incoming_c)
+        nw = Number(lastStW) + Number(prepared_c),
+        nw2 = Number(lastSt1W) - Math.abs(Number(incoming_c))
         !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
         if (lastStDate) {
             lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
