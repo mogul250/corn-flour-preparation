@@ -7,14 +7,14 @@ import { rM } from "./response.message.controller.js";
 export const flourPackaging = async  (req,res)=>{
     try {
         const calculateTotal = (ibiro) => Object.entries(ibiro).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
-        let {incoming_c,reporter,waste_e,new_food,ifunguro,IF,IS,MA,NF,isezerano,magaju,envelope,waste_f,comment,date,sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF} = req.body,
+        let {incoming_c,reporter,waste_e,new_food,ifunguro,IF,IS,MA,NF,ISENV,isezerano,magaju,envelope,waste_f,comment,date,sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF,sack_no_ISENV} = req.body,
         id = rsg(6,true,true,!1,!1),
         lastStW = await getLRec('preparation_track','r_weight'),
         lastTDW = await getLRec('packaging_track','r_weights'),
         lastTDS = await getLRec('sacks_track','r_sacks'),
         lastStDate = await getLRec('packaging_track','date'),
         nw = Number(lastStW)- Math.abs(Number(incoming_c)),
-        f_e = {IF,IS,MA,NF}
+        f_e = {IF,IS,MA,NF,ISENV}
         !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
         if (lastStDate) {
             lastStDate = DateTime.fromISO(lastStDate).toFormat('yyyy-MM-dd HH:mm:ss')
@@ -34,13 +34,13 @@ export const flourPackaging = async  (req,res)=>{
                 IS:{"5":0,"10":0,"25":0},
                 IF:{"5":0,"10":0,"25":0},
                 MA:{"5":0,"10":0,"25":0},
-                envelope:{"2":0}
+                envelope:{"5":0}
             }
         }else{
             lastTDW = JSON.parse(lastTDW)
         }
         let ls = {
-            NF:new_food,IS:isezerano,MA:magaju,IF:ifunguro,envelope:{ '2':envelope}
+            NF:new_food,IS:isezerano,MA:magaju,IF:ifunguro,envelope:{ '5':envelope}
         }
        
         if (!lastTDS) {
@@ -49,7 +49,7 @@ export const flourPackaging = async  (req,res)=>{
                 IS:{"5":0,"10":0,"25":0},
                 IF:{"5":0,"10":0,"25":0},
                 MA:{"5":0,"10":0,"25":0},
-                envelope:{"2":0}
+                envelope:{"5":0}
             }
         }else{
             lastTDS = JSON.parse(lastTDS)
@@ -64,7 +64,7 @@ export const flourPackaging = async  (req,res)=>{
         if (isNeg) {
             return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: 'no equvalent sacks in inventory',metadata: {}})
         }
-        const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,JSON.stringify(f_e),calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date])
+        const insert = await query(`INSERT INTO packaging VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,incoming_c,reporter,waste_e,JSON.stringify(f_e),calculateTotal(ifunguro),calculateTotal(isezerano),calculateTotal(magaju),calculateTotal(new_food),sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF,sack_no_ISENV,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),envelope,waste_f,comment,date])
         if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         const insert3 = await query('INSERT INTO preparation_track VALUES (?,?,?,?,?,?)',[id,'minus',incoming_c-(incoming_c*2),'packaging',nw,date])
         if(!insert3) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
@@ -77,9 +77,9 @@ export const flourPackaging = async  (req,res)=>{
         total_is+= calculateTotal(isezerano)
         total_ma+= calculateTotal(magaju)
         total_if+=calculateTotal(ifunguro)
-        total_env+=(envelope*2)
+        total_env+=(envelope*5)
         let weights = {
-            NF:calculateTotal(new_food),IS:calculateTotal(isezerano),MA:calculateTotal(magaju),IF:calculateTotal(ifunguro),envelope:envelope *2
+            NF:calculateTotal(new_food),IS:calculateTotal(isezerano),MA:calculateTotal(magaju),IF:calculateTotal(ifunguro),envelope:envelope *5
         }
         Object.keys(lastTDW).map(key=>{
             Object.keys(lastTDW[key]).map(key2=>{
@@ -149,7 +149,9 @@ export const packagingTrackReport = async (req,res)=>{
             date.stop = now()
         }
         let report = await query(`SELECT r_weights,reporter,sack_no_IF,sack_no_IS,sack_no_MA,sack_no_NF,comment,CASE WHEN reporter IS NOT NULL THEN JSON_OBJECT('NF',new_food,'IF',ifunguro,'IS',isezerano,'MA',magaju, 'envelope',envelopes) ELSE (SELECT p_sold from sales_n_returns where sales_n_returns.id = packaging_track.id) END  as ls, CASE WHEN packaging.date IS NOT NULL THEN packaging.date ELSE packaging_track.date END as date from packaging_track left join packaging on packaging_track.id = packaging.id where DATE(packaging_track.date) >= ? AND DATE(packaging_track.date) <= ? order by packaging_track.date desc`,[date.start,date.stop])
+        let ff= `{"NF":{"weights":{"5":120,"10":40,"25":20},"pricings":{"5":3600,"10":7200,"25":18000},"totals":{"5":432,000,"10":288000,"25":360000}},"IS":{"weights":{"5":220,"10":60,"25":59},"pricings":{"5":3000,"10":6000,"25":14500},"totals":{"5":660000,"10":360000,"25":855500}},"IF":{"weights":{"5":0,"10":0,"25":0},"pricings":{"5":0,"10":6000,"25":14500},"totals":{"5":0,"10":360000,"25":0}},"MA":{"weights":{"5":0,"10":0,"25":0},"pricings":{"5":0,"10":0,"25":0},"totals":{"5":0,"10":0,"25":0}},"envelope":{"weights":{"2":0},"pricings":{"2":0},"totals":{"2":0}}}`
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
+            // console.log(report[1].ls)
         report = report.map(rep=>{
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
             rep.r_weights = JSON.parse(rep.r_weights)
@@ -160,7 +162,7 @@ export const packagingTrackReport = async (req,res)=>{
                     IS : {"5":0,"10":0,"25":0},
                     IF : {"5":0,"10":0,"25":0},
                     MA : {"5":0,"10":0,"25":0},
-                    envelope : {"2":0}
+                    envelope : {"5":0}
                 }
                 
             }else if (typeof rep.ls.NF == 'string') {
@@ -168,7 +170,7 @@ export const packagingTrackReport = async (req,res)=>{
                 rep.ls.IS = JSON.parse(rep.ls.IS)
                 rep.ls.IF = JSON.parse(rep.ls.IF)
                 rep.ls.MA = JSON.parse(rep.ls.MA)
-                rep.ls.envelope = {'2': rep.ls.envelope}
+                rep.ls.envelope = {'5': rep.ls.envelope}
                 
             }else{
                 rep.ls.NF = (rep.ls.NF.weights)

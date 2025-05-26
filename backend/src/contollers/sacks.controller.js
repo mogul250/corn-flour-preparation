@@ -27,17 +27,17 @@ export const sacksController = async  (req,res)=>{
                 IS:{"5":0,"10":0,"25":0},
                 IF:{"5":0,"10":0,"25":0},
                 MA:{"5":0,"10":0,"25":0},
-                envelope:{"2":0}
+                envelope:{"5":0}
             }
         }else{
             lastTDW = JSON.parse(lastTDW)
         }
-        const insert = await query(`INSERT INTO sacks VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),JSON.stringify({ '2':envelope}),comment,date])
+        const insert = await query(`INSERT INTO sacks VALUES (?,?,?,?,?,?,?,?,?)`,[id,reporter,JSON.stringify(new_food),JSON.stringify(ifunguro),JSON.stringify(isezerano),JSON.stringify(magaju),JSON.stringify({ '5':envelope}),comment,date])
         let weights = {
-            NF:calculateTotal(new_food),IS:calculateTotal(isezerano),MA:calculateTotal(magaju),IF:calculateTotal(ifunguro),envelope:envelope *2
+            NF:calculateTotal(new_food),IS:calculateTotal(isezerano),MA:calculateTotal(magaju),IF:calculateTotal(ifunguro),envelope:envelope *5
         },
         ls = {
-            NF:new_food,IS:isezerano,MA:magaju,IF:ifunguro,envelope:{ '2':envelope}
+            NF:new_food,IS:isezerano,MA:magaju,IF:ifunguro,envelope:{ '5':envelope}
         }
         Object.keys(lastTDW).map(key=>{
             Object.keys(lastTDW[key]).map(key2=>{
@@ -106,7 +106,7 @@ export const sacksTrackReport = async (req,res)=>{
                 rep.ls.IS = (rep.ls.IS.weights)
                 rep.ls.IF = (rep.ls.IF.weights)
                 rep.ls.MA = (rep.ls.MA.weights)
-                rep.ls.envelope = {'2': rep.ls.envelope}
+                rep.ls.envelope = {'5': rep.ls.envelope}
 
             }
             return rep

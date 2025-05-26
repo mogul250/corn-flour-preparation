@@ -7,7 +7,7 @@ import { rM } from "./response.message.controller.js";
 export const flourSales = async  (req,res)=>{
     try {
         // const calculateTotal = (ibiro) => Object.entries(ibiro.weights).reduce((acc, [key, value]) => { return acc + (Number(key) * value); }, 0);
-        let {distributor,reporter,g_amount,NF,IF,r_amount,no_sacks,IS,MA,envelope,comment,date,client,sack_no_NF,sack_no_IF,sack_no_IS,sack_no_MA} = req.body,
+        let {distributor,reporter,g_amount,NF,IF,r_amount,no_sacks,IS,MA,envelope,comment,date,client,sack_no_NF,sack_no_IF,sack_no_IS,sack_no_MA,sack_no_ISENV} = req.body,
         id = rsg(6,true,true,!1,!1)
         !date ? date = now() : date+= ' '+ DateTime.fromFormat(now(),'yyyy-MM-dd HH:mm:ss').toFormat('HH:mm:ss');
         // lastStW = await getLRec('packaging_track','r_weight'),
@@ -40,7 +40,7 @@ export const flourSales = async  (req,res)=>{
         // IF = Object.fromEntries(Object.entries(IF).map(([key,value])=> [key,value.weights]))
         // return IF
         !date ? date = now() : null;
-        const insert = await query(`INSERT INTO sales VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,g_amount,sack_no_NF,sack_no_IF,sack_no_IS,sack_no_MA,JSON.stringify(IF),JSON.stringify(IS),JSON.stringify(MA),JSON.stringify(NF),JSON.stringify(envelope),comment,date])
+        const insert = await query(`INSERT INTO sales VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,[id,reporter,distributor,g_amount,sack_no_NF,sack_no_IF,sack_no_IS,sack_no_MA,sack_no_ISENV,JSON.stringify(IF),JSON.stringify(IS),JSON.stringify(MA),JSON.stringify(NF),JSON.stringify(envelope),comment,date])
         // const insert3 = await query('INSERT INTO sales_track VALUES (?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'add','sales',JSON.stringify(totals),g_amount,r_amount,now()])
         // const insert2 = await query('INSERT INTO packaging_track VALUES (?,?,?,?,?,?,?,?,?,?)',[id,JSON.stringify(weights),'minus','sales',l_if,l_is,l_ma,l_nf,l_env,now()])
         if(!insert) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
