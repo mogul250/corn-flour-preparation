@@ -130,7 +130,7 @@ export const flourSalesNR = async  (req,res)=>{
                 IS:{"5":0,"10":0,"25":0},
                 IF:{"5":0,"10":0,"25":0},
                 MA:{"5":0,"10":0,"25":0},
-                envelope:{"2":0}
+                envelope:{"5":0}
             }
         }else{
             lastTDW = JSON.parse(lastTDW)
