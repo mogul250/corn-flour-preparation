@@ -2,6 +2,7 @@ import express  from "express";
 import dotenv from "dotenv";
 import  cors  from "cors";
 import bodyParser from "body-parser";
+import fs from "fs";
 import mysql from "mysql";
 import { router } from "./src/routes/index.route.js";
 import { compPass, encPass } from "./src/incs/functions.util.js";
@@ -11,7 +12,11 @@ export const connection = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB
+    database: process.env.DB,
+    ssl: {
+      ca: fs.readFileSync(process.env.DB_SSL_CA),
+      rejectUnauthorized: true
+    }
 })
 app.use(cors({
     origin:  process.env.FRONT_END_LINK,
