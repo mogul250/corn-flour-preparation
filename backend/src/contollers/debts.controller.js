@@ -104,7 +104,7 @@ export const pdebtsReport = async (req,res)=>{
             date.stop = now()
         }
         let report = await query('SELECT pd.id,pd.reporter,pd.p_name,pd.date,pd.debt,pd.p_debt,pd.pm,pd.r_debt,pd.comment,debts.client from p_debts as pd inner join debts on debts.id = pd.client where DATE(pd.date) >= ? AND DATE(pd.date) <= ? order by date',[date.start,date.stop]),mtotal,added,initamount,
-        totalRdebts = await query('SELECT debts.r_amount as r_debts, pd.client from p_debts as pd inner join debts on debts.id = pd.client where DATE(pd.date) >= ? AND DATE(pd.date) <= ? group by debts.id order by pd.date',[date.start,date.stop])
+        totalRdebts = await query('SELECT debts.r_amount as r_debts, pd.client from p_debts as pd inner join debts on debts.id = pd.client where DATE(pd.date) >= ? AND DATE(pd.date) <= ? group by pd.client, debts.r_amount',[date.start,date.stop])
         if(!report) return res.status(rM.eM.ISEM.rC).send({success: rM.eM.ISEM.s,message: rM.eM.ISEM.c,metadata: {}})
         report = report.map(rep=>{
             rep.date = DateTime.fromISO(rep.date).toFormat('yyyy LLL dd')
